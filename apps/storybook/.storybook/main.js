@@ -4,10 +4,11 @@ const config = {
   addons: ["@storybook/addon-essentials", "@storybook/addon-a11y", "@storybook/addon-interactions", "@storybook/addon-links", "@storybook/addon-onboarding"],
   framework: {
     name: '@storybook/nextjs',
-    options: {},
+    options: {
+    },
   },
   core: {
     disableWhatsNewNotifications: true
-  }
+  },
 };
 export default config;
