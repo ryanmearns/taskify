@@ -3,6 +3,7 @@ export * from "./src/lib/utils";
 
 // Layout
 export * from "./src/layout/flex";
+export * from "./src/layout/container";
 
 // Components
 export * from "./src/components/accordion";
@@ -22,6 +23,8 @@ export * from "./src/components/dialog";
 export * from "./src/components/dropdown-menu";
 export * from "./src/components/form";
 export * from "./src/components/hover-card";
+export * from "./src/components/icon-button";
+export * from "./src/components/icon";
 export * from "./src/components/input";
 export * from "./src/components/label";
 export * from "./src/components/menubar";

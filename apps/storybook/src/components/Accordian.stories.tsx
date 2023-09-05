@@ -19,7 +19,7 @@ type Story = StoryObj<typeof Accordion>;
  * See https://storybook.js.org/docs/react/api/csf
  * to learn how to use render functions.
  */
-export const Primary: Story = {
+export const Default: Story = {
   render: (arg) => {
     return (
       <Accordion type="single" collapsible className="w-full">

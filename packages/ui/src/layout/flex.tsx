@@ -4,12 +4,29 @@ import { VariantProps, cva } from "class-variance-authority";
 
 const flexVariants = cva("flex", {
   variants: {
+    align: {
+      none: "",
+      start: "items-start",
+      center: "items-center",
+      end: "items-end",
+      baseline: "items-baseline",
+      stretch: "items-stretch",
+    },
+    justify: {
+      none: "",
+      start: "justify-start",
+      center: "justify-center",
+      end: "justify-end",
+      between: "justify-between",
+    },
     gap: {
       none: "gap-0",
       xs: "gap-1",
       sm: "gap-2",
       md: "gap-3",
       lg: "gap-4",
+      xl: "gap-5",
+      "2xl": "gap-6",
     },
     direction: {
       row: "flex-row",
@@ -29,12 +46,16 @@ const flexVariants = cva("flex", {
       md: "p-3",
       lg: "p-4",
     },
+    grow: {
+      true: "grow",
+    },
   },
   defaultVariants: {
-    gap: "sm",
+    gap: "none",
     direction: "row",
     position: "relative",
-    padding: "sm",
+    padding: "none",
+    align: "none",
   },
 });
 
@@ -43,10 +64,34 @@ interface FlexProps
     VariantProps<typeof flexVariants> {}
 
 const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
-  ({ className, position, padding, direction, gap, ...props }, ref) => (
+  (
+    {
+      className,
+      position,
+      padding,
+      direction,
+      gap,
+      justify,
+      align,
+      grow,
+      ...props
+    },
+    ref
+  ) => (
     <div
       ref={ref}
-      className={cn(flexVariants({ position, padding, direction, gap }))}
+      className={cn(
+        flexVariants({
+          className,
+          position,
+          padding,
+          direction,
+          gap,
+          justify,
+          align,
+          grow,
+        })
+      )}
       {...props}
     />
   )

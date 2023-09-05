@@ -3,13 +3,22 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "../lib/utils";
+import { LucideIcon } from "lucide-react";
+import { Badge } from "./badge";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
+      justify: {
+        none: "",
+        start: "justify-start",
+        center: "justify-center",
+        end: "justify-end",
+        between: "justify-between",
+      },
       variant: {
-        default:
+        solid:
           "bg-primary text-primary-foreground hover:bg-primary/90 border border-input shadow-sm",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 border border-destructive shadow-sm",
@@ -22,15 +31,20 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+        xs: "h-7 rounded-md px-3",
+        sm: "h-8 rounded-md px-3",
+        md: "h-9 px-4 py-2",
+        lg: "h-10 rounded-md px-8",
+        xl: "h-11 rounded-md px-8",
+      },
+      block: {
+        true: "w-full",
       },
     },
     defaultVariants: {
-      variant: "default",
-      size: "default",
+      variant: "outline",
+      size: "sm",
+      justify: "center",
     },
   }
 );
@@ -42,11 +56,16 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  (
+    { className, variant, size, justify, block, asChild = false, ...props },
+    ref
+  ) => {
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(
+          buttonVariants({ variant, size, className, justify, block })
+        )}
         ref={ref}
         {...props}
       />
@@ -55,4 +74,22 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-export { Button, buttonVariants };
+const ButtonIcon = (props: {
+  icon: LucideIcon;
+  orientation: "leading" | "trailing";
+}) => (
+  <props.icon
+    className={cn(
+      "h-3.5 w-3.5",
+      props.orientation === "leading" ? "mr-2" : "ml-2"
+    )}
+  />
+);
+
+const ButtonCounter = ({ children }: { children: React.ReactNode }) => (
+  <div className="text-xs bg-muted text-foreground h-4 w-4 rounded-full ml-2">
+    {children}
+  </div>
+);
+
+export { Button, ButtonCounter, ButtonIcon, buttonVariants };

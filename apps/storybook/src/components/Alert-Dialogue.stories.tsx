@@ -25,12 +25,12 @@ type Story = StoryObj<typeof AlertDialog>;
  * See https://storybook.js.org/docs/react/api/csf
  * to learn how to use render functions.
  */
-export const Primary: Story = {
+export const Default: Story = {
   render: (arg) => {
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button>Open</Button>
+          <Button variant={"outline"}>Open</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
