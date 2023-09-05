@@ -6,29 +6,44 @@ import {
   AvatarImage,
   Button,
   ButtonIcon,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
   Flex,
   IconButton,
-  Separator,
+  Input,
+  Label,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+  Textarea,
 } from "@playbook/ui";
 import {
-  Boxes,
+  Bot,
   Cog,
   LayoutDashboard,
+  MessageSquarePlus,
+  MessagesSquare,
   MoreHorizontal,
   Pen,
-  Search,
-  Tag,
+  Plus,
+  Shapes,
   Trash,
   Trash2,
-  Upload,
 } from "lucide-react";
 
 const meta: Meta<typeof Flex> = {
@@ -104,8 +119,8 @@ const MobileTopNavbar = () => (
     padding={"md"}
   >
     <Flex gap={"xs"} align={"center"}>
-      <Boxes className="h-6 w-6" />
-      <span className="font-semibold text-lg">CloudBox</span>
+      <Shapes className="h-6 w-6" />
+      <span className="font-semibold text-lg">PlayAI</span>
     </Flex>
     <Avatar>
       <AvatarImage src="https://github.com/ryanmearns.png" alt="@ryanmearns" />
@@ -124,8 +139,8 @@ const DesktopSidebar = () => {
       <Flex direction={"column"} gap={"lg"} padding={"lg"}>
         <Flex justify={"between"} align={"center"}>
           <Flex gap={"xs"} align={"center"}>
-            <Boxes className="h-6 w-6" />
-            <span className="font-semibold text-lg">CloudBox</span>
+            <Shapes className="h-6 w-6" />
+            <span className="font-semibold text-lg">PlayAI</span>
           </Flex>
           <Avatar>
             <AvatarImage
@@ -136,21 +151,17 @@ const DesktopSidebar = () => {
           </Avatar>
         </Flex>
         <Flex align={"center"} justify={"between"} gap={"sm"}>
-          <Button block>
-            <ButtonIcon icon={Tag} orientation={"leading"} />
-            New tag
-          </Button>
-          <IconButton icon={Search} />
+          <CreateThreadDialogue />
         </Flex>
         <Flex direction={"column"} gap={"xs"}>
           <Button variant={"ghost"} justify={"start"}>
-            <ButtonIcon icon={LayoutDashboard} orientation={"leading"} />
-            My files
+            <ButtonIcon icon={Bot} orientation={"leading"} />
+            Bots
           </Button>
 
           <Button variant={"ghost"} justify={"start"}>
-            <ButtonIcon icon={Trash} orientation={"leading"} />
-            Deleted files
+            <ButtonIcon icon={MessagesSquare} orientation={"leading"} />
+            My threads
           </Button>
           <Button variant={"ghost"} justify={"start"}>
             <ButtonIcon icon={Cog} orientation={"leading"} />
@@ -165,26 +176,118 @@ const DesktopSidebar = () => {
 const Header = () => (
   <Flex justify={"between"} align={"center"} className="w-full" gap={"md"}>
     <Flex direction={"column"} gap={"xs"}>
-      <h1 className=" text-xl font-semibold">My files</h1>
+      <h1 className=" text-xl font-semibold">My bots</h1>
       <p className="text-sm text-muted-foreground hidden md:block">
-        Upload and search your uploaded files.
+        Create and chat with custom chatbots.
       </p>
     </Flex>
-    <Button size={"md"} className="flex-none">
-      <ButtonIcon icon={Upload} orientation={"leading"} />
-      Upload file
-    </Button>
+    <CreateBotDialogue />
   </Flex>
+);
+
+const CreateThreadDialogue = () => (
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button block>
+        <ButtonIcon icon={MessageSquarePlus} orientation={"leading"} />
+        New thread
+      </Button>
+    </DialogTrigger>
+    <DialogContent className="sm:max-w-[425px]">
+      <DialogHeader>
+        <DialogTitle>Create thread</DialogTitle>
+        <DialogDescription>
+          Select a bot and create a new thread.
+        </DialogDescription>
+      </DialogHeader>
+      <Flex direction={"column"} gap={"md"}>
+        <Label htmlFor="model">Bot</Label>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Select a model" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Models</SelectLabel>
+              <SelectItem value="openai">
+                <Flex align={"center"} gap={"sm"}>
+                  <Bot className="h-3.5 w-3.5" />
+                  <span>Start-up assistant</span>
+                </Flex>
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </Flex>
+      <Flex direction={"column"} gap={"md"}>
+        <Textarea id="message" placeholder="Ask anything" className="h-60" />
+      </Flex>
+      <DialogFooter>
+        <Button type="submit" variant={"solid"} size={"md"}>
+          Create
+        </Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+);
+
+const CreateBotDialogue = () => (
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button size={"md"} className="flex-none">
+        <ButtonIcon icon={Plus} orientation={"leading"} />
+        Create bot
+      </Button>
+    </DialogTrigger>
+    <DialogContent className="sm:max-w-[425px]">
+      <DialogHeader>
+        <DialogTitle>Create bot</DialogTitle>
+        <DialogDescription>Configure a bot to chat with.</DialogDescription>
+      </DialogHeader>
+      <Flex direction={"column"} gap={"md"}>
+        <Label htmlFor="name">Name</Label>
+        <Input id="name" placeholder="Enter name" className="col-span-3" />
+      </Flex>
+      <Flex direction={"column"} gap={"md"}>
+        <Label htmlFor="model">Model</Label>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Select a model" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Models</SelectLabel>
+              <SelectItem value="openai">OpenAI ChatGPT-3</SelectItem>
+              <SelectItem value="meta">Meta Llama-2</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </Flex>
+      <Flex direction={"column"} gap={"md"}>
+        <Label htmlFor="system message">System message</Label>
+        <Textarea
+          id="system message"
+          placeholder="Enter system message"
+          className="col-span-3 h-60"
+        />
+      </Flex>
+      <DialogFooter>
+        <Button type="submit" variant={"solid"} size={"md"}>
+          Create
+        </Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
 );
 
 const List = () => (
   <Flex direction={"column"} className="border rounded w-full divide-y">
-    {Array(24).fill(
+    {Array(6).fill(
       <div className="p-4 text-sm hover:bg-slate-50 cursor-pointer flex justify-between items-center">
         <Flex direction={"column"} gap={"xs"}>
-          <span>Resume.docx</span>
+          <span>Startup assistant</span>
           <span className="text-xs text-muted-foreground">
-            Added 3 days ago
+            Created 3 days ago
           </span>
         </Flex>
         <DropdownMenu>
