@@ -6,7 +6,6 @@
     "dev": "concurrently 'pnpm:watch*'",
     "watch:dev": "storybook dev -p 6006",
     "watch:tailwind": "pnpx tailwindcss -i ./global.css -o ./styles/tailwindcss.css --watch",
-    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "build-storybook": "storybook build"
