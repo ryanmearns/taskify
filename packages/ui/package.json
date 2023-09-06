@@ -4,9 +4,7 @@
   "main": "./index.tsx",
   "types": "./index.tsx",
   "license": "MIT",
-  "scripts": {
-    "lint": "eslint \"**/*.ts*\""
-  },
+  "scripts": {},
   "devDependencies": {
     "@playbook/tailwind-config": "workspace:*",
     "@types/node": "^20.5.2",
@@ -52,7 +50,6 @@
     "react-day-picker": "^8.8.1",
     "react-hook-form": "^7.46.1",
     "tailwind-merge": "^1.14.0",
-    "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.2"
   }
 }

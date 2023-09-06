@@ -21,58 +21,6 @@ importers:
         specifier: latest
         version: 1.10.13
 
-  apps/starter:
-    dependencies:
-      '@playbook/tailwind-config':
-        specifier: workspace:*
-        version: link:../../packages/tailwind-config
-      '@playbook/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
-      '@types/node':
-        specifier: ^20.5.2
-        version: 20.5.2
-      '@types/react':
-        specifier: ^18.2.0
-        version: 18.2.5
-      '@types/react-dom':
-        specifier: ^18.2.0
-        version: 18.2.3
-      autoprefixer:
-        specifier: 10.4.15
-        version: 10.4.15(postcss@8.4.29)
-      eslint:
-        specifier: ^8.48.0
-        version: 8.48.0
-      eslint-config-next:
-        specifier: 13.4.19
-        version: 13.4.19(eslint@8.48.0)(typescript@4.9.5)
-      next:
-        specifier: 13.4.19
-        version: 13.4.19(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0)
-      postcss:
-        specifier: 8.4.29
-        version: 8.4.29
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: 18.2.0
-        version: 18.2.0(react@18.2.0)
-      tailwindcss:
-        specifier: 3.3.3
-        version: 3.3.3
-      typescript:
-        specifier: ^4.5.2
-        version: 4.9.5
-    devDependencies:
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-
   apps/storybook:
     dependencies:
       '@playbook/tailwind-config':
@@ -360,9 +308,6 @@ importers:
       tailwind-merge:
         specifier: ^1.14.0
         version: 1.14.0
-      tailwindcss-animate:
-        specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.3.3)
       zod:
         specifier: ^3.22.2
         version: 3.22.2

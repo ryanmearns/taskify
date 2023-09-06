@@ -1,10 +1,9 @@
-import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react";
 
+import { LucideIcon, LucideProps } from "lucide-react";
 import { cn } from "../lib/utils";
-import { LucideIcon } from "lucide-react";
-import { Badge } from "./badge";
 
 const buttonVariants = cva(
   "inline-flex items-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
@@ -75,16 +74,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button";
 
 const ButtonIcon = (props: {
-  icon: LucideIcon;
+  Icon: React.ReactElement;
   orientation: "leading" | "trailing";
-}) => (
-  <props.icon
-    className={cn(
-      "h-3.5 w-3.5",
-      props.orientation === "leading" ? "mr-2" : "ml-2"
-    )}
-  />
-);
+}) => {
+  return (
+    <props.Icon.type
+      className={cn(
+        "h-3.5 w-3.5",
+        props.orientation === "leading" ? "mr-2" : "ml-2"
+      )}
+    />
+  );
+};
 
 const ButtonCounter = ({ children }: { children: React.ReactNode }) => (
   <div className="text-xs bg-muted text-foreground h-4 w-4 rounded-full ml-2">

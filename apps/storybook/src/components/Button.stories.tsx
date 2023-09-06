@@ -26,7 +26,7 @@ export const Default: Story = {
 export const IconLeading: Story = {
   render: (arg) => (
     <Button {...arg}>
-      <ButtonIcon icon={Search} orientation={"leading"} />
+      <ButtonIcon Icon={<Search />} orientation={"leading"} />
       Search
     </Button>
   ),
@@ -42,5 +42,5 @@ export const Counter: Story = {
 };
 
 export const IconOnly: Story = {
-  render: (arg) => <IconButton {...arg} icon={Search} />,
+  render: (arg) => <IconButton {...arg} Icon={<Search />} />,
 };

@@ -41,7 +41,7 @@ export interface IconButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof iconButtonVariants> {
   asChild?: boolean;
-  icon: LucideIcon;
+  Icon: React.ReactElement;
 }
 
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
@@ -53,7 +53,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         ref={ref}
         {...props}
       >
-        <props.icon className="h-4 w-4" />
+        <props.Icon.type className="h-4 w-4" />
       </Comp>
     );
   }

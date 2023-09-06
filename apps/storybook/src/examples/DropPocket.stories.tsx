@@ -19,11 +19,13 @@ import {
   Separator,
 } from "@playbook/ui";
 import {
+  ArrowDownSquare,
   Boxes,
   Cog,
   LayoutDashboard,
   MoreHorizontal,
   Pen,
+  Pocket,
   Search,
   Tag,
   Trash,
@@ -81,15 +83,15 @@ const MobileBottomNavbar = () => (
     padding={"sm"}
   >
     <Button variant={"ghost"} block>
-      <ButtonIcon icon={LayoutDashboard} orientation={"leading"} />
+      <ButtonIcon Icon={<LayoutDashboard />} orientation={"leading"} />
       My files
     </Button>
     <Button variant={"ghost"} block>
-      <ButtonIcon icon={Trash} orientation={"leading"} />
+      <ButtonIcon Icon={<Trash />} orientation={"leading"} />
       Deleted files
     </Button>
     <Button variant={"ghost"} block>
-      <ButtonIcon icon={Cog} orientation={"leading"} />
+      <ButtonIcon Icon={<Cog />} orientation={"leading"} />
       Settings
     </Button>
   </Flex>
@@ -104,8 +106,8 @@ const MobileTopNavbar = () => (
     padding={"md"}
   >
     <Flex gap={"xs"} align={"center"}>
-      <Boxes className="h-6 w-6" />
-      <span className="font-semibold text-lg">CloudBox</span>
+      <ArrowDownSquare className="h-6 w-6 -rotate-90" />
+      <span className="font-semibold text-lg">DropPocket</span>
     </Flex>
     <Avatar>
       <AvatarImage src="https://github.com/ryanmearns.png" alt="@ryanmearns" />
@@ -124,8 +126,8 @@ const DesktopSidebar = () => {
       <Flex direction={"column"} gap={"lg"} padding={"lg"}>
         <Flex justify={"between"} align={"center"}>
           <Flex gap={"xs"} align={"center"}>
-            <Boxes className="h-6 w-6" />
-            <span className="font-semibold text-lg">CloudBox</span>
+            <ArrowDownSquare className="h-6 w-6" />
+            <span className="font-semibold text-lg">DropPocket</span>
           </Flex>
           <Avatar>
             <AvatarImage
@@ -137,23 +139,23 @@ const DesktopSidebar = () => {
         </Flex>
         <Flex align={"center"} justify={"between"} gap={"sm"}>
           <Button block>
-            <ButtonIcon icon={Tag} orientation={"leading"} />
+            <ButtonIcon Icon={<Tag />} orientation={"leading"} />
             New tag
           </Button>
-          <IconButton icon={Search} />
+          <IconButton Icon={<Search />} />
         </Flex>
         <Flex direction={"column"} gap={"xs"}>
           <Button variant={"ghost"} justify={"start"}>
-            <ButtonIcon icon={LayoutDashboard} orientation={"leading"} />
+            <ButtonIcon Icon={<LayoutDashboard />} orientation={"leading"} />
             My files
           </Button>
 
           <Button variant={"ghost"} justify={"start"}>
-            <ButtonIcon icon={Trash} orientation={"leading"} />
+            <ButtonIcon Icon={<Trash />} orientation={"leading"} />
             Deleted files
           </Button>
           <Button variant={"ghost"} justify={"start"}>
-            <ButtonIcon icon={Cog} orientation={"leading"} />
+            <ButtonIcon Icon={<Cog />} orientation={"leading"} />
             Settings
           </Button>
         </Flex>
@@ -171,7 +173,7 @@ const Header = () => (
       </p>
     </Flex>
     <Button size={"md"} className="flex-none">
-      <ButtonIcon icon={Upload} orientation={"leading"} />
+      <ButtonIcon Icon={<Upload />} orientation={"leading"} />
       Upload file
     </Button>
   </Flex>
@@ -189,7 +191,7 @@ const List = () => (
         </Flex>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <IconButton icon={MoreHorizontal} />
+            <IconButton Icon={<MoreHorizontal />} />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-36">
             <DropdownMenuGroup>

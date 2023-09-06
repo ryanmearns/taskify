@@ -3,11 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently 'pnpm:watch*'",
-    "watch:dev": "storybook dev -p 6006",
+    "storybook": "concurrently 'pnpm:watch*'",
+    "watch:storybook": "storybook dev -p 6006",
     "watch:tailwind": "pnpx tailwindcss -i ./global.css -o ./styles/tailwindcss.css --watch",
-    "start": "next start",
-    "lint": "next lint",
     "build-storybook": "storybook build"
   },
   "dependencies": {

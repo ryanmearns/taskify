@@ -41,6 +41,7 @@ import {
   MoreHorizontal,
   Pen,
   Plus,
+  Search,
   Shapes,
   Trash,
   Trash2,
@@ -64,7 +65,7 @@ type Story = StoryObj<typeof Flex>;
 export const Home: Story = {
   render: (arg) => {
     return (
-      <div className="border rounded lg:flex-row flex flex-col lg:h-screen">
+      <div className="border rounded lg:flex-row flex flex-col h-screen">
         {/* // Mobile top navbar */}
         <MobileTopNavbar />
         {/* // Desktop sidebar */}
@@ -96,15 +97,15 @@ const MobileBottomNavbar = () => (
     padding={"sm"}
   >
     <Button variant={"ghost"} block>
-      <ButtonIcon icon={LayoutDashboard} orientation={"leading"} />
-      My files
+      <ButtonIcon Icon={<Bot />} orientation={"leading"} />
+      Bots
     </Button>
     <Button variant={"ghost"} block>
-      <ButtonIcon icon={Trash} orientation={"leading"} />
-      Deleted files
+      <ButtonIcon Icon={<MessagesSquare />} orientation={"leading"} />
+      Threads
     </Button>
     <Button variant={"ghost"} block>
-      <ButtonIcon icon={Cog} orientation={"leading"} />
+      <ButtonIcon Icon={<Cog />} orientation={"leading"} />
       Settings
     </Button>
   </Flex>
@@ -155,16 +156,22 @@ const DesktopSidebar = () => {
         </Flex>
         <Flex direction={"column"} gap={"xs"}>
           <Button variant={"ghost"} justify={"start"}>
-            <ButtonIcon icon={Bot} orientation={"leading"} />
+            <ButtonIcon Icon={<Search />} orientation={"leading"} />
+            Home
+          </Button>
+
+          <Button variant={"ghost"} justify={"start"}>
+            <ButtonIcon Icon={<Bot />} orientation={"leading"} />
             Bots
           </Button>
 
           <Button variant={"ghost"} justify={"start"}>
-            <ButtonIcon icon={MessagesSquare} orientation={"leading"} />
+            <ButtonIcon Icon={<MessagesSquare />} orientation={"leading"} />
             My threads
           </Button>
+
           <Button variant={"ghost"} justify={"start"}>
-            <ButtonIcon icon={Cog} orientation={"leading"} />
+            <ButtonIcon Icon={<Cog />} orientation={"leading"} />
             Settings
           </Button>
         </Flex>
@@ -189,7 +196,7 @@ const CreateThreadDialogue = () => (
   <Dialog>
     <DialogTrigger asChild>
       <Button block>
-        <ButtonIcon icon={MessageSquarePlus} orientation={"leading"} />
+        <ButtonIcon Icon={<MessageSquarePlus />} orientation={"leading"} />
         New thread
       </Button>
     </DialogTrigger>
@@ -208,7 +215,7 @@ const CreateThreadDialogue = () => (
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Models</SelectLabel>
+              <SelectLabel>Bots</SelectLabel>
               <SelectItem value="openai">
                 <Flex align={"center"} gap={"sm"}>
                   <Bot className="h-3.5 w-3.5" />
@@ -235,7 +242,7 @@ const CreateBotDialogue = () => (
   <Dialog>
     <DialogTrigger asChild>
       <Button size={"md"} className="flex-none">
-        <ButtonIcon icon={Plus} orientation={"leading"} />
+        <ButtonIcon Icon={<Plus />} orientation={"leading"} />
         Create bot
       </Button>
     </DialogTrigger>
@@ -292,7 +299,7 @@ const List = () => (
         </Flex>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <IconButton icon={MoreHorizontal} />
+            <IconButton Icon={<MoreHorizontal />} />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-36">
             <DropdownMenuGroup>

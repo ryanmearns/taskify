@@ -2,6 +2,6 @@
   "name": "@playbook/tailwind-config",
   "version": "0.0.0",
   "main": "./index.ts",
-  "types": "./index.tsx",
+  "types": "./index.ts",
   "license": "MIT"
 }

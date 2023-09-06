@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-export const twConfig = {
+module.exports = {
+  darkMode: ["class"],
   theme: {
     container: {
       center: true,
@@ -45,8 +46,8 @@ export const twConfig = {
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
+        lg: `var(--radius)`,
+        md: `calc(var(--radius) - 2px)`,
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
@@ -65,4 +66,5 @@ export const twConfig = {
       },
     },
   },
+  plugins: [require("tailwindcss-animate")],
 };
