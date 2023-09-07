@@ -23,6 +23,10 @@ import {
   IconButton,
   Input,
   Label,
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuNextLink,
   Select,
   SelectContent,
   SelectGroup,
@@ -31,21 +35,21 @@ import {
   SelectTrigger,
   SelectValue,
   Textarea,
+  cn,
 } from "@playbook/ui";
 import {
   Bot,
   Cog,
-  LayoutDashboard,
   MessageSquarePlus,
   MessagesSquare,
   MoreHorizontal,
   Pen,
   Plus,
-  Search,
   Shapes,
-  Trash,
+  Terminal,
   Trash2,
 } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const meta: Meta<typeof Flex> = {
   component: Flex,
@@ -65,120 +69,154 @@ type Story = StoryObj<typeof Flex>;
 export const Home: Story = {
   render: (arg) => {
     return (
-      <div className="border rounded lg:flex-row flex flex-col h-screen">
+      <Dashboard>
         {/* // Mobile top navbar */}
-        <MobileTopNavbar />
+        <DashboardMobile navigationItems={navigation}>
+          <Logo />
+          <UserDropdown />
+        </DashboardMobile>
         {/* // Desktop sidebar */}
-        <DesktopSidebar />
+        <DashboardDesktop />
         {/* //Main */}
-        <Flex
-          grow
-          className="max-w-full px-4 py-4 md:py-8 lg:px-12 overflow-scroll"
-          align={"start"}
-          direction={"column"}
-          justify={"start"}
-          gap={"2xl"}
-        >
-          <Header />
+        <DashboardMain>
           <List />
-        </Flex>
-        {/* // Mobile bottom navbar */}
-        <MobileBottomNavbar />
-      </div>
+        </DashboardMain>
+      </Dashboard>
     );
   },
 };
 
-const MobileBottomNavbar = () => (
-  <Flex
-    align={"center"}
-    position={"sticky"}
-    className="lg:hidden border-t bg-white border-secondary bottom-0 z-50 divide-x"
-    padding={"sm"}
-  >
-    <Button variant={"ghost"} block>
-      <ButtonIcon Icon={<Bot />} orientation={"leading"} />
-      Bots
-    </Button>
-    <Button variant={"ghost"} block>
-      <ButtonIcon Icon={<MessagesSquare />} orientation={"leading"} />
-      Threads
-    </Button>
-    <Button variant={"ghost"} block>
-      <ButtonIcon Icon={<Cog />} orientation={"leading"} />
-      Settings
-    </Button>
+type NavigationItems = {
+  label: string;
+  icon: React.ReactElement;
+  href: string;
+}[];
+
+const navigation: NavigationItems = [
+  { label: "Chat", icon: <Terminal />, href: "/" },
+  { label: "Bots", icon: <Bot />, href: "/" },
+  { label: "Threads", icon: <MessagesSquare />, href: "/" },
+  { label: "Settings", icon: <Cog />, href: "/" },
+];
+
+const Logo = () => (
+  <Flex gap={"xs"} align={"center"}>
+    <Shapes className="h-6 w-6" />
+    <span className="font-semibold text-lg">CallbackAI</span>
   </Flex>
 );
 
-const MobileTopNavbar = () => (
-  <Flex
-    justify={"between"}
-    align={"center"}
-    position={"sticky"}
-    className="lg:hidden border-b bg-white border-secondary top-0 z-50"
-    padding={"md"}
-  >
-    <Flex gap={"xs"} align={"center"}>
-      <Shapes className="h-6 w-6" />
-      <span className="font-semibold text-lg">PlayAI</span>
+const UserDropdown = () => (
+  <Avatar>
+    <AvatarImage src="https://github.com/ryanmearns.png" alt="@ryanmearns" />
+    <AvatarFallback>RM</AvatarFallback>
+  </Avatar>
+);
+
+const Dashboard = (props: { children: React.ReactNode }) => (
+  <div className="border rounded lg:flex-row flex flex-col">
+    {props.children}
+  </div>
+);
+
+const DashboardMobile = (props: {
+  children: React.ReactNode;
+  navigationItems: NavigationItems;
+}) => {
+  const pathname = usePathname();
+
+  return (
+    <Flex
+      className="lg:hidden border-b bg-white border-secondary top-0 z-50"
+      position={"sticky"}
+      direction={"column"}
+    >
+      <Flex justify={"between"} align={"center"} className="px-4 pt-4 pb-2">
+        {props.children}
+      </Flex>
+      <Flex className="overflow-x-scroll px-3">
+        <NavigationMenu>
+          <NavigationMenuList className="gap-1">
+            {props.navigationItems.map((item) => (
+              <NavigationMenuItem
+                className={
+                  pathname === item.href
+                    ? "pb-2 border-b-2 border-slate-500"
+                    : "pb-2 border-b-2 border-transparent"
+                }
+              >
+                <NavigationMenuNextLink href="/" asChild>
+                  <Button variant={"ghost"}>
+                    <ButtonIcon Icon={item.icon} orientation={"leading"} />
+                    {item.label}
+                  </Button>
+                </NavigationMenuNextLink>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
+      </Flex>
     </Flex>
-    <Avatar>
-      <AvatarImage src="https://github.com/ryanmearns.png" alt="@ryanmearns" />
-      <AvatarFallback>RM</AvatarFallback>
-    </Avatar>
-  </Flex>
-);
+  );
+};
 
-const DesktopSidebar = () => {
+const DashboardDesktop = () => {
+  const pathname = usePathname();
   return (
     <Flex
       justify={"between"}
       direction={"column"}
-      className="w-64 hidden lg:flex border-r h-screen bg-muted/20"
+      className="w-64 hidden lg:flex border-r h-screen sticky top-0 bg-muted/20"
     >
-      <Flex direction={"column"} gap={"lg"} padding={"lg"}>
-        <Flex justify={"between"} align={"center"}>
-          <Flex gap={"xs"} align={"center"}>
-            <Shapes className="h-6 w-6" />
-            <span className="font-semibold text-lg">PlayAI</span>
-          </Flex>
-          <Avatar>
-            <AvatarImage
-              src="https://github.com/ryanmearns.png"
-              alt="@ryanmearns"
-            />
-            <AvatarFallback>RM</AvatarFallback>
-          </Avatar>
+      <Flex direction={"column"} gap={"lg"}>
+        <Flex justify={"between"} align={"center"} className="px-4 pt-4">
+          <Logo />
+          <UserDropdown />
         </Flex>
-        <Flex align={"center"} justify={"between"} gap={"sm"}>
+        <Flex align={"center"} justify={"between"} className="px-4">
           <CreateThreadDialogue />
         </Flex>
-        <Flex direction={"column"} gap={"xs"}>
-          <Button variant={"ghost"} justify={"start"}>
-            <ButtonIcon Icon={<Search />} orientation={"leading"} />
-            Home
-          </Button>
-
-          <Button variant={"ghost"} justify={"start"}>
-            <ButtonIcon Icon={<Bot />} orientation={"leading"} />
-            Bots
-          </Button>
-
-          <Button variant={"ghost"} justify={"start"}>
-            <ButtonIcon Icon={<MessagesSquare />} orientation={"leading"} />
-            My threads
-          </Button>
-
-          <Button variant={"ghost"} justify={"start"}>
-            <ButtonIcon Icon={<Cog />} orientation={"leading"} />
-            Settings
-          </Button>
+        <Flex direction={"column"} gap={"xs"} className="pr-4">
+          <NavigationMenu className="w-full flex-col">
+            <NavigationMenuList className="flex flex-col pr-4 w-full gap-1">
+              {navigation.map((item) => (
+                <NavigationMenuItem
+                  className={cn(
+                    pathname === item.href
+                      ? "pl-2 border-l-2 border-slate-500"
+                      : "pl-2 border-l-2 border-transparent",
+                    "w-full"
+                  )}
+                >
+                  <NavigationMenuNextLink href="/" asChild className="w-full">
+                    <Button variant={"ghost"} justify={"start"} block>
+                      <ButtonIcon Icon={item.icon} orientation={"leading"} />
+                      {item.label}
+                    </Button>
+                  </NavigationMenuNextLink>
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </NavigationMenu>
         </Flex>
       </Flex>
     </Flex>
   );
 };
+
+const DashboardMain = (props: { children: React.ReactNode }) => (
+  <Flex
+    grow
+    className="max-w-full px-4 py-4 md:py-8 lg:px-12"
+    align={"start"}
+    direction={"column"}
+    justify={"start"}
+    gap={"2xl"}
+  >
+    <Header />
+    {props.children}
+  </Flex>
+);
 
 const Header = () => (
   <Flex justify={"between"} align={"center"} className="w-full" gap={"md"}>
@@ -289,7 +327,7 @@ const CreateBotDialogue = () => (
 
 const List = () => (
   <Flex direction={"column"} className="border rounded w-full divide-y">
-    {Array(6).fill(
+    {Array(24).fill(
       <div className="p-4 text-sm hover:bg-slate-50 cursor-pointer flex justify-between items-center">
         <Flex direction={"column"} gap={"xs"}>
           <span>Startup assistant</span>

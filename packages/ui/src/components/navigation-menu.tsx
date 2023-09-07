@@ -1,10 +1,10 @@
 "use client";
 
-import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
+import * as React from "react";
 
 import { cn } from "../lib/utils";
 
@@ -14,10 +14,7 @@ const NavigationMenu = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <NavigationMenuPrimitive.Root
     ref={ref}
-    className={cn(
-      "relative z-10 flex max-w-max flex-1 items-center justify-center text-sm",
-      className
-    )}
+    className={cn("relative z-10 flex flex-1 text-sm", className)}
     {...props}
   >
     {children}
@@ -82,16 +79,25 @@ NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
 
 const NavigationMenuLink = NavigationMenuPrimitive.Link;
 
-const NavigationMenuNextLink = (props: {
-  href: string;
-  children: React.ReactNode;
-}) => (
-  <Link href={props.href} legacyBehavior passHref>
-    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-      {props.children}
-    </NavigationMenuLink>
-  </Link>
-);
+const NavigationMenuNextLink = React.forwardRef<
+  HTMLAnchorElement,
+  React.HTMLAttributes<HTMLAnchorElement> & {
+    href: string;
+    children: React.ReactNode;
+    asChild?: boolean;
+  }
+>(({ href, children, asChild }, ref) => {
+  return (
+    <Link href={href} ref={ref} legacyBehavior passHref>
+      <NavigationMenuLink
+        className={cn(!asChild && navigationMenuTriggerStyle())}
+      >
+        {children}
+      </NavigationMenuLink>
+    </Link>
+  );
+});
+NavigationMenuNextLink.displayName = "NavigationMenuNextLink";
 
 const NavigationMenuViewport = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
@@ -130,14 +136,14 @@ NavigationMenuIndicator.displayName =
   NavigationMenuPrimitive.Indicator.displayName;
 
 export {
-  navigationMenuTriggerStyle,
   NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
   NavigationMenuContent,
-  NavigationMenuTrigger,
-  NavigationMenuLink,
   NavigationMenuIndicator,
-  NavigationMenuViewport,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
   NavigationMenuNextLink,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+  navigationMenuTriggerStyle,
 };
