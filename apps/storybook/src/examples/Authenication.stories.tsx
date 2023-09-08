@@ -54,7 +54,7 @@ export const Default: Story = {
           <div className="absolute inset-0 bg-zinc-900" />
           <Flex gap={"xs"} align={"center"}>
             <Shapes className="h-6 w-6" />
-            <span className="font-semibold text-lg">PlayAI</span>
+            <span className="font-semibold text-lg">CallbackAI</span>
           </Flex>
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
@@ -124,7 +124,7 @@ function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
-              placeholder="name@example.com"
+              placeholder="Enter email"
               type="email"
               autoCapitalize="none"
               autoComplete="email"
@@ -135,9 +135,9 @@ function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           <Flex gap={"sm"} direction={"column"}>
             <Label htmlFor="email">Access code</Label>
             <Input
-              id="secret-code"
+              id="access-code"
               type="password"
-              placeholder="secret code"
+              placeholder="Enter access code"
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"

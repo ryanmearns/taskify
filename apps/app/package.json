@@ -1,0 +1,53 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:push": "drizzle-kit push:pg",
+    "db:introspect": "drizzle-kit introspect:pg",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:generate-custom": "drizzle-kit generate:pg --custom",
+    "db:migrate": "ts-node --esm ./src/db/migrate.mts",
+    "auth:secret": "openssl rand -base64 32"
+  },
+  "dependencies": {
+    "@auth/drizzle-adapter": "^0.3.2",
+    "@playbook/tailwind-config": "workspace:*",
+    "@playbook/ui": "workspace:*",
+    "@playbook/forms": "workspace:*",
+    "@tanstack/react-query": "^4.32.6",
+    "@trpc/client": "^10.37.1",
+    "@trpc/react-query": "^10.37.1",
+    "@trpc/server": "^10.37.1",
+    "@types/node": "^20.5.2",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "autoprefixer": "10.4.15",
+    "dotenv": "^16.3.1",
+    "drizzle-kit": "^0.19.13",
+    "drizzle-orm": "^0.28.6",
+    "eslint": "^8.48.0",
+    "eslint-config-next": "13.4.19",
+    "lucide-react": "^0.274.0",
+    "nanoid": "3.3.4",
+    "next": "13.4.19",
+    "next-auth": "^4.23.1",
+    "postcss": "8.4.29",
+    "postgres": "^3.3.5",
+    "react": "^18.2.0",
+    "react-dom": "18.2.0",
+    "superjson": "^1.13.1",
+    "tailwindcss": "3.3.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.5.2",
+    "zod": "^3.22.1"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*"
+  }
+}

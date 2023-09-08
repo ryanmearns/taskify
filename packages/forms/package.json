@@ -1,0 +1,26 @@
+{
+  "name": "@playbook/forms",
+  "version": "0.0.0",
+  "description": "",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hookform/resolvers": "^3.3.1",
+    "@playbook/ui": "workspace:*",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-slot": "^1.0.2",
+    "react": "^18.2.0",
+    "react-hook-form": "^7.46.1"
+  },
+  "devDependencies": {
+    "@playbook/tailwind-config": "workspace:*",
+    "@types/node": "^20.5.2",
+    "@types/react": "^18.2.0",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*"
+  }
+}

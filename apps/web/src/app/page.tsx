@@ -1,30 +1,5 @@
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Button,
-  ButtonIcon,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-  Flex,
-  IconButton,
-} from "@playbook/ui";
-import {
-  Boxes,
-  Cog,
-  LayoutDashboard,
-  MoreHorizontal,
-  Pen,
-  Search,
-  Tag,
-  Trash,
-  Trash2,
-  Upload,
-} from "lucide-react";
+import { Button, ButtonIcon } from "@playbook/ui";
+import { Boxes } from "lucide-react";
 
 export default function Home() {
   return (

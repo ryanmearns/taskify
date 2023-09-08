@@ -5,6 +5,9 @@ export * from "./src/lib/utils";
 export * from "./src/layout/flex";
 export * from "./src/layout/container";
 
+// Interfaces
+export * from "./src/interfaces/dashboard";
+
 // Components
 export * from "./src/components/accordion";
 export * from "./src/components/alert";

@@ -14,5 +14,9 @@
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.6.10",
-  "name": "playbook"
+  "name": "playbook",
+  "dependencies": {
+    "dotenv-cli": "^7.3.0",
+    "ts-node": "^10.9.1"
+  }
 }

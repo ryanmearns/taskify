@@ -88,7 +88,7 @@ const ButtonIcon = (props: {
 };
 
 const ButtonCounter = ({ children }: { children: React.ReactNode }) => (
-  <div className="text-xs bg-muted text-foreground h-5 w-5 rounded-full flex justify-center items-center ml-2">
+  <div className="text-xs bg-muted text-foreground font-medium h-5 w-5 rounded-md flex justify-center items-center ml-2">
     {children}
   </div>
 );
