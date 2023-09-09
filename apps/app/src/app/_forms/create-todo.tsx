@@ -1,6 +1,6 @@
 "use client";
 
-import * as messages from "@/actions/messages";
+import * as todos from "@/actions/todos";
 import { useDialogTranisition } from "@/utils/hooks/use-dialog-transition";
 import {
   f,
@@ -29,12 +29,12 @@ import * as React from "react";
 import z from "zod";
 
 const formSchema = z.object({
-  content: z.string().min(2, {
+  todo: z.string().min(2, {
     message: "Message must be at least 2 characters.",
   }),
 });
 
-export const CreateMessageForm = () => {
+export const CreateTodoForm = () => {
   const [isPending, startTransition] = React.useTransition();
   const { open, setOpen } = useDialogTranisition({
     isPending,
@@ -44,13 +44,13 @@ export const CreateMessageForm = () => {
   const form = f.useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      content: "",
+      todo: "",
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
-      await messages.createMessage(values);
+      await todos.createTodo(values);
     });
   }
 
@@ -58,19 +58,19 @@ export const CreateMessageForm = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" block>
-          Create message
+          Create todo
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <DialogHeader>
-              <DialogTitle>Create a message</DialogTitle>
-              <DialogDescription>Make a message</DialogDescription>
+              <DialogTitle>Create a todo</DialogTitle>
+              <DialogDescription>Add a todo to your list</DialogDescription>
             </DialogHeader>
             <FormField
               control={form.control}
-              name="content"
+              name="todo"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Message</FormLabel>

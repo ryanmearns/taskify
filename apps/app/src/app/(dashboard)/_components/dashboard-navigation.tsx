@@ -5,10 +5,11 @@ import {
   DashboardSidebarNavigation,
   NavigationItems,
 } from "@playbook/ui";
-import { MessageSquare } from "lucide-react";
+import { Cog, MessageSquare } from "lucide-react";
 
 const navigation: NavigationItems = [
-  { label: "Messages", icon: <MessageSquare />, href: "/" },
+  { label: "Todos", icon: <MessageSquare />, href: "/" },
+  { label: "Settings", icon: <Cog />, href: "/settings" },
 ];
 
 export const MobileNavigation = () => (

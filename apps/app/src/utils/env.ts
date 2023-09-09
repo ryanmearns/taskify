@@ -8,5 +8,6 @@ export const env = z
     GITHUB_SECRET: z.string(),
     NEXTAUTH_URL: z.string(),
     NEXTAUTH_SECRET: z.string(),
+    RESEND_API_KEY: z.string(),
   })
   .parse(process.env);

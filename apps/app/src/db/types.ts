@@ -1,5 +1,5 @@
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import * as schema from "./schema";
 
-export type SelectMessages = InferSelectModel<typeof schema.messages>;
-export type InsertMessages = InferInsertModel<typeof schema.messages>;
+export type SelectTodos = InferSelectModel<typeof schema.todos>;
+export type InsertTodos = InferInsertModel<typeof schema.todos>;

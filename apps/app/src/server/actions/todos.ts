@@ -9,22 +9,20 @@ import { actionError, actionSuccess } from "../../app/types/actions";
 import { schema } from "@/db/index";
 import { eq } from "drizzle-orm";
 
-const createMessageSchema = z.object({ content: z.string() });
+const createTodoSchema = z.object({ todo: z.string() });
 
-export const createMessage = async (
-  arg: z.infer<typeof createMessageSchema>
-) => {
+export const createTodo = async (arg: z.infer<typeof createTodoSchema>) => {
   requireAuth();
 
-  const input = createMessageSchema.safeParse(arg);
+  const input = createTodoSchema.safeParse(arg);
 
   if (!input.success) {
     return actionError("BAD_REQUEST");
   }
 
-  const data = await db.insert(schema.messages).values({
+  const data = await db.insert(schema.todos).values({
     uuid: nanoid(8),
-    content: input.data.content,
+    todo: input.data.todo,
   });
 
   if (!data) {
@@ -36,30 +34,30 @@ export const createMessage = async (
   return actionSuccess(data);
 };
 
-export type CreateMessageResult = Awaited<ReturnType<typeof createMessage>>;
+export type CreateTodoResult = Awaited<ReturnType<typeof createTodo>>;
 
-export const getMessages = async () => {
+export const getTodos = async () => {
   requireAuth();
-  return await db.query.messages.findMany({
-    orderBy: (messages, { desc }) => [desc(messages.createdAt)],
+  return await db.query.todos.findMany({
+    orderBy: (todos, { desc }) => [desc(todos.createdAt)],
   });
 };
 
-export type GetMessagesResult = Awaited<ReturnType<typeof getMessages>>;
+export type GetTodosResult = Awaited<ReturnType<typeof getTodos>>;
 
-const getMessageSchema = z.object({ uuid: z.string() });
+const getTodoSchema = z.object({ uuid: z.string() });
 
-export const getMessage = async (arg: z.infer<typeof getMessageSchema>) => {
+export const getTodo = async (arg: z.infer<typeof getTodoSchema>) => {
   requireAuth();
 
-  const input = getMessageSchema.safeParse(arg);
+  const input = getTodoSchema.safeParse(arg);
 
   if (!input.success) {
     return actionError("BAD_REQUEST");
   }
 
-  const data = await db.query.messages.findFirst({
-    where: eq(schema.messages.uuid, input.data.uuid),
+  const data = await db.query.todos.findFirst({
+    where: eq(schema.todos.uuid, input.data.uuid),
   });
 
   if (!data) {

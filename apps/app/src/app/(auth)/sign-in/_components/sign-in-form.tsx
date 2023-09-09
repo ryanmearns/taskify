@@ -1,57 +1,80 @@
 "use client";
 
+import {
+  Form,
+  FormButton,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  f,
+  zodResolver,
+} from "@playbook/forms";
 import { Button, Flex, Input, Label, cn } from "@playbook/ui";
-import * as React from "react";
 import { Loader2 } from "lucide-react";
+import { signIn } from "next-auth/react";
+import * as React from "react";
+import { z } from "zod";
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+const formSchema = z.object({
+  email: z.string().email(),
+  code: z.string(),
+});
 
-export function SignInForm({ className, ...props }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+export function SignInForm() {
+  const [isPending, startTransition] = React.useTransition();
 
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
-    setIsLoading(true);
+  const form = f.useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      code: "",
+    },
+  });
 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+  function onSubmit(arg: z.infer<typeof formSchema>) {
+    startTransition(async () => {
+      await signIn("email", { email: arg.email });
+    });
   }
 
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
-      <form onSubmit={onSubmit}>
-        <Flex direction={"column"} gap={"lg"}>
-          <Flex gap={"sm"} direction={"column"}>
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              placeholder="Enter email"
-              type="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
-              disabled={isLoading}
-            />
-          </Flex>
-          <Flex gap={"sm"} direction={"column"}>
-            <Label htmlFor="email">Access code</Label>
-            <Input
-              id="access-code"
-              type="password"
-              placeholder="Enter access code"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
-              disabled={isLoading}
-            />
-          </Flex>
-          <Button disabled={isLoading} size={"md"}>
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Send email login link
-          </Button>
-        </Flex>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="code"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Code</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormButton
+          isPending={isPending}
+          block
+          defaultText="Send email"
+          pendingText="Sending email"
+        />
       </form>
-    </div>
+    </Form>
   );
 }

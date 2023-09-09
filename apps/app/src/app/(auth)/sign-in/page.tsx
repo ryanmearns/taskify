@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { SignInGithub } from "./_components/sign-in-github";
+import { SignInForm } from "./_components/sign-in-form";
 
 export default async function Page() {
   const session = await getServerAuthSession();
@@ -45,7 +46,7 @@ export default async function Page() {
           <div className="absolute inset-0 bg-zinc-900" />
           <Flex gap={"xs"} align={"center"}>
             <Shapes className="h-6 w-6" />
-            <span className="font-semibold text-lg">CallbackAI</span>
+            <span className="font-semibold text-lg">Acme</span>
           </Flex>
         </div>
         <div className="lg:p-8">
@@ -54,12 +55,12 @@ export default async function Page() {
               <h1 className="text-2xl font-semibold tracking-tight">
                 Create an account
               </h1>
-              {/* <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 Enter your email and access code below to create your account
-              </p> */}
+              </p>
             </div>
-            {/* <SignInForm /> */}
-            <SignInGithub />
+            <SignInForm />
+            {/* <SignInGithub /> */}
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}
               <Link

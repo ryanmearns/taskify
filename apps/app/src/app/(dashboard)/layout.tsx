@@ -7,9 +7,9 @@ import {
   DashboardSidebarHeader,
   Flex,
 } from "@playbook/ui";
-import { MessagesSquare } from "lucide-react";
+import { MessagesSquare, Shapes, Triangle } from "lucide-react";
 import type { Metadata } from "next";
-import { CreateMessageForm } from "../_forms/create-message";
+import { CreateTodoForm } from "../_forms/create-todo";
 import {
   MobileNavigation,
   SidebarNavigation,
@@ -22,9 +22,9 @@ export const metadata: Metadata = {
 };
 
 const Logo = () => (
-  <Flex gap={"xs"} align={"center"}>
-    <MessagesSquare className="h-5 w-5" />
-    <span className="font-medium text-lg">Logo</span>
+  <Flex gap={"xs"} align={"center"} justify={"center"}>
+    <Shapes className="h-5 w-5" />
+    <span className="font-medium text-lg">Acme</span>
   </Flex>
 );
 
@@ -50,7 +50,7 @@ export default async function RootLayout({
           <UserDropdown />
         </DashboardSidebarHeader>
         <Flex align={"center"} justify={"between"} className="px-4">
-          <CreateMessageForm />
+          <CreateTodoForm />
         </Flex>
         <SidebarNavigation />
       </DashboardSidebar>

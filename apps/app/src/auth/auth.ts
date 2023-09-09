@@ -1,9 +1,11 @@
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { getServerSession, type NextAuthOptions } from "next-auth";
-import { db } from "../server/db";
-
 import GitHubProvider from "next-auth/providers/github";
+import EmailProvider from "next-auth/providers/email";
+import { db } from "../server/db";
 import { env } from "../utils/env";
+import { resend } from "../server/email";
+import { VerificationEmailTemplate } from "@playbook/emails";
 
 export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
@@ -13,6 +15,24 @@ export const authOptions: NextAuthOptions = {
     GitHubProvider({
       clientId: env.GITHUB_ID,
       clientSecret: env.GITHUB_SECRET,
+    }),
+    EmailProvider({
+      sendVerificationRequest: async ({ url, identifier: email }) => {
+        try {
+          await resend.sendEmail({
+            to: email,
+            from: "info@ryanmearns.com",
+            subject: `Sign in to Acme`,
+            react: VerificationEmailTemplate({
+              url: url,
+              email: email,
+              brandName: "Acme",
+            }),
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      },
     }),
   ],
   pages: {

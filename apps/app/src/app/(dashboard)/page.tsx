@@ -1,7 +1,7 @@
 import { Flex } from "@playbook/ui";
 import { redirect } from "next/navigation";
 import { getServerAuthSession } from "../../auth/auth";
-import * as messages from "../../server/actions/messages";
+import * as todos from "../../server/actions/todos";
 
 export default async function Home() {
   const session = await getServerAuthSession();
@@ -10,26 +10,24 @@ export default async function Home() {
     redirect("/api/auth/signin");
   }
 
-  const data = await messages.getMessages();
+  const data = await todos.getTodos();
 
-  return <List messages={data} />;
+  return <List todos={data} />;
 }
 
-const List = (props: { messages: NonNullable<messages.GetMessagesResult> }) => (
+const List = (props: { todos: NonNullable<todos.GetTodosResult> }) => (
   <Flex
     direction={"column"}
     className="border border-input rounded-md w-full divide-y"
   >
-    {props.messages.map((message) => (
+    {props.todos.map((todo) => (
       <div
-        key={message.uuid}
+        key={todo.uuid}
         className="p-4 text-sm hover:bg-slate-50 cursor-pointer flex justify-between items-center"
       >
         <Flex direction={"column"} gap={"xs"}>
           <span>Message</span>
-          <span className="text-xs text-muted-foreground">
-            {message.content}
-          </span>
+          <span className="text-xs text-muted-foreground">{todo.todo}</span>
         </Flex>
       </div>
     ))}

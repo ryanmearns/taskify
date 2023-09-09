@@ -166,14 +166,19 @@ const FormMessage = React.forwardRef<
 });
 FormMessage.displayName = "FormMessage";
 
-const FormButton = (props: { isPending: boolean }) => (
-  <Button type="submit">
+const FormButton = (props: {
+  isPending: boolean;
+  defaultText?: string;
+  pendingText?: string;
+  block?: boolean;
+}) => (
+  <Button type="submit" block={props.block}>
     {!props.isPending ? (
-      "Submit"
+      <>{props.defaultText ? props.defaultText : "Submit"}</>
     ) : (
       <>
         <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-        Submitting
+        {props.pendingText ? props.pendingText : "Submitting"}
       </>
     )}
   </Button>

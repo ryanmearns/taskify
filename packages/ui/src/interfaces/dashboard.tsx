@@ -104,15 +104,18 @@ const DashboardSidebarNavigation = (props: {
               key={item.href}
               className={cn(
                 pathname === item.href
-                  ? "pl-2 border-l-4 border-slate-400"
-                  : "pl-2 border-l-4 border-transparent",
-                "w-full"
+                  ? "border-slate-400"
+                  : "border-transparent",
+                "w-full pl-2 border-l-4"
               )}
             >
               <NavigationMenuNextLink href="/" asChild className="w-full">
-                <Button variant={"ghost"} justify={"start"} block>
+                <Button
+                  variant={pathname === item.href ? "secondary" : "ghost"}
+                  justify={"start"}
+                  block
+                >
                   <ButtonIcon Icon={item.icon} orientation={"leading"} />
-
                   <span className="grow flex items-start">{item.label}</span>
                   {item.count && <ButtonCounter>{item.count}</ButtonCounter>}
                 </Button>
