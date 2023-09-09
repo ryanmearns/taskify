@@ -17,9 +17,7 @@ type NavigationItems = {
 }[];
 
 const Dashboard = (props: { children: React.ReactNode }) => (
-  <div className="border rounded lg:flex-row flex flex-col min-h-screen">
-    {props.children}
-  </div>
+  <div className="lg:flex-row flex flex-col min-h-screen">{props.children}</div>
 );
 
 const DashboardMobile = (props: { children: React.ReactNode }) => {
@@ -51,6 +49,7 @@ const DashboardMobileNavigation = (props: {
         <NavigationMenuList className="gap-1">
           {props.navigationItems.map((item) => (
             <NavigationMenuItem
+              key={item.href}
               className={
                 pathname === item.href
                   ? "pb-2 border-b-2 border-slate-500"
@@ -102,10 +101,11 @@ const DashboardSidebarNavigation = (props: {
         <NavigationMenuList className="flex flex-col w-full gap-1">
           {props.navigationItems.map((item) => (
             <NavigationMenuItem
+              key={item.href}
               className={cn(
                 pathname === item.href
-                  ? "pl-2 border-l-2 border-slate-500"
-                  : "pl-2 border-l-2 border-transparent",
+                  ? "pl-2 border-l-4 border-slate-400"
+                  : "pl-2 border-l-4 border-transparent",
                 "w-full"
               )}
             >

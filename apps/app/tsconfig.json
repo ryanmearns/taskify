@@ -5,7 +5,14 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@/utils/*": ["./src/utils/*"],
+      "@/actions/*": ["./src/server/actions/*"],
+      "@/auth/*": ["./src/auth/*"],
+      "@/db/*": ["./src/db/*"],
+      "@/types/*": ["./src/types/*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

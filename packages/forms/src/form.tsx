@@ -9,9 +9,10 @@ import {
   FormProvider,
   useFormContext,
 } from "react-hook-form";
+import { Loader2 } from "lucide-react";
 
 import { cn } from "@playbook/ui/src/lib/utils";
-import { Label } from "@playbook/ui";
+import { Button, Label } from "@playbook/ui";
 
 const Form = FormProvider;
 
@@ -165,6 +166,19 @@ const FormMessage = React.forwardRef<
 });
 FormMessage.displayName = "FormMessage";
 
+const FormButton = (props: { isPending: boolean }) => (
+  <Button type="submit">
+    {!props.isPending ? (
+      "Submit"
+    ) : (
+      <>
+        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+        Submitting
+      </>
+    )}
+  </Button>
+);
+
 export {
   useFormField,
   Form,
@@ -173,5 +187,6 @@ export {
   FormControl,
   FormDescription,
   FormMessage,
+  FormButton,
   FormField,
 };
