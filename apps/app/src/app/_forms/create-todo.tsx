@@ -16,6 +16,7 @@ import {
 } from "@playbook/forms";
 import {
   Button,
+  ButtonIcon,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -25,6 +26,7 @@ import {
   DialogTrigger,
   Input,
 } from "@playbook/ui";
+import { Loader2, Plus } from "lucide-react";
 import * as React from "react";
 import z from "zod";
 
@@ -58,6 +60,7 @@ export const CreateTodoForm = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" block>
+          <ButtonIcon Icon={<Plus />} orientation={"leading"} />
           Create todo
         </Button>
       </DialogTrigger>
@@ -83,7 +86,16 @@ export const CreateTodoForm = () => {
               )}
             />
             <DialogFooter>
-              <FormButton isPending={isPending} />
+              <Button type="submit" size={"md"}>
+                {!isPending ? (
+                  "Submit"
+                ) : (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Submitting
+                  </>
+                )}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

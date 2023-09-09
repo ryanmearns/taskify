@@ -114,8 +114,13 @@ const DashboardSidebarNavigation = (props: {
                   variant={pathname === item.href ? "secondary" : "ghost"}
                   justify={"start"}
                   block
+                  className="group/item"
                 >
-                  <ButtonIcon Icon={item.icon} orientation={"leading"} />
+                  <ButtonIcon
+                    Icon={item.icon}
+                    orientation={"leading"}
+                    className="transition-all ease-in-out delay-150 group-hover/item:scale-110 duration-100"
+                  />
                   <span className="grow flex items-start">{item.label}</span>
                   {item.count && <ButtonCounter>{item.count}</ButtonCounter>}
                 </Button>

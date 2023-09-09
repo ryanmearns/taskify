@@ -172,7 +172,7 @@ const FormButton = (props: {
   pendingText?: string;
   block?: boolean;
 }) => (
-  <Button type="submit" block={props.block}>
+  <Button type="submit" block={props.block} size={"md"}>
     {!props.isPending ? (
       <>{props.defaultText ? props.defaultText : "Submit"}</>
     ) : (

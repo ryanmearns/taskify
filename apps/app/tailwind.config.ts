@@ -9,5 +9,6 @@ const config: Config = {
     "../../packages/ui/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   ...sharedConfig,
+  plugins: [require("tailwindcss-animate")],
 };
 export default config;

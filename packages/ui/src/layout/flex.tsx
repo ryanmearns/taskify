@@ -45,6 +45,8 @@ const flexVariants = cva("flex", {
       sm: "p-2",
       md: "p-3",
       lg: "p-4",
+      xl: "p-5",
+      "2xl": "p-6",
     },
     grow: {
       true: "grow",

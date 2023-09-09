@@ -7,7 +7,7 @@ import {
   DashboardSidebarHeader,
   Flex,
 } from "@playbook/ui";
-import { MessagesSquare, Shapes, Triangle } from "lucide-react";
+import { Shapes } from "lucide-react";
 import type { Metadata } from "next";
 import { CreateTodoForm } from "../_forms/create-todo";
 import {

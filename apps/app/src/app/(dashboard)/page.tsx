@@ -1,7 +1,27 @@
-import { Flex } from "@playbook/ui";
+import {
+  Checkbox,
+  DashboardMainHeader,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+  EmptyState,
+  Flex,
+  IconButton,
+  cn,
+} from "@playbook/ui";
 import { redirect } from "next/navigation";
 import { getServerAuthSession } from "../../auth/auth";
 import * as todos from "../../server/actions/todos";
+import { ListPlus, MoreHorizontal, Pen, Plus, Trash2 } from "lucide-react";
+import { CreateTodoForm } from "../_forms/create-todo";
+import { db } from "../../server/db";
+import { schema } from "@/db/index";
+import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
+import { TodoList } from "./_components/todo-list";
 
 export default async function Home() {
   const session = await getServerAuthSession();
@@ -12,24 +32,20 @@ export default async function Home() {
 
   const data = await todos.getTodos();
 
-  return <List todos={data} />;
-}
-
-const List = (props: { todos: NonNullable<todos.GetTodosResult> }) => (
-  <Flex
-    direction={"column"}
-    className="border border-input rounded-md w-full divide-y"
-  >
-    {props.todos.map((todo) => (
-      <div
-        key={todo.uuid}
-        className="p-4 text-sm hover:bg-slate-50 cursor-pointer flex justify-between items-center"
-      >
+  return (
+    <>
+      <DashboardMainHeader>
         <Flex direction={"column"} gap={"xs"}>
-          <span>Message</span>
-          <span className="text-xs text-muted-foreground">{todo.todo}</span>
+          <h1 className="text-xl font-semibold">Todos</h1>
+          <p className="text-sm text-muted-foreground hidden md:block">
+            Keep track of your todos.
+          </p>
         </Flex>
-      </div>
-    ))}
-  </Flex>
-);
+        <Flex>
+          <CreateTodoForm />
+        </Flex>
+      </DashboardMainHeader>
+      <TodoList todos={data} />
+    </>
+  );
+}

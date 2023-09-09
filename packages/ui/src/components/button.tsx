@@ -76,12 +76,14 @@ Button.displayName = "Button";
 const ButtonIcon = (props: {
   Icon: React.ReactElement;
   orientation: "leading" | "trailing";
+  className?: string;
 }) => {
   return (
     <props.Icon.type
       className={cn(
         "h-3.5 w-3.5",
-        props.orientation === "leading" ? "mr-2" : "ml-2"
+        props.orientation === "leading" ? "mr-2" : "ml-2",
+        props.className
       )}
     />
   );

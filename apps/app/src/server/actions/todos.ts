@@ -8,6 +8,7 @@ import { revalidatePath } from "next/cache";
 import { actionError, actionSuccess } from "../../app/types/actions";
 import { schema } from "@/db/index";
 import { eq } from "drizzle-orm";
+import { boolean } from "drizzle-orm/pg-core";
 
 const createTodoSchema = z.object({ todo: z.string() });
 
@@ -69,4 +70,31 @@ export const getTodo = async (arg: z.infer<typeof getTodoSchema>) => {
   return actionSuccess(data);
 };
 
-export type GetMessageResult = Awaited<ReturnType<typeof getMessage>>;
+export type GetTodoResult = Awaited<ReturnType<typeof getTodo>>;
+
+const updateTodoSchema = z.object({ uuid: z.string(), completed: z.boolean() });
+
+export const updateTodo = async (arg: z.infer<typeof updateTodoSchema>) => {
+  requireAuth();
+
+  const input = updateTodoSchema.safeParse(arg);
+
+  if (!input.success) {
+    return actionError("BAD_REQUEST");
+  }
+
+  const data = await db
+    .update(schema.todos)
+    .set({ completed: !input.data.completed })
+    .where(eq(schema.todos.uuid, input.data.uuid));
+
+  if (!data) {
+    return actionError("INTERNAL_SERVER_ERROR");
+  }
+
+  revalidatePath("/");
+
+  return actionSuccess(data);
+};
+
+export type UpdateTodoResult = Awaited<ReturnType<typeof updateTodo>>;
