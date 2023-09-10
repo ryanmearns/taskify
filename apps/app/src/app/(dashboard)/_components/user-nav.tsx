@@ -27,11 +27,15 @@ import { signOut, useSession } from "next-auth/react";
 export const UserDropdown = () => {
   const { data: session } = useSession();
 
+  const avatarImg = session?.user?.image
+    ? session.user.image
+    : `https://avatar.vercel.sh/${session?.user?.name}`;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage src={session?.user?.image} />
+          <AvatarImage src={avatarImg} />
           <AvatarFallback>{session?.user?.name?.slice(0, 2)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
