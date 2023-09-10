@@ -1,26 +1,8 @@
-import {
-  Checkbox,
-  DashboardMainHeader,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-  EmptyState,
-  Flex,
-  IconButton,
-  cn,
-} from "@playbook/ui";
+import { DashboardMainHeader, Flex } from "@playbook/ui";
 import { redirect } from "next/navigation";
 import { getServerAuthSession } from "../../auth/auth";
 import * as todos from "../../server/actions/todos";
-import { ListPlus, MoreHorizontal, Pen, Plus, Trash2 } from "lucide-react";
 import { CreateTodoForm } from "../_forms/create-todo";
-import { db } from "../../server/db";
-import { schema } from "@/db/index";
-import { eq } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
 import { TodoList } from "./_components/todo-list";
 
 export default async function Home() {

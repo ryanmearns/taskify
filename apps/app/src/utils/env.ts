@@ -6,7 +6,6 @@ export const env = z
     DATABASE_URL: z.string(),
     GITHUB_ID: z.string(),
     GITHUB_SECRET: z.string(),
-    NEXTAUTH_URL: z.string(),
     NEXTAUTH_SECRET: z.string(),
     RESEND_API_KEY: z.string(),
   })
