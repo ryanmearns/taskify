@@ -97,3 +97,29 @@ export const updateTodo = async (arg: z.infer<typeof updateTodoSchema>) => {
 };
 
 export type UpdateTodoResult = Awaited<ReturnType<typeof updateTodo>>;
+
+const deleteTodoSchema = z.object({ uuid: z.string() });
+
+export const deleteTodo = async (arg: z.infer<typeof deleteTodoSchema>) => {
+  requireAuth();
+
+  const input = deleteTodoSchema.safeParse(arg);
+
+  if (!input.success) {
+    return actionError("BAD_REQUEST");
+  }
+
+  const data = await db
+    .delete(schema.todos)
+    .where(eq(schema.todos.uuid, input.data.uuid));
+
+  if (!data) {
+    return actionError("INTERNAL_SERVER_ERROR");
+  }
+
+  revalidatePath("/");
+
+  return actionSuccess(data);
+};
+
+export type DeleteTodoResult = Awaited<ReturnType<typeof deleteTodo>>;

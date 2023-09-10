@@ -32,7 +32,7 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: "/sign-in",
-    verifyRequest: "/verifiy-request",
+    verifyRequest: "/verify-request",
   },
 };
 

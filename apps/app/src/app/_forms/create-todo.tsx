@@ -5,7 +5,6 @@ import { useDialogTranisition } from "@/utils/hooks/use-dialog-transition";
 import {
   f,
   Form,
-  FormButton,
   FormControl,
   FormField,
   FormItem,
@@ -25,7 +24,7 @@ import {
   DialogTrigger,
   Input,
 } from "@playbook/ui";
-import { Plus } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import * as React from "react";
 import z from "zod";
 
@@ -84,7 +83,16 @@ export const CreateTodoForm = () => {
               )}
             />
             <DialogFooter>
-              <FormButton isPending={isPending} />
+              <Button type="submit" size={"md"}>
+                {!isPending ? (
+                  "Create"
+                ) : (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Creating
+                  </>
+                )}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

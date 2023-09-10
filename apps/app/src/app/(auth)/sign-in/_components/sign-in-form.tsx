@@ -2,7 +2,6 @@
 
 import {
   Form,
-  FormButton,
   FormControl,
   FormField,
   FormItem,
@@ -11,8 +10,10 @@ import {
   f,
   zodResolver,
 } from "@playbook/forms";
-import { Input } from "@playbook/ui";
+import { Button, Input } from "@playbook/ui";
+import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import * as React from "react";
 import { z } from "zod";
 
@@ -23,6 +24,7 @@ const formSchema = z.object({
 
 export function SignInForm() {
   const [isPending, startTransition] = React.useTransition();
+  const router = useRouter();
 
   const form = f.useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,6 +37,8 @@ export function SignInForm() {
   function onSubmit(arg: z.infer<typeof formSchema>) {
     startTransition(async () => {
       await signIn("email", { email: arg.email });
+
+      router.push("/verify-request");
     });
   }
 
@@ -54,12 +58,16 @@ export function SignInForm() {
             </FormItem>
           )}
         />
-        <FormButton
-          isPending={isPending}
-          block
-          defaultText="Send email"
-          pendingText="Sending email"
-        />
+        <Button type="submit" size={"md"}>
+          {!isPending ? (
+            "Send email"
+          ) : (
+            <>
+              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              Sending email
+            </>
+          )}
+        </Button>
       </form>
     </Form>
   );
