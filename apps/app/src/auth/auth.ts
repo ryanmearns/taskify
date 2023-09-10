@@ -22,11 +22,11 @@ export const authOptions: NextAuthOptions = {
           await resend.sendEmail({
             to: email,
             from: "info@ryanmearns.com",
-            subject: `Sign in to Acme`,
+            subject: `Sign in to OpenDo`,
             react: VerificationEmailTemplate({
               url: url,
               email: email,
-              brandName: "Acme",
+              brandName: "OpenDo",
             }),
           });
         } catch (error) {
