@@ -7,7 +7,6 @@ import {
   Form,
   FormButton,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -26,7 +25,7 @@ import {
   DialogTrigger,
   Input,
 } from "@playbook/ui";
-import { Loader2, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import * as React from "react";
 import z from "zod";
 

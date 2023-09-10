@@ -1,14 +1,13 @@
 "use server";
 
-import { nanoid } from "nanoid";
-import { db } from "../db";
 import { requireAuth } from "@/auth/utils";
-import z from "zod";
-import { revalidatePath } from "next/cache";
-import { actionError, actionSuccess } from "../../app/types/actions";
 import { schema } from "@/db/index";
 import { eq } from "drizzle-orm";
-import { boolean } from "drizzle-orm/pg-core";
+import { nanoid } from "nanoid";
+import { revalidatePath } from "next/cache";
+import z from "zod";
+import { actionError, actionSuccess } from "../../app/types/actions";
+import { db } from "../db";
 
 const createTodoSchema = z.object({ todo: z.string() });
 

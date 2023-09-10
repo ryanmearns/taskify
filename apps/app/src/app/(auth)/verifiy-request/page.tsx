@@ -1,5 +1,5 @@
 import { getServerAuthSession } from "@/auth/auth";
-import { EmptyState, Flex, Separator, buttonVariants, cn } from "@playbook/ui";
+import { Flex, Separator, buttonVariants, cn } from "@playbook/ui";
 import { Inbox, Shapes } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

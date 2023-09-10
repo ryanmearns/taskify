@@ -4,7 +4,6 @@ import { Shapes } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { SignInGithub } from "./_components/sign-in-github";
 import { SignInForm } from "./_components/sign-in-form";
 
 export default async function Page() {
