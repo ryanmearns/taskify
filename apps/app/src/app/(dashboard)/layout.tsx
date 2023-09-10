@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 const Logo = () => (
   <Flex gap={"xs"} align={"center"} justify={"center"}>
     <Shapes className="h-5 w-5" />
-    <span className="font-medium text-lg">Acme</span>
+    <span className="font-medium text-lg">OpenDo</span>
   </Flex>
 );
 
