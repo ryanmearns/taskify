@@ -1,11 +1,9 @@
 import { getServerAuthSession } from "@/auth/auth";
-import { Flex, Separator, buttonVariants, cn } from "@playbook/ui";
-import { Shapes } from "lucide-react";
+import { EmptyState, Flex, Separator, buttonVariants, cn } from "@playbook/ui";
+import { Inbox, Shapes } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { SignInGithub } from "./_components/sign-in-github";
-import { SignInForm } from "./_components/sign-in-form";
 
 export default async function Page() {
   const session = await getServerAuthSession();
@@ -52,16 +50,16 @@ export default async function Page() {
         <div className="lg:p-8">
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             <div className="flex flex-col space-y-2 text-center">
+              <Inbox className="h-10 w-10 mx-auto stroke-1 stroke-foreground" />
               <h1 className="text-2xl font-semibold tracking-tight">
-                Create an account
+                Check your email
               </h1>
               <p className="text-sm text-muted-foreground">
-                Enter your email and access code below to create your account
+                A sign in link has been sent to your email address.
               </p>
             </div>
-            <SignInForm />
             <Separator className="bg-gradient-to-r from-white via-slate-500 to-white" />
-            <p className="px-8 text-center text-sm text-muted-foreground">
+            <p className="text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}
               <Link
                 href="/terms"

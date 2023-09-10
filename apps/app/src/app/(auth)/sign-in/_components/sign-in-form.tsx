@@ -11,8 +11,7 @@ import {
   f,
   zodResolver,
 } from "@playbook/forms";
-import { Button, Flex, Input, Label, cn } from "@playbook/ui";
-import { Loader2 } from "lucide-react";
+import { Input } from "@playbook/ui";
 import { signIn } from "next-auth/react";
 import * as React from "react";
 import { z } from "zod";
@@ -48,19 +47,6 @@ export function SignInForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="code"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Code</FormLabel>
               <FormControl>
                 <Input placeholder="Enter email" {...field} />
               </FormControl>

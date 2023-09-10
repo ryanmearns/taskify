@@ -76,26 +76,16 @@ export const CreateTodoForm = () => {
               name="todo"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Message</FormLabel>
+                  <FormLabel>Todo</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter message" {...field} />
                   </FormControl>
-                  <FormDescription>This message will be sent</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-              <Button type="submit" size={"md"}>
-                {!isPending ? (
-                  "Submit"
-                ) : (
-                  <>
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    Submitting
-                  </>
-                )}
-              </Button>
+              <FormButton isPending={isPending} />
             </DialogFooter>
           </form>
         </Form>

@@ -1,6 +1,5 @@
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { getServerSession, type NextAuthOptions } from "next-auth";
-import GitHubProvider from "next-auth/providers/github";
 import EmailProvider from "next-auth/providers/email";
 import { db } from "../server/db";
 import { env } from "../utils/env";
@@ -12,10 +11,6 @@ export const authOptions: NextAuthOptions = {
   adapter: DrizzleAdapter(db),
   session: { strategy: "database" },
   providers: [
-    GitHubProvider({
-      clientId: env.GITHUB_ID,
-      clientSecret: env.GITHUB_SECRET,
-    }),
     EmailProvider({
       sendVerificationRequest: async ({ url, identifier: email }) => {
         try {
@@ -37,6 +32,7 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: "/sign-in",
+    verifyRequest: "/verifiy-request",
   },
 };
 
