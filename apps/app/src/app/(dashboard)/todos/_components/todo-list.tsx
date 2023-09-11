@@ -4,7 +4,7 @@ import * as todos from "@/actions/todos";
 import { Checkbox, EmptyState, Flex, IconButton, cn } from "@playbook/ui";
 import { ListPlus, Trash } from "lucide-react";
 import * as React from "react";
-import { CreateTodoForm } from "../../../_forms/create-todo";
+import { CreateTodoForm } from "../../../_components/create-todo";
 
 export const TodoList = (props: {
   todos: NonNullable<todos.GetTodosResult>;

@@ -8,7 +8,7 @@ import {
   Flex,
 } from "@playbook/ui";
 import { Shapes } from "lucide-react";
-import { CreateTodoForm } from "../_forms/create-todo";
+import { CreateTodoForm } from "../_components/create-todo";
 import {
   MobileNavigation,
   SidebarNavigation,
@@ -49,7 +49,7 @@ export default async function RootLayout({
         <SidebarNavigation />
       </DashboardSidebar>
       {/* //Main */}
-      <DashboardMain>{children}</DashboardMain>
+      {children}
     </Dashboard>
   );
 }

@@ -56,7 +56,7 @@ const DashboardMobileNavigation = (props: {
                   : "pb-2 border-b-2 border-transparent"
               }
             >
-              <NavigationMenuNextLink href="/" asChild>
+              <NavigationMenuNextLink href={item.href} asChild>
                 <Button variant={"ghost"}>
                   <ButtonIcon Icon={item.icon} orientation={"leading"} />
                   {item.label}
@@ -109,7 +109,11 @@ const DashboardSidebarNavigation = (props: {
                 "w-full pl-2 border-l-4"
               )}
             >
-              <NavigationMenuNextLink href="/" asChild className="w-full">
+              <NavigationMenuNextLink
+                href={item.href}
+                asChild
+                className="w-full"
+              >
                 <Button
                   variant={pathname === item.href ? "secondary" : "ghost"}
                   justify={"start"}
@@ -136,10 +140,14 @@ const DashboardSidebarNavigation = (props: {
 const DashboardMain = (props: {
   children: React.ReactNode;
   inset?: boolean;
+  className?: string;
 }) => (
   <Flex
     grow
-    className={cn(!props.inset && "max-w-full px-4 py-4 md:py-8 lg:px-12")}
+    className={cn(
+      !props.inset && "px-4 py-4 md:py-8 lg:px-12",
+      props.className
+    )}
     align={"start"}
     direction={"column"}
     justify={"start"}

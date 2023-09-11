@@ -12,7 +12,7 @@ import { db } from "../db";
 const createTodoSchema = z.object({ todo: z.string() });
 
 export const createTodo = async (arg: z.infer<typeof createTodoSchema>) => {
-  requireAuth();
+  await requireAuth();
 
   const input = createTodoSchema.safeParse(arg);
 
@@ -37,7 +37,8 @@ export const createTodo = async (arg: z.infer<typeof createTodoSchema>) => {
 export type CreateTodoResult = Awaited<ReturnType<typeof createTodo>>;
 
 export const getTodos = async () => {
-  requireAuth();
+  await requireAuth();
+
   return await db.query.todos.findMany({
     orderBy: (todos, { desc }) => [desc(todos.createdAt)],
   });
@@ -48,7 +49,7 @@ export type GetTodosResult = Awaited<ReturnType<typeof getTodos>>;
 const getTodoSchema = z.object({ uuid: z.string() });
 
 export const getTodo = async (arg: z.infer<typeof getTodoSchema>) => {
-  requireAuth();
+  await requireAuth();
 
   const input = getTodoSchema.safeParse(arg);
 
@@ -74,7 +75,7 @@ export type GetTodoResult = Awaited<ReturnType<typeof getTodo>>;
 const updateTodoSchema = z.object({ uuid: z.string(), completed: z.boolean() });
 
 export const updateTodo = async (arg: z.infer<typeof updateTodoSchema>) => {
-  requireAuth();
+  await requireAuth();
 
   const input = updateTodoSchema.safeParse(arg);
 
@@ -101,7 +102,7 @@ export type UpdateTodoResult = Awaited<ReturnType<typeof updateTodo>>;
 const deleteTodoSchema = z.object({ uuid: z.string() });
 
 export const deleteTodo = async (arg: z.infer<typeof deleteTodoSchema>) => {
-  requireAuth();
+  await requireAuth();
 
   const input = deleteTodoSchema.safeParse(arg);
 

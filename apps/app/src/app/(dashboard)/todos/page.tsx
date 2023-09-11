@@ -1,8 +1,8 @@
-import { DashboardMainHeader, Flex } from "@playbook/ui";
+import { DashboardMain, DashboardMainHeader, Flex } from "@playbook/ui";
 import { redirect } from "next/navigation";
 import { getServerAuthSession } from "../../../auth/auth";
 import * as todos from "../../../server/actions/todos";
-import { CreateTodoForm } from "../../_forms/create-todo";
+import { CreateTodoForm } from "../../_components/create-todo";
 import { TodoList } from "./_components/todo-list";
 
 export default async function Home() {
@@ -15,7 +15,7 @@ export default async function Home() {
   const data = await todos.getTodos();
 
   return (
-    <>
+    <DashboardMain className="container">
       <DashboardMainHeader>
         <Flex direction={"column"} gap={"xs"}>
           <h1 className="text-xl font-semibold">Todos</h1>
@@ -28,6 +28,6 @@ export default async function Home() {
         </Flex>
       </DashboardMainHeader>
       <TodoList todos={data} />
-    </>
+    </DashboardMain>
   );
 }

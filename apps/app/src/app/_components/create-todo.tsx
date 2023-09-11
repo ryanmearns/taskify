@@ -8,7 +8,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
   zodResolver,
 } from "@playbook/forms";
@@ -74,9 +73,8 @@ export const CreateTodoForm = () => {
               name="todo"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Todo</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter message" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
