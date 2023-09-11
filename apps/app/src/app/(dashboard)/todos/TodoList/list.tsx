@@ -4,7 +4,7 @@ import { Todos } from "@/db/types";
 import { useOptimistic } from "@/utils/hooks/use-optimistic";
 import { Checkbox, EmptyState, Flex, IconButton, cn } from "@playbook/ui";
 import { ListPlus, Trash } from "lucide-react";
-import { AddTodo } from "./_AddTodo/form";
+import { AddTodo } from "../_AddTodo/form";
 import * as todos from "@/actions/todos";
 
 type UpdateAction =

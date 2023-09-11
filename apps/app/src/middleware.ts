@@ -8,14 +8,5 @@ export default withAuth({
 });
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - static (static files)
-     * - favicon.ico (favicon file)
-     * - /
-     */
-    "/((?!||api|static|sign-in|verifiy-request|favicon.ico).*)",
-  ],
+  matcher: ["/todos", "/settings"],
 };

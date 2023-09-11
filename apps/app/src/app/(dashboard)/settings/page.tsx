@@ -14,9 +14,14 @@ import {
 } from "@playbook/ui";
 import { UpdateEmailForm } from "./_components/update-email-form";
 import { UpdateNameForm } from "./_components/update-name-form";
+import { redirect } from "next/navigation";
 
 export default async function Page() {
   const session = await getServerAuthSession();
+
+  if (!session) {
+    redirect("/sign-in");
+  }
 
   return (
     <DashboardMain className="container">

@@ -9,7 +9,7 @@ const nextConfig = {
       hostname: 'tailwindui.com',
       port: '',
       pathname: '/**',
-    },]
+    }]
   },
   transpilePackages: ["@playbook/ui", "@playbook/tailwind-config", "@playbook/forms"]
 }
