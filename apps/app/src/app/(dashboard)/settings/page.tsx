@@ -12,16 +12,11 @@ import {
   Flex,
   Input,
 } from "@playbook/ui";
-import { redirect } from "next/navigation";
-import { UpdateNameForm } from "./_components/update-name-form";
 import { UpdateEmailForm } from "./_components/update-email-form";
+import { UpdateNameForm } from "./_components/update-name-form";
 
 export default async function Page() {
   const session = await getServerAuthSession();
-
-  if (!session?.user) {
-    redirect("/sign-in");
-  }
 
   return (
     <DashboardMain className="container">

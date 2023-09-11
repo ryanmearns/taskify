@@ -1,14 +1,13 @@
 import {
   DashbboardMobileHeader,
   Dashboard,
-  DashboardMain,
   DashboardMobile,
   DashboardSidebar,
   DashboardSidebarHeader,
   Flex,
 } from "@playbook/ui";
 import { Shapes } from "lucide-react";
-import { CreateTodoForm } from "../_components/create-todo";
+import { Toaster } from "react-hot-toast";
 import {
   MobileNavigation,
   SidebarNavigation,
@@ -28,28 +27,31 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Dashboard>
-      {/* // Mobile top navbar */}
-      <DashboardMobile>
-        <DashbboardMobileHeader>
-          <Logo />
-          <UserDropdown />
-        </DashbboardMobileHeader>
-        <MobileNavigation />
-      </DashboardMobile>
-      {/* // Desktop sidebar */}
-      <DashboardSidebar>
-        <DashboardSidebarHeader>
-          <Logo />
-          <UserDropdown />
-        </DashboardSidebarHeader>
-        <Flex align={"center"} justify={"between"} className="px-4">
-          <CreateTodoForm />
-        </Flex>
-        <SidebarNavigation />
-      </DashboardSidebar>
-      {/* //Main */}
-      {children}
-    </Dashboard>
+    <>
+      <Toaster />
+      <Dashboard>
+        {/* // Mobile top navbar */}
+        <DashboardMobile>
+          <DashbboardMobileHeader>
+            <Logo />
+            <UserDropdown />
+          </DashbboardMobileHeader>
+          <MobileNavigation />
+        </DashboardMobile>
+        {/* // Desktop sidebar */}
+        <DashboardSidebar>
+          <DashboardSidebarHeader>
+            <Logo />
+            <UserDropdown />
+          </DashboardSidebarHeader>
+          <Flex align={"center"} justify={"between"} className="px-4">
+            <form />
+          </Flex>
+          <SidebarNavigation />
+        </DashboardSidebar>
+        {/* //Main */}
+        {children}
+      </Dashboard>
+    </>
   );
 }

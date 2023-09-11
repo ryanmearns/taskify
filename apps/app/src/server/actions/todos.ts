@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { revalidatePath } from "next/cache";
 import z from "zod";
-import { actionError, actionSuccess } from "../../app/types/actions";
+import { actionError, actionSuccess } from "../../types/actions";
 import { db } from "../db";
 
 const createTodoSchema = z.object({ todo: z.string() });
@@ -37,8 +37,6 @@ export const createTodo = async (arg: z.infer<typeof createTodoSchema>) => {
 export type CreateTodoResult = Awaited<ReturnType<typeof createTodo>>;
 
 export const getTodos = async () => {
-  await requireAuth();
-
   return await db.query.todos.findMany({
     orderBy: (todos, { desc }) => [desc(todos.createdAt)],
   });

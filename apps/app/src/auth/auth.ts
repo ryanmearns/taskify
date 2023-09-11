@@ -9,6 +9,7 @@ import { db } from "../server/db";
 import { env } from "../utils/env";
 import { resend } from "../server/email";
 import { VerificationEmailTemplate } from "@playbook/emails";
+import { redirect } from "next/navigation";
 
 declare module "next-auth" {
   /**
@@ -25,17 +26,9 @@ declare module "next-auth" {
 
 export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
+  session: { strategy: "jwt" },
   adapter: DrizzleAdapter(db),
-  session: { strategy: "database" },
-  callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
-  },
+  callbacks: {},
   providers: [
     EmailProvider({
       sendVerificationRequest: async ({ url, identifier: email }) => {
@@ -62,6 +55,8 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-export const getServerAuthSession = () => {
-  return getServerSession(authOptions);
+export const getServerAuthSession = async () => {
+  const session = await getServerSession(authOptions);
+
+  return session;
 };

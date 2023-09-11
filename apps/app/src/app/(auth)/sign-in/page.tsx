@@ -4,13 +4,13 @@ import { Shapes } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { SignInForm } from "./_components/sign-in-form";
+import { SignInForm } from "./_components/signin-form";
 
 export default async function Page() {
   const session = await getServerAuthSession();
 
   if (session) {
-    redirect("/");
+    redirect("/todos");
   }
 
   return (
@@ -43,11 +43,11 @@ export default async function Page() {
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             <div className="flex flex-col space-y-2 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">
-                Sig-in or create an account
+                Sign-in or create an account
               </h1>
               <p className="text-sm text-muted-foreground">
-                Enter your email sign-in to account or enter your email to
-                create your account.
+                Enter your email to sign-in into account or enter your email to
+                create an account.
               </p>
             </div>
             <SignInForm />

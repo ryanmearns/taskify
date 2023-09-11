@@ -1,6 +1,5 @@
 "use client";
 
-import * as todos from "@/actions/todos";
 import { useDialogTranisition } from "@/utils/hooks/use-dialog-transition";
 import {
   f,
@@ -25,7 +24,9 @@ import {
 } from "@playbook/ui";
 import { Loader2, Plus } from "lucide-react";
 import * as React from "react";
+import { toast } from "react-hot-toast";
 import z from "zod";
+import * as todos from "@/actions/todos";
 
 const formSchema = z.object({
   todo: z.string().min(2, {
@@ -33,11 +34,13 @@ const formSchema = z.object({
   }),
 });
 
-export const CreateTodoForm = () => {
+export const AddTodo = () => {
   const [isPending, startTransition] = React.useTransition();
   const { open, setOpen } = useDialogTranisition({
     isPending,
-    onClose: () => form.reset(),
+    onClose: () => {
+      form.reset();
+    },
   });
 
   const form = f.useForm<z.infer<typeof formSchema>>({
@@ -49,7 +52,11 @@ export const CreateTodoForm = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
-      await todos.createTodo(values);
+      try {
+        await todos.createTodo(values);
+      } catch (error) {
+        toast.error("There was an error");
+      }
     });
   }
 

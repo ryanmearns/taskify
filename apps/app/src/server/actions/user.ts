@@ -5,7 +5,7 @@ import { schema } from "@/db/index";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import z from "zod";
-import { actionError, actionSuccess } from "../../app/types/actions";
+import { actionError, actionSuccess } from "../../types/actions";
 import { db } from "../db";
 
 const updateNameSchema = z.object({

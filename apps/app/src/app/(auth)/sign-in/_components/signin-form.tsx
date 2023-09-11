@@ -13,8 +13,8 @@ import {
 import { Button, Input } from "@playbook/ui";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import * as React from "react";
+import { toast } from "react-hot-toast";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -24,7 +24,6 @@ const formSchema = z.object({
 
 export function SignInForm() {
   const [isPending, startTransition] = React.useTransition();
-  const router = useRouter();
 
   const form = f.useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -36,9 +35,11 @@ export function SignInForm() {
 
   function onSubmit(arg: z.infer<typeof formSchema>) {
     startTransition(async () => {
-      await signIn("email", { email: arg.email });
-
-      router.push("/verify-request");
+      try {
+        await signIn("email", { email: arg.email });
+      } catch (error) {
+        toast.error("There was an error. Try again.");
+      }
     });
   }
 
@@ -58,7 +59,7 @@ export function SignInForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" size={"md"}>
+        <Button type="submit" size={"md"} block>
           {!isPending ? (
             "Send email"
           ) : (

@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { IBM_Plex_Sans } from "next/font/google";
 import { getServerAuthSession } from "../auth/auth";
 import SessionProvider from "./(auth)/auth-provider";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const ibm = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "OpenDo",
@@ -20,7 +23,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={ibm.className}>
         <SessionProvider session={session}>{children}</SessionProvider>
       </body>
     </html>
