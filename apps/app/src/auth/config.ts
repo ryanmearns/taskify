@@ -1,4 +1,5 @@
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import { VerificationEmailTemplate } from "@playbook/emails";
 import {
   DefaultSession,
   getServerSession,
@@ -6,10 +7,8 @@ import {
 } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { db } from "../server/db";
-import { env } from "../utils/env";
 import { resend } from "../server/email";
-import { VerificationEmailTemplate } from "@playbook/emails";
-import { redirect } from "next/navigation";
+import { env } from "../utils/env";
 
 declare module "next-auth" {
   /**
@@ -53,10 +52,4 @@ export const authOptions: NextAuthOptions = {
     signIn: "/sign-in",
     verifyRequest: "/verify-request",
   },
-};
-
-export const getServerAuthSession = async () => {
-  const session = await getServerSession(authOptions);
-
-  return session;
 };

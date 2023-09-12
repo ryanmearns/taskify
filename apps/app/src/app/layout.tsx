@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
-import { getServerAuthSession } from "../auth/auth";
 import SessionProvider from "./(auth)/auth-provider";
 import "./globals.css";
+import { getServerAuthSession } from "@/auth/utils";
 
 const ibm = IBM_Plex_Sans({
   subsets: ["latin"],

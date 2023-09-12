@@ -11,8 +11,8 @@ import { Toaster } from "react-hot-toast";
 import {
   MobileNavigation,
   SidebarNavigation,
-} from "./_components/dashboard-navigation";
-import { UserDropdown } from "./_components/user-nav";
+} from "@/components/Navigation/Navigation";
+import { UserDropdown } from "@/components/UserDropdown/UserDropdown";
 
 const Logo = () => (
   <Flex gap={"xs"} align={"center"} justify={"center"}>

@@ -1,10 +1,10 @@
-import { getServerAuthSession } from "@/auth/auth";
-import { Flex, Separator, buttonVariants, cn } from "@playbook/ui";
+import { getServerAuthSession } from "@/auth/utils";
+import { SignInForm } from "@/components/SignInForm/SignInForm";
+import { Flex, Separator } from "@playbook/ui";
 import { Shapes } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { SignInForm } from "./_components/signin-form";
 
 export default async function Page() {
   const session = await getServerAuthSession();
@@ -14,7 +14,7 @@ export default async function Page() {
   }
 
   return (
-    <div className="h-screen">
+    <div className="min-h-screen">
       <div className="md:hidden">
         <Image
           src="/examples/authentication-light.png"

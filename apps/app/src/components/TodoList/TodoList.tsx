@@ -1,73 +1,23 @@
 "use client";
 
+import * as todos from "@/actions/todos";
+import { AddTodoDialogue } from "@/components/AddTodoDialogue/AddTodoDialogue";
 import { Todos } from "@/db/types";
 import { useOptimistic } from "@/utils/hooks/use-optimistic";
 import { Checkbox, EmptyState, Flex, IconButton, cn } from "@playbook/ui";
 import { ListPlus, Trash } from "lucide-react";
-import { AddTodo } from "../_AddTodo/form";
-import * as todos from "@/actions/todos";
 
-type UpdateAction =
-  | {
-      type: "UPDATE";
-      todo: { uuid: string; completed: boolean };
-    }
-  | {
-      type: "DELETE";
-      todo: { uuid: string };
-    };
-
-const updateTodoReducer = (data: Todos, action: UpdateAction) => {
-  const updateTodo = data.find((todo) => todo.uuid === action.todo.uuid);
-
-  if (!updateTodo) {
-    return data;
-  }
-
-  const newTodo = {
-    ...updateTodo,
-    completed: !updateTodo?.completed,
-  };
-
-  const newTodos = data.map((todo) => {
-    if (todo.uuid === newTodo.uuid) {
-      return newTodo;
-    } else {
-      return todo;
-    }
-  });
-
-  return newTodos;
-};
-
-const deleteTodoReducer = (data: Todos, action: UpdateAction) => {
-  const newTodos = data.filter((todo) => todo.uuid !== action.todo.uuid);
-
-  return newTodos;
-};
-
-export const List = (props: { data: Todos }) => {
-  const [optimisticTodos, updateOptimisticTodo] = useOptimistic(
-    props.data,
-    (data, action: UpdateAction) => {
-      if (action.type === "UPDATE") {
-        return updateTodoReducer(data, action);
-      } else if (action.type === "DELETE") {
-        return deleteTodoReducer(data, action);
-      } else {
-        return data;
-      }
-    }
-  );
+export const TodoList = (props: { data: Todos }) => {
+  const [optimisticTodos, updateOptimisticTodo] = useOptimistic(props.data);
 
   if (optimisticTodos.length === 0) {
     return (
       <EmptyState
         title="No todos"
-        description=" Get started by creating a new todo."
+        description="Get started by creating a new todo."
         Icon={<ListPlus />}
       >
-        <AddTodo />
+        <AddTodoDialogue />
       </EmptyState>
     );
   }
@@ -86,9 +36,29 @@ export const List = (props: { data: Todos }) => {
             <form
               className="inline-flex"
               action={async () => {
-                updateOptimisticTodo({
-                  type: "UPDATE",
-                  todo: { uuid: todo.uuid, completed: todo.completed },
+                updateOptimisticTodo((data) => {
+                  const updateTodo = data.find(
+                    (todo) => todo.uuid === todo.uuid
+                  );
+
+                  if (!updateTodo) {
+                    return data;
+                  }
+
+                  const newTodo = {
+                    ...updateTodo,
+                    completed: !updateTodo?.completed,
+                  };
+
+                  const newTodos = data.map((todo) => {
+                    if (todo.uuid === newTodo.uuid) {
+                      return newTodo;
+                    } else {
+                      return todo;
+                    }
+                  });
+
+                  return newTodos;
                 });
                 await todos.updateTodo({
                   uuid: todo.uuid,
@@ -116,9 +86,10 @@ export const List = (props: { data: Todos }) => {
             className="invisible group-hover:visible"
             type="submit"
             onClick={async () => {
-              updateOptimisticTodo({
-                type: "DELETE",
-                todo: { uuid: todo.uuid },
+              updateOptimisticTodo((data) => {
+                const newTodos = data.filter((todo) => todo.uuid !== todo.uuid);
+
+                return newTodos;
               });
               await todos.deleteTodo({ uuid: todo.uuid });
             }}

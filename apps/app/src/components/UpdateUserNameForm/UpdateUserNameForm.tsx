@@ -14,13 +14,11 @@ import {
 } from "@playbook/ui";
 import { Loader2 } from "lucide-react";
 import { Session } from "next-auth";
-import { useRouter } from "next/navigation";
 import * as React from "react";
 
 const UpdateNameForm = (props: { session: Session }) => {
   const [name, setName] = React.useState(props.session.user.name);
   const [isPending, startTransition] = React.useTransition();
-  const router = useRouter();
 
   return (
     <Card className="w-full">

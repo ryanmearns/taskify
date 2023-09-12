@@ -1,4 +1,5 @@
-import { getServerAuthSession } from "./auth";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./config";
 
 export async function requireAuth() {
   const session = await getServerAuthSession();
@@ -9,3 +10,9 @@ export async function requireAuth() {
 
   return session;
 }
+
+export const getServerAuthSession = async () => {
+  const session = await getServerSession(authOptions);
+
+  return session;
+};

@@ -166,6 +166,22 @@ const FormMessage = React.forwardRef<
 });
 FormMessage.displayName = "FormMessage";
 
+const FormFooter = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 pt-2",
+        className
+      )}
+      {...props}
+    />
+  );
+});
+
 export {
   useFormField,
   Form,
@@ -174,5 +190,6 @@ export {
   FormControl,
   FormDescription,
   FormMessage,
+  FormFooter,
   FormField,
 };

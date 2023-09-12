@@ -6,6 +6,7 @@ import {
   Form,
   FormControl,
   FormField,
+  FormFooter,
   FormItem,
   FormMessage,
   zodResolver,
@@ -16,7 +17,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -26,7 +26,7 @@ import { Loader2, Plus } from "lucide-react";
 import * as React from "react";
 import { toast } from "react-hot-toast";
 import z from "zod";
-import * as todos from "@/actions/todos";
+import { addTodoAction } from "./AddTodoAction";
 
 const formSchema = z.object({
   todo: z.string().min(2, {
@@ -34,8 +34,9 @@ const formSchema = z.object({
   }),
 });
 
-export const AddTodo = () => {
+export const AddTodoDialogue = () => {
   const [isPending, startTransition] = React.useTransition();
+
   const { open, setOpen } = useDialogTranisition({
     isPending,
     onClose: () => {
@@ -53,7 +54,7 @@ export const AddTodo = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
       try {
-        await todos.createTodo(values);
+        await addTodoAction(values);
       } catch (error) {
         toast.error("There was an error");
       }
@@ -87,7 +88,7 @@ export const AddTodo = () => {
                 </FormItem>
               )}
             />
-            <DialogFooter>
+            <FormFooter>
               <Button type="submit" size={"md"}>
                 {!isPending ? (
                   "Create"
@@ -98,7 +99,7 @@ export const AddTodo = () => {
                   </>
                 )}
               </Button>
-            </DialogFooter>
+            </FormFooter>
           </form>
         </Form>
       </DialogContent>

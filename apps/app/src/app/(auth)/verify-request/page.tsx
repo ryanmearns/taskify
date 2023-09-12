@@ -1,4 +1,4 @@
-import { getServerAuthSession } from "@/auth/auth";
+import { getServerAuthSession } from "@/auth/utils";
 import { Flex, Separator, buttonVariants, cn } from "@playbook/ui";
 import { Inbox, Shapes } from "lucide-react";
 import Image from "next/image";
