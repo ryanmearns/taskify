@@ -1,0 +1,13 @@
+import { eq } from "drizzle-orm";
+import { db } from "@/server/db";
+import { schema } from "@/db/index";
+
+export const {{ table }}s = async () => {
+  return await db.query.{{ table }}.findMany({
+    orderBy: ({{ table }}, { desc }) => [desc({{ table }}.createdAt)],
+  });
+};
+
+export const {{ table }} = async ({ uuid }: { uuid: string }) => {
+  return await db.query.{{ table }}.findFirst({ where: eq(schema.{{ table }}.uuid, uuid) });
+};

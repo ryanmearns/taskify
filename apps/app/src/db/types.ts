@@ -1,4 +1,4 @@
-import { InferInsertModel, InferSelectModel } from "drizzle-orm";
+import { InferSelectModel } from "drizzle-orm";
 import * as schema from "./schema";
 
 export type Todo = InferSelectModel<typeof schema.todos>;

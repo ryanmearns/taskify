@@ -10,15 +10,14 @@ const Loading = () => <div>Loading ...</div>;
 
 const Failure = () => <div>Something went wrong</div>;
 
-async function Data() {
-  const data = await QUERY();
-  return <Scaffold data={data} />;
-}
-
 export function TodoListCell() {
   return (
     <Cell Failure={<Failure />} Loading={<Loading />}>
       <Data />
     </Cell>
   );
+}
+async function Data() {
+  const data = await QUERY();
+  return <Scaffold data={data} />;
 }
