@@ -1,0 +1,23 @@
+import { Cell } from "@/components/utils/cell";
+import { Scaffold } from "@/components/utils/scaffold";
+import { {{ table }} } from "@/services/{{ table }}";
+
+const QUERY = async () => {
+  return await {{ table }}();
+};
+
+const Loading = () => <div>Loading ...</div>;
+
+const Failure = () => <div>Something went wrong</div>;
+
+export function {{ sentenceCase table }}ListCell() {
+  return (
+    <Cell Failure={<Failure />} Loading={<Loading />}>
+      <Data />
+    </Cell>
+  );
+}
+async function Data() {
+  const data = await QUERY();
+  return <Scaffold data={data} />;
+}

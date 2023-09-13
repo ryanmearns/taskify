@@ -43,4 +43,43 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       },
     ],
   });
+
+  plop.setGenerator("cell", {
+    description: "Create a new cell",
+    prompts: [
+      {
+        type: "list",
+        name: "app",
+        message: "What app should this created in?",
+        choices: fs
+          .readdirSync(path.join(__dirname, "../../apps"))
+          .filter((folder) => folder !== ".DS_Store"),
+      },
+      {
+        name: "table",
+        type: "list",
+        message: "What table should this be created for?",
+        choices: (arg) => {
+          return fs
+            .readdirSync(
+              path.join(__dirname, `../../apps/${arg.app}/src/db/schema`)
+            )
+            .map((file) => file.replace(".ts", ""))
+            .filter((table) => table !== "auth" && table !== "index");
+        },
+      },
+      {
+        type: "input",
+        name: "table",
+        message: "What is the name of the table?",
+      },
+    ],
+    actions: [
+      {
+        type: "add",
+        path: "{{ turbo.paths.root }}/apps/{{ app }}/src/components/Todos/{{ sentenceCase table }}.tsx",
+        templateFile: "templates/cell/add-cell.hbs",
+      },
+    ],
+  });
 }
