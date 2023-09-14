@@ -97,3 +97,10 @@ export const todos = pgTable("todos", {
   dueDate: date("due_date", { mode: "string" }),
   workspaceUuid: text("workspaceUuid").notNull(),
 });
+
+export const todoRelations = relations(todos, ({ one }) => ({
+  todo: one(workspace, {
+    fields: [todos.workspaceUuid],
+    references: [workspace.uuid],
+  }),
+}));
