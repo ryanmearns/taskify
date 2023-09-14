@@ -5,14 +5,14 @@ import { withAuth } from "next-auth/middleware";
  */
 export default withAuth({
   pages: {
-    signIn: "/sign-in",
-    verifyRequest: "/verify-request",
+    signIn: "/auth/sign-in",
+    verifyRequest: "/auth/verify-request",
   },
 });
 
 /**
- * Next auth middleware page matcher
+ * Next auth middleware page matcher for all pages in app page directory
  */
 export const config = {
-  matcher: ["/todos", "/settings"],
+  matcher: ["/app/:path"],
 };

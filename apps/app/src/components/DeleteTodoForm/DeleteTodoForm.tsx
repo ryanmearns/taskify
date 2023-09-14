@@ -3,7 +3,7 @@ import { OptimisticUpdate } from "@/types/helpers";
 import { IconButton } from "@playbook/ui";
 import { Trash } from "lucide-react";
 import toast from "react-hot-toast";
-import { deleteTodoAction } from "./DeleteTodoAction";
+import { deleteTodoAction } from "./action";
 
 type DeleteTodoFormProps = {
   todo: Todo;

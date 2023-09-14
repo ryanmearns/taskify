@@ -91,11 +91,11 @@ export const authConfig: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/sign-in",
+    signIn: "/auth/sign-in",
     /**
      * This page is redirected too after sign-in using the Email provider
      */
-    verifyRequest: "/verify-request",
+    verifyRequest: "/auth/verify-request",
     /**
      * This page is redirected too after a user signs in for the first time
      * @todo

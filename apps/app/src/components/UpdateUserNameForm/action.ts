@@ -15,7 +15,7 @@ export const updateUserName = api.protectedAction(
       name: input.name,
     });
 
-    revalidatePath("/");
+    revalidatePath("/app");
 
     return data;
   }

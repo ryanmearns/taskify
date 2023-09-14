@@ -24,6 +24,10 @@ export const publicAction = createActionMiddleware();
 const isAuthed = async () => {
   const { session, workspace } = await getTenant();
 
+  if (!session) {
+    throw new Error("Not authorised");
+  }
+
   return {
     session: session,
     workspace: workspace,

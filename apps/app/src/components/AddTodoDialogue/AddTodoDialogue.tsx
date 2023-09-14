@@ -26,7 +26,7 @@ import { Loader2, Plus } from "lucide-react";
 import * as React from "react";
 import { toast } from "react-hot-toast";
 import z from "zod";
-import { addTodoAction } from "./AddTodoAction";
+import { addTodoAction } from "./action";
 
 const formSchema = z.object({
   content: z.string().min(2, {

@@ -16,7 +16,7 @@ import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import * as React from "react";
 import toast from "react-hot-toast";
-import { updateUserEmail } from "./UpdateUserEmailAction";
+import { updateUserEmailAction } from "./action";
 
 const UpdateEmailForm = (props: { session: Session }) => {
   const [email, setEmail] = React.useState(props.session.user.email);
@@ -59,7 +59,7 @@ const UpdateEmailForm = (props: { session: Session }) => {
           onClick={async () => {
             startTransition(async () => {
               try {
-                await updateUserEmail({
+                await updateUserEmailAction({
                   email: email,
                 });
                 await update({ email: email });

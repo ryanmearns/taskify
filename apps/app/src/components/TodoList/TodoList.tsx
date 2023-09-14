@@ -1,11 +1,12 @@
 "use client";
 
+import { DeleteTodoForm } from "@/components/DeleteTodoForm/DeleteTodoForm";
+import { UpdateTodoStatusForm } from "@/components/UpdateTodoStatusForm/UpdateTodoStatusForm";
 import { Todos } from "@/db/types";
 import { useOptimistic } from "@/utils/hooks/use-optimistic";
 import { EmptyState, Flex, cn } from "@playbook/ui";
-import { DeleteTodoForm } from "../DeleteTodoForm/DeleteTodoForm";
-import { UpdateTodoStatusForm } from "../UpdateTodoStatusForm/UpdateTodoStatusForm";
 import { ListPlus } from "lucide-react";
+import { UpdateTodoDueDateForm } from "../UpdateTodoDueDateForm/UpdateTodoDueDateForm";
 
 export const TodoList = (props: { data: Todos }) => {
   const [optimisticTodos, updateOptimisticTodo] = useOptimistic(props.data);
@@ -28,9 +29,9 @@ export const TodoList = (props: { data: Todos }) => {
       {optimisticTodos.map((todo) => (
         <div
           key={todo.uuid}
-          className="p-4 text-sm group hover:bg-slate-50 cursor-pointer flex justify-between items-center"
+          className="p-4 text-sm group hover:bg-slate-50 cursor-pointer flex items-center gap-2"
         >
-          <Flex align={"center"} gap={"md"}>
+          <Flex align={"center"} gap={"md"} grow>
             <UpdateTodoStatusForm
               todo={todo}
               optimisticUpdate={updateOptimisticTodo}
@@ -47,6 +48,10 @@ export const TodoList = (props: { data: Todos }) => {
             </Flex>
           </Flex>
           <DeleteTodoForm todo={todo} optimisticUpdate={updateOptimisticTodo} />
+          <UpdateTodoDueDateForm
+            todo={todo}
+            optimisticUpdate={updateOptimisticTodo}
+          />
         </div>
       ))}
     </Flex>

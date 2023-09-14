@@ -21,6 +21,7 @@
     "@playbook/tailwind-config": "workspace:*",
     "@playbook/ui": "workspace:*",
     "autoprefixer": "10.4.15",
+    "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
     "drizzle-kit": "^0.19.13",
     "drizzle-orm": "^0.28.6",

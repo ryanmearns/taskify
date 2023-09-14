@@ -5,7 +5,7 @@ import { updateUser } from "@/services/user";
 import { revalidatePath } from "next/cache";
 import z from "zod";
 
-export const updateUserEmail = api.protectedAction(
+export const updateUserEmailAction = api.protectedAction(
   z.object({
     email: z.string().email(),
   }),
@@ -15,7 +15,7 @@ export const updateUserEmail = api.protectedAction(
       email: input.email,
     });
 
-    revalidatePath("/");
+    revalidatePath("/app");
 
     return data;
   }

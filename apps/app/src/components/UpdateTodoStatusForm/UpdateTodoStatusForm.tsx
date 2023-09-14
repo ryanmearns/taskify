@@ -2,7 +2,7 @@ import { Todo, Todos } from "@/db/types";
 import { OptimisticUpdate } from "@/types/helpers";
 import { Checkbox } from "@playbook/ui";
 import toast from "react-hot-toast";
-import { updateTodoStatusAction } from "./UpdateTodoStatusAction";
+import { updateTodoStatusAction } from "./action";
 
 type UpdateTodoStatusFormProps = {
   todo: Todo;

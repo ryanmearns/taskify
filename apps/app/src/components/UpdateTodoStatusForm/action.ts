@@ -17,7 +17,7 @@ export const updateTodoStatusAction = api.protectedAction(
       status: input.status,
     });
 
-    revalidatePath("/");
+    revalidatePath("/app");
 
     return data;
   }

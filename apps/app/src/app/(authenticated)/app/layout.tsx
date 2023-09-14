@@ -5,13 +5,11 @@ import {
   DashboardSidebar,
   DashboardSidebarHeader,
   Flex,
+  NavigationItems,
 } from "@playbook/ui";
-import { Shapes } from "lucide-react";
+import { Cog, List, Shapes } from "lucide-react";
 import { Toaster } from "react-hot-toast";
-import {
-  MobileNavigation,
-  SidebarNavigation,
-} from "@/components/Navigation/Navigation";
+import { MobileNavigation, SidebarNavigation } from "./navigation";
 import { UserDropdown } from "@/components/UserDropdown/UserDropdown";
 
 const Logo = () => (

@@ -13,6 +13,6 @@ export const addTodoAction = api.protectedAction(
       workspaceUuid: ctx.workspace.uuid,
     });
 
-    revalidatePath("/");
+    revalidatePath("/app");
   }
 );

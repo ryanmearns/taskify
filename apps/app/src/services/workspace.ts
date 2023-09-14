@@ -4,12 +4,6 @@ import { db } from "@/server/db";
 import { eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 
-export const getWorkspaces = async () => {
-  return await db.query.workspace.findMany({
-    orderBy: (workspace, { desc }) => [desc(workspace.createdAt)],
-  });
-};
-
 export const getWorkspace = async ({ tenantId }: { tenantId: string }) => {
   return await db.query.workspace.findFirst({
     where: eq(workspace.tenantId, tenantId),

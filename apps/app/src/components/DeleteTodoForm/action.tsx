@@ -15,6 +15,6 @@ export const deleteTodoAction = api.protectedAction(
       workspaceUuid: ctx.workspace.uuid,
     });
 
-    revalidatePath("/");
+    revalidatePath("/app");
   }
 );

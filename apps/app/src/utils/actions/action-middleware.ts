@@ -58,10 +58,10 @@ export const createActionMiddleware = <Context extends object>(createOpts?: {
   // It expects an input validator and a definition function, so the action knows
   // what to do on the server when called by the client.
   // It returns a function callable by the client.
-  const action = <const ZodSchema extends z.ZodTypeAny, const Data>(
-    inputValidator: ZodSchema,
-    serverFunction: ActionServerFn<ZodSchema, Data, Context>
-  ): ClientCaller<ZodSchema, Data> => {
+  const action = <const ZodValidator extends z.ZodTypeAny, const Data>(
+    inputValidator: ZodValidator,
+    serverFunction: ActionServerFn<ZodValidator, Data, Context>
+  ): ClientCaller<ZodValidator, Data> => {
     // This is the function called by client. If `input` fails the validator
     // parsing, the function will return a `validationError` object, containing
     // all the invalid fields provided.

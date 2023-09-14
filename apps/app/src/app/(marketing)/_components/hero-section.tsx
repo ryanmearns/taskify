@@ -65,7 +65,7 @@ export default function HeroSection(props: HeroSectionProps) {
             {props.description}
           </p>
           <div className="mt-10 flex items-center gap-x-6">
-            <Link href={"/sign-in"}>
+            <Link href={"/auth/sign-in"}>
               <Button size={"xl"} variant={"solid"}>
                 Get started
               </Button>
