@@ -53,7 +53,7 @@ export function SignInForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Enter email" {...field} />
+                <Input type={"email"} placeholder="Enter email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

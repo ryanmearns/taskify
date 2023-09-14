@@ -1,6 +1,5 @@
 import { getServerAuthSession } from "@/auth/utils";
 import { SignInForm } from "@/components/SignInForm/SignInForm";
-import { SignInGithub } from "@/components/SignInGithub/SignInGithub";
 import { Flex, Separator } from "@playbook/ui";
 import { Shapes } from "lucide-react";
 import Link from "next/link";
@@ -35,7 +34,6 @@ export default async function Page() {
               </p>
             </div>
             <SignInForm />
-            <SignInGithub />
             <Separator className="bg-gradient-to-r from-white via-slate-500 to-white" />
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}

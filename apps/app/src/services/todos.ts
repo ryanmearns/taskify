@@ -4,9 +4,10 @@ import { db } from "@/server/db";
 import { and, eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 
-export const getTodos = async () => {
+export const getTodos = async (arg: Pick<TodoSchema, "workspaceUuid">) => {
   return await db.query.todos.findMany({
     orderBy: (todos, { desc }) => [desc(todos.createdAt)],
+    where: eq(todos.workspaceUuid, arg.workspaceUuid),
   });
 };
 

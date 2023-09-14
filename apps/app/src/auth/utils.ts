@@ -12,7 +12,5 @@ export async function requireAuth() {
 }
 
 export const getServerAuthSession = async () => {
-  const session = await getServerSession(authConfig);
-
-  return session;
+  return await getServerSession(authConfig);
 };

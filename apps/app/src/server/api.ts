@@ -1,4 +1,5 @@
 import { getServerAuthSession } from "@/auth/utils";
+import { getTenant } from "@/services/tenant";
 import { getWorkspace } from "@/services/workspace";
 import { createActionMiddleware } from "@/utils/actions/action-middleware";
 
@@ -16,24 +17,12 @@ export const publicAction = createActionMiddleware();
  *
  * If you want a server action to ONLY be accessible to logged in users, use this. It verifies
  * the session is valid and guarantees `ctx.session.user` is not null and uses the userId to
- * fetch the workspace as the tenantId.
+ * fetch the workspace as the tenantId. This is returned using the getTenant service.
  *
  */
 
 const isAuthed = async () => {
-  // Check authorised user
-  const session = await getServerAuthSession();
-
-  if (!session) {
-    throw new Error("No session");
-  }
-
-  // Get user workspace
-  const workspace = await getWorkspace({ tenantId: session.user.id });
-
-  if (!workspace) {
-    throw new Error("Workspace not found");
-  }
+  const { session, workspace } = await getTenant();
 
   return {
     session: session,

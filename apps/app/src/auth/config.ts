@@ -7,7 +7,6 @@ import { VerificationEmailTemplate } from "@playbook/emails";
 import { type NextAuthOptions } from "next-auth";
 import { DefaultJWT } from "next-auth/jwt";
 import EmailProvider from "next-auth/providers/email";
-import GithubProvider from "next-auth/providers/github";
 
 declare module "next-auth" {
   /**
@@ -72,10 +71,6 @@ export const authConfig: NextAuthOptions = {
     },
   },
   providers: [
-    GithubProvider({
-      clientId: env.GITHUB_CLIENT_ID,
-      clientSecret: env.GITHUB_CLIENT_SECRET,
-    }),
     EmailProvider({
       sendVerificationRequest: async ({ url, identifier: email }) => {
         try {

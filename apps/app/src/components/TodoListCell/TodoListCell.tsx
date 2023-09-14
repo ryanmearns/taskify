@@ -1,11 +1,14 @@
 import { Cell } from "@/components/utils/cell";
+import { getTenant } from "@/services/tenant";
 import { getTodos } from "@/services/todos";
 import { EmptyState } from "@playbook/ui";
 import { ListPlus } from "lucide-react";
 import { TodoList } from "../TodoList/TodoList";
 
 const QUERY = async () => {
-  return await getTodos();
+  const { workspace } = await getTenant();
+
+  return await getTodos({ workspaceUuid: workspace.uuid });
 };
 
 export function TodoListCell() {
