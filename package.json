@@ -5,7 +5,8 @@
     "dev": "turbo run dev",
     "storybook": "turbo run storybook",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "g": "turbo gen"
   },
   "devDependencies": {
     "@turbo/gen": "^1.10.13",

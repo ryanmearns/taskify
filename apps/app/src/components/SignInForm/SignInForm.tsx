@@ -59,7 +59,7 @@ export function SignInForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" size={"md"} block>
+        <Button type="submit" size={"md"} block disabled={isPending}>
           {!isPending ? (
             "Send email"
           ) : (

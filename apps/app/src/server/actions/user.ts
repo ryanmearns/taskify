@@ -1,7 +1,7 @@
 "use server";
 
 import { requireAuth } from "@/auth/utils";
-import { schema } from "@/db/index";
+import * as schema from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import z from "zod";

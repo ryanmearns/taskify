@@ -14,11 +14,18 @@ import {
 } from "@playbook/ui";
 import { Loader2 } from "lucide-react";
 import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
 import * as React from "react";
+import toast from "react-hot-toast";
 
 const UpdateNameForm = (props: { session: Session }) => {
   const [name, setName] = React.useState(props.session.user.name);
   const [isPending, startTransition] = React.useTransition();
+  const { data: session, update } = useSession();
+
+  React.useEffect(() => {
+    session && setName(session.user.name);
+  }, [session]);
 
   return (
     <Card className="w-full">
@@ -49,10 +56,17 @@ const UpdateNameForm = (props: { session: Session }) => {
           disabled={isPending}
           onClick={async () => {
             startTransition(async () => {
-              await user.updateName({
-                userId: props.session.user.id,
-                name: name,
-              });
+              try {
+                await user.updateName({
+                  userId: props.session.user.id,
+                  name: name,
+                });
+                await update({ name: name });
+              } catch (err) {
+                // Roll back change on error
+                await update({ name: props.session.user.name });
+                toast.error("There was an error. Try again.");
+              }
             });
           }}
         >

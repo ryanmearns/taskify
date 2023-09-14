@@ -14,13 +14,20 @@ import {
 } from "@playbook/ui";
 import { Loader2 } from "lucide-react";
 import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import * as React from "react";
+import toast from "react-hot-toast";
 
 const UpdateEmailForm = (props: { session: Session }) => {
   const [email, setEmail] = React.useState(props.session.user.email);
   const [isPending, startTransition] = React.useTransition();
-  const router = useRouter();
+
+  const { data: session, update } = useSession();
+
+  React.useEffect(() => {
+    session && setEmail(session.user.email);
+  }, [session]);
 
   return (
     <Card className="w-full">
@@ -52,10 +59,17 @@ const UpdateEmailForm = (props: { session: Session }) => {
           disabled={isPending}
           onClick={async () => {
             startTransition(async () => {
-              await user.updateEmail({
-                userId: props.session.user.id,
-                email: email,
-              });
+              try {
+                await user.updateEmail({
+                  userId: props.session.user.id,
+                  email: email,
+                });
+                await update({ email: email });
+              } catch (err) {
+                // Roll back change on error
+                await update({ email: props.session.user.email });
+                toast.error("There was an error. Try again.");
+              }
             });
           }}
         >

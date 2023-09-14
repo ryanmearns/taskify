@@ -22,19 +22,14 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
     ],
     actions: [
       {
-        type: "add",
-        path: "{{ turbo.paths.root }}/apps/{{ app }}/src/db/schema/{{ table }}.ts",
+        type: "append",
+        path: "{{ turbo.paths.root }}/apps/{{ app }}/src/db/schema.ts",
         templateFile: "templates/table/new-table.hbs",
       },
       {
         type: "append",
         path: "{{ turbo.paths.root }}/apps/{{ app }}/src/db/types.ts",
         templateFile: "templates/table/add-table-types.hbs",
-      },
-      {
-        type: "append",
-        path: "{{ turbo.paths.root }}/apps/{{ app }}/src/db/schema/index.ts",
-        templateFile: "templates/table/add-table-index.hbs",
       },
       {
         type: "add",

@@ -1,10 +1,15 @@
 import type { AdapterAccount } from "@auth/core/adapters";
+import { relations } from "drizzle-orm";
 import {
+  boolean,
+  date,
   integer,
+  pgEnum,
   pgTable,
   primaryKey,
   text,
   timestamp,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
 
 export const users = pgTable("user", {
@@ -56,3 +61,40 @@ export const verificationTokens = pgTable(
     compoundKey: primaryKey(vt.identifier, vt.token),
   })
 );
+
+export const workspace = pgTable(
+  "workspace",
+  {
+    uuid: text("uuid").notNull().primaryKey(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    name: text("name"),
+    tenantId: text("tenant_id").notNull(),
+  },
+  (table) => {
+    return {
+      tenantIdx: uniqueIndex("tenant_idx").on(table.tenantId),
+    };
+  }
+);
+
+export const workspaceRelations = relations(workspace, ({ one, many }) => ({
+  workspace: one(users, {
+    fields: [workspace.tenantId],
+    references: [users.id],
+  }),
+  todos: many(todos),
+}));
+
+export const statusEnum = pgEnum("status", ["todo", "done"]);
+
+export const todos = pgTable("todos", {
+  uuid: text("uuid").notNull().primaryKey(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  content: text("content"),
+  description: text("description"),
+  status: statusEnum("status").default("todo"),
+  dueDate: date("due_date", { mode: "string" }),
+  workspaceUuid: text("workspaceUuid").notNull(),
+});

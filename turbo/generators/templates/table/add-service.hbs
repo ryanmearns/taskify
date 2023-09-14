@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "@/server/db";
-import { schema } from "@/db/index";
+import * as schema from "@/db/schema";
 
 export const {{ table }}s = async () => {
   return await db.query.{{ table }}.findMany({

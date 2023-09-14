@@ -29,7 +29,7 @@ import z from "zod";
 import { addTodoAction } from "./AddTodoAction";
 
 const formSchema = z.object({
-  todo: z.string().min(2, {
+  content: z.string().min(2, {
     message: "Message must be at least 2 characters.",
   }),
 });
@@ -47,7 +47,7 @@ export const AddTodoDialogue = () => {
   const form = f.useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      todo: "",
+      content: "",
     },
   });
 
@@ -78,7 +78,7 @@ export const AddTodoDialogue = () => {
             </DialogHeader>
             <FormField
               control={form.control}
-              name="todo"
+              name="content"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>

@@ -35,7 +35,6 @@ export const UserDropdown = () => {
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
           <AvatarImage src={avatarImg} />
-          <AvatarFallback>{session?.user?.name?.slice(0, 2)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

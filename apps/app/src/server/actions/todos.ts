@@ -1,7 +1,7 @@
 "use server";
 
 import { requireAuth } from "@/auth/utils";
-import { schema } from "@/db/index";
+import * as schema from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { revalidatePath } from "next/cache";
@@ -22,7 +22,8 @@ export const createTodo = async (arg: z.infer<typeof createTodoSchema>) => {
 
   const data = await db.insert(schema.todos).values({
     uuid: nanoid(8),
-    todo: input.data.todo,
+    content: input.data.todo,
+    workspaceUuid: "123",
   });
 
   if (!data) {

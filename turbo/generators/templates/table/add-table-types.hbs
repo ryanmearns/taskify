@@ -1,2 +1,3 @@
 export type {{titleCase table}} = InferSelectModel<typeof schema.{{table}}>;
 export type {{titleCase table}}s = InferSelectModel<typeof schema.{{table}}>[];
+export type {{titleCase table}}Schema = InferInsertModel<typeof schema.{{table}}>;
