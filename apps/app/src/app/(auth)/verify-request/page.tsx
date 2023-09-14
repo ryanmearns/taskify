@@ -1,7 +1,6 @@
 import { getServerAuthSession } from "@/auth/utils";
-import { Flex, Separator, buttonVariants, cn } from "@playbook/ui";
+import { Flex, Separator } from "@playbook/ui";
 import { Inbox, Shapes } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 

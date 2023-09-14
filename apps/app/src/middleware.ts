@@ -1,5 +1,8 @@
 import { withAuth } from "next-auth/middleware";
 
+/**
+ * Next auth middlware function to protect routes
+ */
 export default withAuth({
   pages: {
     signIn: "/sign-in",
@@ -7,6 +10,9 @@ export default withAuth({
   },
 });
 
+/**
+ * Next auth middleware page matcher
+ */
 export const config = {
   matcher: ["/todos", "/settings"],
 };

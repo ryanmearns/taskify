@@ -1,6 +1,5 @@
 "use client";
 
-import * as user from "@/actions/user";
 import {
   Button,
   Card,
@@ -17,6 +16,7 @@ import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import * as React from "react";
 import toast from "react-hot-toast";
+import { updateUserName } from "./UpdateUserNameAction";
 
 const UpdateNameForm = (props: { session: Session }) => {
   const [name, setName] = React.useState(props.session.user.name);
@@ -57,8 +57,7 @@ const UpdateNameForm = (props: { session: Session }) => {
           onClick={async () => {
             startTransition(async () => {
               try {
-                await user.updateName({
-                  userId: props.session.user.id,
+                await updateUserName({
                   name: name,
                 });
                 await update({ name: name });

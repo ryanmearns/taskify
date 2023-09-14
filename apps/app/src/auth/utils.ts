@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "./config";
+import { authConfig } from "./config";
 
 export async function requireAuth() {
   const session = await getServerAuthSession();
@@ -12,7 +12,7 @@ export async function requireAuth() {
 }
 
 export const getServerAuthSession = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authConfig);
 
   return session;
 };

@@ -1,3 +1,7 @@
+/**
+ * @todo: @deprecated
+ */
+
 export function actionSuccess<T>(data: T) {
   return {
     data: data,

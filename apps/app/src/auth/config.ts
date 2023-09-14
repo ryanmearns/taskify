@@ -1,11 +1,10 @@
-import * as schema from "@/db/schema";
 import { db } from "@/server/db";
 import { resend } from "@/server/email";
+import { createWorkspace } from "@/services/workspace";
 import { env } from "@/utils/env";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { VerificationEmailTemplate } from "@playbook/emails";
-import { nanoid } from "nanoid";
-import { DefaultSession, type NextAuthOptions } from "next-auth";
+import { type NextAuthOptions } from "next-auth";
 import { DefaultJWT } from "next-auth/jwt";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
@@ -24,25 +23,41 @@ declare module "next-auth" {
   }
 }
 
-export const authOptions: NextAuthOptions = {
+export const authConfig: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
+  /**
+   * JWT is required for middleware
+   */
   session: { strategy: "jwt" },
+  /**
+   * Drizzle ORM is used as the adapter
+   * {@link https://authjs.dev/reference/adapter/drizzle @auth/drizzle-adapter}.
+   */
   adapter: DrizzleAdapter(db),
   callbacks: {
     session: ({ session, token }) => ({
       ...session,
       user: {
         ...session.user,
+        /**
+         * This adds the userId to the JWT that is returned by
+         * `useSession`, `getSession` and received as a prop
+         * on the `SessionProvider` React Context
+         */
         id: token.sub,
       },
     }),
     jwt({ token, trigger, session }) {
       if (trigger === "update" && session?.name) {
-        // Note, that `session` can be any arbitrary object, remember to validate it!
+        /**
+         * Update token name with new session name
+         */
         token.name = session.name;
       }
       if (trigger === "update" && session?.email) {
-        // Note, that `session` can be any arbitrary object, remember to validate it!
+        /**
+         * Update token email with new session email
+         */
         token.email = session.email;
       }
       return token;
@@ -51,12 +66,9 @@ export const authOptions: NextAuthOptions = {
   events: {
     createUser: async (arg) => {
       /**
-       * Create workspace using User Id as Tenant Id
+       * This creates a workspace using userId as the tenantId
        */
-      await db.insert(schema.workspace).values({
-        uuid: nanoid(16),
-        tenantId: arg.user.id,
-      });
+      await createWorkspace({ tenantId: arg.user.id });
     },
   },
   providers: [
@@ -85,6 +97,14 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: "/sign-in",
+    /**
+     * This page is redirected too after sign-in using the Email provider
+     */
     verifyRequest: "/verify-request",
+    /**
+     * This page is redirected too after a user signs in for the first time
+     * @todo
+     */
+    // newUser: "/new-user",
   },
 };

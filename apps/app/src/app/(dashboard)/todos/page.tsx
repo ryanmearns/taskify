@@ -1,6 +1,6 @@
 import { DashboardMain, DashboardMainHeader, Flex } from "@playbook/ui";
 import { TodoListCell } from "@/components/TodoListCell/TodoListCell";
-import { AddTodoDialogue } from "../../../components/AddTodoDialogue/AddTodoDialogue";
+import { AddTodoDialogue } from "@/components/AddTodoDialogue/AddTodoDialogue";
 
 export default function Page() {
   return (

@@ -1,5 +1,5 @@
-import { Button, ButtonIcon, Flex } from "@playbook/ui";
-import { ArrowRight, ChevronRight, Shapes } from "lucide-react";
+import { Button, Flex } from "@playbook/ui";
+import { ChevronRight, Shapes } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 

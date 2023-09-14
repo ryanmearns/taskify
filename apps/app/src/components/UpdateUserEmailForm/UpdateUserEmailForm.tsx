@@ -1,6 +1,5 @@
 "use client";
 
-import * as user from "@/actions/user";
 import {
   Button,
   Card,
@@ -15,9 +14,9 @@ import {
 import { Loader2 } from "lucide-react";
 import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import * as React from "react";
 import toast from "react-hot-toast";
+import { updateUserEmail } from "./UpdateUserEmailAction";
 
 const UpdateEmailForm = (props: { session: Session }) => {
   const [email, setEmail] = React.useState(props.session.user.email);
@@ -60,8 +59,7 @@ const UpdateEmailForm = (props: { session: Session }) => {
           onClick={async () => {
             startTransition(async () => {
               try {
-                await user.updateEmail({
-                  userId: props.session.user.id,
+                await updateUserEmail({
                   email: email,
                 });
                 await update({ email: email });
