@@ -3,7 +3,8 @@ import { OptimisticUpdate } from "@/types/helpers";
 import { IconButton } from "@playbook/ui";
 import { Trash } from "lucide-react";
 import toast from "react-hot-toast";
-import { deleteTodoAction } from "./action";
+import { deleteTodoAction } from "./DeleteTodoForm.action";
+import { useAction } from "@/utils/actions/hook";
 
 type DeleteTodoFormProps = {
   todo: Todo;
@@ -11,30 +12,19 @@ type DeleteTodoFormProps = {
 };
 
 export const DeleteTodoForm = (props: DeleteTodoFormProps) => {
-  const handleAction = async () => {
-    try {
-      /**
-       * Optimistic update
-       */
+  const action = useAction(deleteTodoAction, {
+    onMutate: (input) => {
       props.optimisticUpdate((data) => {
-        return data.filter((todo) => props.todo.uuid !== todo.uuid);
+        return data.filter((todo) => input.uuid !== todo.uuid);
       });
-      /**
-       * Server action
-       */
-      await deleteTodoAction({ uuid: props.todo.uuid });
-    } catch (error) {
-      toast.error("There was an error");
-    }
-  };
+    },
+  });
 
   return (
-    <form action={handleAction}>
-      <IconButton
-        icon={<Trash />}
-        type="submit"
-        className="invisible group-hover:visible"
-      />
-    </form>
+    <IconButton
+      icon={<Trash />}
+      onClick={() => action.execute({ uuid: props.todo.uuid })}
+      className="invisible group-hover:visible"
+    />
   );
 };

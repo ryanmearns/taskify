@@ -1,38 +1,15 @@
 // Code from https://github.com/TheEdoRan/next-safe-action/tree/a01358ef79e766d4b9ba6663e7123872fe8ff20c
 
 import z from "zod";
-
-const isError = (e: any) => e instanceof Error;
-
-const isNextRedirectError = (e: any) =>
-  isError(e) && e.message === "NEXT_REDIRECT";
-
-const isNextNotFoundError = (e: any) =>
-  isError(e) && e.message === "NEXT_NOT_FOUND";
-
-const DEFAULT_SERVER_ERROR =
-  "Something went wrong while executing the operation";
-
-/**
- * Type of the function called from Client Components with typesafe input data for the Server Action.
- */
-type ClientCaller<IV extends z.ZodTypeAny, Data> = (
-  input: z.input<IV>
-) => Promise<{
-  data?: Data;
-  serverError?: string;
-  validationError?: Partial<Record<keyof z.input<IV>, string[]>>;
-}>;
-
-/**
- * Type of the function that executes server code when defining a new safe action.
- */
-type ActionServerFn<IV extends z.ZodTypeAny, Data, Context extends object> = (
-  parsedInput: z.input<IV>,
-  ctx: Context
-) => Promise<Data>;
-
-type MaybePromise<T> = T | Promise<T>;
+import {
+  ActionServerFn,
+  ClientCaller,
+  DEFAULT_SERVER_ERROR,
+  MaybePromise,
+  isError,
+  isNextNotFoundError,
+  isNextRedirectError,
+} from "./types";
 
 export const createActionMiddleware = <Context extends object>(createOpts?: {
   buildContext?: () => Promise<Context>;

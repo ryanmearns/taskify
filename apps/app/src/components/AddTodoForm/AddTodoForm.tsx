@@ -26,7 +26,7 @@ import { Loader2, Plus } from "lucide-react";
 import * as React from "react";
 import { toast } from "react-hot-toast";
 import z from "zod";
-import { addTodoAction } from "./action";
+import { addTodoAction } from "./AddTodoForm.action";
 
 const formSchema = z.object({
   content: z.string().min(2, {
@@ -34,7 +34,7 @@ const formSchema = z.object({
   }),
 });
 
-export const AddTodoDialogue = () => {
+export const AddTodoForm = () => {
   const [isPending, startTransition] = React.useTransition();
 
   const { open, setOpen } = useDialogTranisition({

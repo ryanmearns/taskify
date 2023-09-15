@@ -16,7 +16,7 @@ import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import * as React from "react";
 import toast from "react-hot-toast";
-import { updateUserName } from "./action";
+import { updateUserName } from "./UpdateUserNameForm.action";
 
 const UpdateNameForm = (props: { session: Session }) => {
   const [name, setName] = React.useState(props.session.user.name);

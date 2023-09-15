@@ -1,5 +1,9 @@
+"use client";
+
 import { Todo, Todos } from "@/db/types";
 import { OptimisticUpdate } from "@/types/helpers";
+import { useAction } from "@/utils/actions/hook";
+import { dateToIsoString } from "@/utils/dateToIsoString";
 import {
   Button,
   ButtonIcon,
@@ -11,7 +15,7 @@ import {
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import toast from "react-hot-toast";
-import { updateTodoDueDateAction } from "./action";
+import { updateTodoDueDateAction } from "./UpdateTodoDueDateForm.action";
 
 type UpdateTodoDueDateFormProps = {
   todo: Todo;
@@ -21,11 +25,8 @@ type UpdateTodoDueDateFormProps = {
 export const UpdateTodoDueDateForm = (props: UpdateTodoDueDateFormProps) => {
   const dueDate = props.todo.dueDate ? new Date(props.todo.dueDate) : undefined;
 
-  const handleAction = async (date: Date) => {
-    try {
-      /**
-       * Optimistic update
-       */
+  const action = useAction(updateTodoDueDateAction, {
+    onMutate: (input) => {
       props.optimisticUpdate((data) => {
         const updateTodo = data.find((todo) => props.todo.uuid === todo.uuid);
 
@@ -35,7 +36,7 @@ export const UpdateTodoDueDateForm = (props: UpdateTodoDueDateFormProps) => {
 
         const newTodo: Todo = {
           ...updateTodo,
-          dueDate: date.toString(),
+          dueDate: input.dueDate,
         };
 
         const newTodos = data.map((todo) => {
@@ -48,17 +49,11 @@ export const UpdateTodoDueDateForm = (props: UpdateTodoDueDateFormProps) => {
 
         return newTodos;
       });
-      /**
-       * Server action
-       */
-      await updateTodoDueDateAction({
-        uuid: props.todo.uuid,
-        dueDate: date.toString(),
-      });
-    } catch (error) {
+    },
+    onError: () => {
       toast.error("There was an error");
-    }
-  };
+    },
+  });
 
   return (
     <Popover>
@@ -66,21 +61,24 @@ export const UpdateTodoDueDateForm = (props: UpdateTodoDueDateFormProps) => {
         <Button variant={"outline"}>
           <ButtonIcon orientation="leading" Icon={<CalendarIcon />} />
           {dueDate ? (
-            format(dueDate, "PPPP")
+            format(dueDate, "dd/MM/yyyy")
           ) : (
             <span className="text-muted-foreground font-normal">No date</span>
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent
-        collisionPadding={16}
-        className="w-auto p-0"
-        align="center"
-      >
+      <PopoverContent className="w-auto p-0" align="end">
         <Calendar
           mode="single"
           selected={dueDate}
-          onSelect={handleAction}
+          onSelect={(date) => {
+            if (date) {
+              action.execute({
+                uuid: props.todo.uuid,
+                dueDate: dateToIsoString(date),
+              });
+            }
+          }}
           initialFocus
         />
       </PopoverContent>

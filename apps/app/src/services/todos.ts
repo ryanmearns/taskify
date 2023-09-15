@@ -11,9 +11,14 @@ export const getTodos = async (arg: Pick<TodoSchema, "workspaceUuid">) => {
   });
 };
 
-export const getTodo = async (arg: Pick<TodoSchema, "uuid">) => {
+export const getTodo = async (
+  arg: Pick<TodoSchema, "uuid" | "workspaceUuid">
+) => {
   return await db.query.todos.findFirst({
-    where: eq(todos.uuid, arg.uuid),
+    where: and(
+      eq(todos.uuid, arg.uuid),
+      eq(todos.workspaceUuid, arg.workspaceUuid)
+    ),
   });
 };
 

@@ -1,8 +1,8 @@
 import { Todo, Todos } from "@/db/types";
 import { OptimisticUpdate } from "@/types/helpers";
+import { useAction } from "@/utils/actions/hook";
 import { Checkbox } from "@playbook/ui";
-import toast from "react-hot-toast";
-import { updateTodoStatusAction } from "./action";
+import { updateTodoStatusAction } from "./UpdateTodoStatusForm.action";
 
 type UpdateTodoStatusFormProps = {
   todo: Todo;
@@ -10,11 +10,8 @@ type UpdateTodoStatusFormProps = {
 };
 
 export const UpdateTodoStatusForm = (props: UpdateTodoStatusFormProps) => {
-  const handleAction = async () => {
-    try {
-      /**
-       * Optimistic update
-       */
+  const action = useAction(updateTodoStatusAction, {
+    onMutate: () => {
       props.optimisticUpdate((data) => {
         const updateTodo = data.find((todo) => props.todo.uuid === todo.uuid);
 
@@ -35,26 +32,23 @@ export const UpdateTodoStatusForm = (props: UpdateTodoStatusFormProps) => {
           }
         });
 
+        console.log(newTodos);
+
         return newTodos;
       });
-      /**
-       * Server action
-       */
-      await updateTodoStatusAction({
-        uuid: props.todo.uuid,
-        status: props.todo.status === "todo" ? "done" : "todo",
-      });
-    } catch (error) {
-      toast.error("There was an error");
-    }
-  };
+    },
+  });
 
   return (
-    <form className="inline-flex" action={handleAction}>
-      <Checkbox
-        type="submit"
-        checked={props.todo.status === "done" ? true : false}
-      />
-    </form>
+    <Checkbox
+      type="submit"
+      onClick={() =>
+        action.execute({
+          uuid: props.todo.uuid,
+          status: props.todo.status === "todo" ? "done" : "todo",
+        })
+      }
+      checked={props.todo.status === "done" ? true : false}
+    />
   );
 };

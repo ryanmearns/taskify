@@ -5,7 +5,7 @@ import {
   DashboardSidebarNavigation,
   NavigationItems,
 } from "@playbook/ui";
-import { Cog, List } from "lucide-react";
+import { Calendar, CalendarDays, Cog, Folder, List, Tag } from "lucide-react";
 
 export const MobileNavigation = () => (
   <DashboardMobileNavigation navigationItems={navigation} />
@@ -16,6 +16,10 @@ export const SidebarNavigation = () => (
 );
 
 const navigation: NavigationItems = [
-  { label: "Todos", icon: <List />, href: "/app/todos" },
+  { label: "All", icon: <List />, href: "/app/todos" },
+  { label: "Today", icon: <Calendar />, href: "/app/todos/today" },
+  { label: "Upcoming", icon: <CalendarDays />, href: "/app/todos/upcoming" },
+  { label: "Projects", icon: <Folder />, href: "/app/projects" },
+  { label: "Labels", icon: <Tag />, href: "/app/labels" },
   { label: "Settings", icon: <Cog />, href: "/app/settings" },
 ];

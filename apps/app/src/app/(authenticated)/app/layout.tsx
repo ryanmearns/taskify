@@ -1,3 +1,4 @@
+import { UserDropdown } from "@/components/UserDropdown/UserDropdown";
 import {
   DashbboardMobileHeader,
   Dashboard,
@@ -5,12 +6,10 @@ import {
   DashboardSidebar,
   DashboardSidebarHeader,
   Flex,
-  NavigationItems,
 } from "@playbook/ui";
-import { Cog, List, Shapes } from "lucide-react";
+import { Shapes } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 import { MobileNavigation, SidebarNavigation } from "./navigation";
-import { UserDropdown } from "@/components/UserDropdown/UserDropdown";
 
 const Logo = () => (
   <Flex gap={"xs"} align={"center"} justify={"center"}>

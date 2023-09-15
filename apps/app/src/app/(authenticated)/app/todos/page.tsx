@@ -1,6 +1,6 @@
 import { DashboardMain, DashboardMainHeader, Flex } from "@playbook/ui";
 import { TodoListCell } from "@/components/TodoListCell/TodoListCell";
-import { AddTodoDialogue } from "@/components/AddTodoDialogue/AddTodoDialogue";
+import { AddTodoForm } from "@/components/AddTodoForm/AddTodoForm";
 
 export default function Page() {
   return (
@@ -13,7 +13,7 @@ export default function Page() {
           </p>
         </Flex>
         <Flex>
-          <AddTodoDialogue />
+          <AddTodoForm />
         </Flex>
       </DashboardMainHeader>
       <TodoListCell />
