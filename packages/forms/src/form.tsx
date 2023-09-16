@@ -182,6 +182,35 @@ const FormFooter = React.forwardRef<
   );
 });
 
+const FormHeader = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn(
+      "flex flex-col space-y-1.5 text-center sm:text-left",
+      className
+    )}
+    {...props}
+  />
+);
+FormHeader.displayName = "FormHeader";
+
+const FormTitle = React.forwardRef<
+  HTMLHeadingElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <p
+    ref={ref}
+    className={cn(
+      "text-lg font-semibold leading-none tracking-tight",
+      className
+    )}
+    {...props}
+  />
+));
+FormTitle.displayName = "FormTitle";
+
 export {
   useFormField,
   Form,
@@ -192,4 +221,6 @@ export {
   FormMessage,
   FormFooter,
   FormField,
+  FormHeader,
+  FormTitle,
 };

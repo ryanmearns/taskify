@@ -39,7 +39,7 @@ export const TodoList = (props: { data: Todos }) => {
                 optimisticUpdate={updateOptimisticTodo}
               />
             </div>
-            <Link href={`/app/todo/${todo.uuid}`} className="grow">
+            <Link href={`/app/todos/todo/${todo.uuid}`} className="grow">
               <Flex direction={"column"} grow gap={"xs"} className="py-6">
                 <span
                   className={cn(

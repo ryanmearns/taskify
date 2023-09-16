@@ -1,6 +1,13 @@
-import { DashboardMain, DashboardMainHeader, Flex } from "@playbook/ui";
 import { TodoListCell } from "@/components/TodoListCell/TodoListCell";
-import { AddTodoForm } from "@/components/AddTodoForm/AddTodoForm";
+import {
+  Button,
+  ButtonIcon,
+  DashboardMain,
+  DashboardMainHeader,
+  Flex,
+} from "@playbook/ui";
+import { Plus } from "lucide-react";
+import Link from "next/link";
 
 export default function Page() {
   return (
@@ -13,7 +20,12 @@ export default function Page() {
           </p>
         </Flex>
         <Flex>
-          <AddTodoForm />
+          <Link href={"/app/todos/new"}>
+            <Button variant="outline" block>
+              <ButtonIcon Icon={<Plus />} orientation={"leading"} />
+              Create todo
+            </Button>
+          </Link>
         </Flex>
       </DashboardMainHeader>
       <TodoListCell />

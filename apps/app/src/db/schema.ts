@@ -91,11 +91,11 @@ export const todos = pgTable("todos", {
   uuid: text("uuid").notNull().primaryKey(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  workspaceUuid: text("workspaceUuid").notNull(),
   content: text("content"),
   description: text("description"),
   status: statusEnum("status").default("todo"),
   dueDate: date("due_date", { mode: "string" }),
-  workspaceUuid: text("workspaceUuid").notNull(),
 });
 
 export const todoRelations = relations(todos, ({ one }) => ({

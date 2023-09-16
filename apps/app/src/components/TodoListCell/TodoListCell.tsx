@@ -1,4 +1,4 @@
-import { TodoList } from "@/components/TodoList/TodoList";
+import { TodoList } from "../TodoList/TodoList";
 import { Cell } from "@/components/utils/cell";
 import { getTenant } from "@/services/tenant";
 import { getTodos } from "@/services/todos";
@@ -18,6 +18,7 @@ export function TodoListCell() {
     </Cell>
   );
 }
+
 async function Data() {
   const data = await QUERY();
 

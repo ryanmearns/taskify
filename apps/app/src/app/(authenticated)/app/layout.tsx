@@ -18,11 +18,7 @@ const Logo = () => (
   </Flex>
 );
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <>
       <Toaster />
@@ -47,7 +43,7 @@ export default async function RootLayout({
           <SidebarNavigation />
         </DashboardSidebar>
         {/* //Main */}
-        {children}
+        {props.children}
       </Dashboard>
     </>
   );
