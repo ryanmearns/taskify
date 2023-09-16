@@ -16,7 +16,7 @@ import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 import * as React from "react";
 import toast from "react-hot-toast";
-import { updateUserEmailAction } from "./UpdateUserEmailForm.action";
+import { updateUserEmailAction } from "../../_api/update-user-email";
 
 const UpdateEmailForm = (props: { session: Session }) => {
   const [email, setEmail] = React.useState(props.session.user.email);

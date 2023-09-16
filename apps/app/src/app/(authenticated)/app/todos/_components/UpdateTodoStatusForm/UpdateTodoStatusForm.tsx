@@ -2,7 +2,7 @@ import { Todo, Todos } from "@/db/types";
 import { OptimisticUpdate } from "@/types/helpers";
 import { useAction } from "@/utils/actions/hook";
 import { Checkbox } from "@playbook/ui";
-import { updateTodoStatusAction } from "./UpdateTodoStatusForm.action";
+import { updateTodoStatusAction } from "../../_api/update-todo-status-form";
 
 type UpdateTodoStatusFormProps = {
   todo: Todo;

@@ -1,16 +1,20 @@
 "use client";
 
-import { DeleteTodoForm } from "@/components/DeleteTodoForm/DeleteTodoForm";
-import { UpdateTodoStatusForm } from "@/components/UpdateTodoStatusForm/UpdateTodoStatusForm";
+import { DeleteTodoForm } from "../DeleteTodoForm/DeleteTodoForm";
+import { UpdateTodoStatusForm } from "../UpdateTodoStatusForm/UpdateTodoStatusForm";
 import { Todos } from "@/db/types";
 import { useOptimistic } from "@/utils/hooks/use-optimistic";
 import { EmptyState, Flex, cn } from "@playbook/ui";
 import { ListPlus } from "lucide-react";
-import { UpdateTodoDueDateForm } from "../UpdateTodoDueDateForm/UpdateTodoDueDateForm";
 import Link from "next/link";
+import { UpdateTodoDueDateForm } from "../UpdateTodoDueDateForm/UpdateTodoDueDateForm";
 
-export const TodoList = (props: { data: Todos }) => {
-  const [optimisticTodos, updateOptimisticTodo] = useOptimistic(props.data);
+const TodoListError = () => <div>There was an error</div>;
+
+const TodoListLoading = () => <div>Loading ...</div>;
+
+const TodoList = (props: { todos: Todos }) => {
+  const [optimisticTodos, updateOptimisticTodo] = useOptimistic(props.todos);
 
   if (optimisticTodos.length === 0) {
     return (
@@ -62,3 +66,5 @@ export const TodoList = (props: { data: Todos }) => {
     </Flex>
   );
 };
+
+export { TodoList, TodoListLoading, TodoListError };

@@ -1,10 +1,9 @@
 import { Todo, Todos } from "@/db/types";
 import { OptimisticUpdate } from "@/types/helpers";
+import { useAction } from "@/utils/actions/hook";
 import { IconButton } from "@playbook/ui";
 import { Trash } from "lucide-react";
-import toast from "react-hot-toast";
-import { deleteTodoAction } from "./DeleteTodoForm.action";
-import { useAction } from "@/utils/actions/hook";
+import { deleteTodoAction } from "../../_api/delete-todo";
 
 type DeleteTodoFormProps = {
   todo: Todo;

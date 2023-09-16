@@ -1,4 +1,4 @@
-import { UserDropdown } from "@/components/UserDropdown/UserDropdown";
+import { UserDropdown } from "./_components/UserDropdown/UserDropdown";
 import {
   DashbboardMobileHeader,
   Dashboard,

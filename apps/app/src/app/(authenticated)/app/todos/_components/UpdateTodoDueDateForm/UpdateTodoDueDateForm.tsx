@@ -15,7 +15,7 @@ import {
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import toast from "react-hot-toast";
-import { updateTodoDueDateAction } from "./UpdateTodoDueDateForm.action";
+import { updateTodoDueDateAction } from "../../_api/update-todo-due-date";
 
 type UpdateTodoDueDateFormProps = {
   todo: Todo;

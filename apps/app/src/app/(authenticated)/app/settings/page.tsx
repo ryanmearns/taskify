@@ -1,3 +1,4 @@
+import { getServerAuthSession } from "@/auth/utils";
 import {
   Button,
   Card,
@@ -11,10 +12,9 @@ import {
   Flex,
   Input,
 } from "@playbook/ui";
-import { UpdateEmailForm } from "@/components/UpdateUserEmailForm/UpdateUserEmailForm";
-import { UpdateNameForm } from "@/components/UpdateUserNameForm/UpdateUserNameForm";
 import { redirect } from "next/navigation";
-import { getServerAuthSession } from "@/auth/utils";
+import { UpdateNameForm } from "./_components/UpdateUserNameForm/UpdateUserNameForm";
+import { UpdateEmailForm } from "./_components/UpdateUserEmailForm/UpdateUserEmailForm";
 
 export default async function Page() {
   const session = await getServerAuthSession();

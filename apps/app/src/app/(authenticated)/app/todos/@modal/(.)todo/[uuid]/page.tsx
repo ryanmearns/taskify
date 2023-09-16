@@ -1,5 +1,7 @@
 import { getTenant } from "@/services/tenant";
 import { getTodo } from "@/services/todos";
+import { TodoItem } from "../../../_components/TodoItem/TodoItem";
+import { notFound } from "next/navigation";
 
 export default async function Page({ params }: { params: { uuid: string } }) {
   const { workspace } = await getTenant();
@@ -9,5 +11,7 @@ export default async function Page({ params }: { params: { uuid: string } }) {
     workspaceUuid: workspace.uuid,
   });
 
-  return <div>{JSON.stringify(todo).toString()}</div>;
+  if (!todo) notFound();
+
+  return <TodoItem todo={todo} />;
 }
