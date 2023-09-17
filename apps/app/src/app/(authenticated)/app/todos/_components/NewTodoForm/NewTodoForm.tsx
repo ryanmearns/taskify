@@ -1,5 +1,6 @@
 "use client";
 
+import { useDialogTranisition } from "@/utils/hooks/use-dialog-transition";
 import {
   f,
   Form,
@@ -29,13 +30,10 @@ import {
 } from "@playbook/ui";
 import { format } from "date-fns";
 import { CalendarIcon, Loader2, Plus } from "lucide-react";
-import { useRouter } from "next/navigation";
 import * as React from "react";
 import { toast } from "react-hot-toast";
 import z from "zod";
 import { addTodoAction } from "../../_api/add-todo";
-import { useDialogTranisition } from "@/utils/hooks/use-dialog-transition";
-import { dateToIsoString } from "@/utils/dateToIsoString";
 
 const formSchema = z.object({
   content: z.string().min(2, {
@@ -66,7 +64,7 @@ export const NewTodoForm = () => {
       try {
         await addTodoAction({
           content: values.content,
-          dueDate: values.dueDate && dateToIsoString(values.dueDate),
+          dueDate: values.dueDate && values.dueDate,
         });
         setOpen(false);
       } catch (error) {

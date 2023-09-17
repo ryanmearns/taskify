@@ -16,7 +16,7 @@ export const SidebarNavigation = () => (
 );
 
 const navigation: NavigationItems = [
-  { label: "All", icon: <List />, href: "/app/todos" },
+  { label: "All", icon: <List />, href: "/app/todos/all" },
   { label: "Today", icon: <Calendar />, href: "/app/todos/today" },
   { label: "Upcoming", icon: <CalendarDays />, href: "/app/todos/upcoming" },
   { label: "Projects", icon: <Folder />, href: "/app/projects" },

@@ -2,20 +2,20 @@ import { getTenant } from "@/services/tenant";
 import { getTodos } from "@/services/todos";
 import { DashboardMain, Flex } from "@playbook/ui";
 import { notFound } from "next/navigation";
-import { TodoList } from "./_components/TodoList/TodoList";
-import { NewTodoForm } from "./_components/NewTodoForm/NewTodoForm";
+import { NewTodoForm } from "../_components/NewTodoForm/NewTodoForm";
+import { TodoList } from "../_components/TodoList/TodoList";
 
 export default async function Page() {
   const { workspace } = await getTenant();
 
-  const todos = await getTodos({ workspaceUuid: workspace.uuid });
+  const data = await getTodos({ workspaceUuid: workspace.uuid });
 
-  if (!todos) notFound();
+  if (!data) notFound();
 
   return (
     <DashboardMain className="container">
       <PageHeader />
-      <TodoList todos={todos} />
+      <TodoList todos={data} />
     </DashboardMain>
   );
 }

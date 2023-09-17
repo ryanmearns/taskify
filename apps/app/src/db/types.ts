@@ -12,3 +12,7 @@ export type TodoSchema = InferInsertModel<typeof schema.todos>;
 export type Workspace = InferSelectModel<typeof schema.workspace>;
 export type Workspaces = InferSelectModel<typeof schema.workspace>[];
 export type WorkspaceSchema = InferInsertModel<typeof schema.workspace>;
+
+export type Project = InferSelectModel<typeof schema.projects>;
+export type Projects = InferSelectModel<typeof schema.projects>[];
+export type ProjectSchema = InferInsertModel<typeof schema.projects>;

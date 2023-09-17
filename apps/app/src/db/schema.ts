@@ -95,12 +95,27 @@ export const todos = pgTable("todos", {
   content: text("content"),
   description: text("description"),
   status: statusEnum("status").default("todo"),
-  dueDate: date("due_date", { mode: "string" }),
+  dueDate: timestamp("due_date"),
 });
 
 export const todoRelations = relations(todos, ({ one }) => ({
   todo: one(workspace, {
     fields: [todos.workspaceUuid],
+    references: [workspace.uuid],
+  }),
+}));
+
+export const projects = pgTable("projects", {
+  uuid: text("uuid").notNull().primaryKey(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  workspaceUuid: text("workspaceUuid").notNull(),
+  name: text("name"),
+});
+
+export const projectRelations = relations(projects, ({ one }) => ({
+  project: one(workspace, {
+    fields: [projects.workspaceUuid],
     references: [workspace.uuid],
   }),
 }));

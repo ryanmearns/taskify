@@ -3,7 +3,6 @@
 import { Todo, Todos } from "@/db/types";
 import { OptimisticUpdate } from "@/types/helpers";
 import { useAction } from "@/utils/actions/hook";
-import { dateToIsoString } from "@/utils/dateToIsoString";
 import {
   Button,
   ButtonIcon,
@@ -23,7 +22,7 @@ type UpdateTodoDueDateFormProps = {
 };
 
 export const UpdateTodoDueDateForm = (props: UpdateTodoDueDateFormProps) => {
-  const dueDate = props.todo.dueDate ? new Date(props.todo.dueDate) : undefined;
+  const dueDate = props.todo.dueDate ? props.todo.dueDate : undefined;
 
   const action = useAction(updateTodoDueDateAction, {
     onMutate: (input) => {
@@ -75,7 +74,7 @@ export const UpdateTodoDueDateForm = (props: UpdateTodoDueDateFormProps) => {
             if (date) {
               action.execute({
                 uuid: props.todo.uuid,
-                dueDate: dateToIsoString(date),
+                dueDate: date,
               });
             }
           }}

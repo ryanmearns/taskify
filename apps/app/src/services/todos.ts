@@ -11,6 +11,19 @@ export const getTodos = async (arg: Pick<TodoSchema, "workspaceUuid">) => {
   });
 };
 
+export const getTodosDueToday = async (
+  arg: Pick<TodoSchema, "workspaceUuid">
+) => {
+  return await db.query.todos.findMany({
+    orderBy: (todos, { desc }) => [desc(todos.createdAt)],
+    where: (todos, { eq, and, lt }) =>
+      and(
+        eq(todos.workspaceUuid, arg.workspaceUuid),
+        lt(todos.dueDate, new Date())
+      ),
+  });
+};
+
 export const getTodo = async (
   arg: Pick<TodoSchema, "uuid" | "workspaceUuid">
 ) => {
