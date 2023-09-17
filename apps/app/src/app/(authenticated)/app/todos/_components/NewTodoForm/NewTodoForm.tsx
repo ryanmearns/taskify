@@ -5,7 +5,6 @@ import {
   f,
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormFooter,
   FormHeader,
@@ -27,6 +26,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Textarea,
 } from "@playbook/ui";
 import { format } from "date-fns";
 import { CalendarIcon, Loader2, Plus } from "lucide-react";
@@ -39,6 +39,7 @@ const formSchema = z.object({
   content: z.string().min(2, {
     message: "Message must be at least 2 characters.",
   }),
+  description: z.string().optional(),
   dueDate: z.date().optional(),
 });
 
@@ -56,6 +57,8 @@ export const NewTodoForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       content: "",
+      description: "",
+      dueDate: new Date(),
     },
   });
 
@@ -63,8 +66,7 @@ export const NewTodoForm = () => {
     startTransition(async () => {
       try {
         await addTodoAction({
-          content: values.content,
-          dueDate: values.dueDate && values.dueDate,
+          ...values,
         });
         setOpen(false);
       } catch (error) {
@@ -86,7 +88,6 @@ export const NewTodoForm = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormHeader>
               <FormTitle>Create a todo</FormTitle>
-              <FormDescription>Add a todo to your list</FormDescription>
             </FormHeader>
             <FormField
               control={form.control}
@@ -96,6 +97,19 @@ export const NewTodoForm = () => {
                   <FormLabel>Task</FormLabel>
                   <FormControl>
                     <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -128,16 +142,11 @@ export const NewTodoForm = () => {
                         )}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent
-                      inDialog
-                      className="w-auto p-0"
-                      align="start"
-                    >
+                    <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
-                        initialFocus
                       />
                     </PopoverContent>
                   </Popover>
@@ -146,7 +155,8 @@ export const NewTodoForm = () => {
               )}
             />
             <FormFooter>
-              <Button type="submit" size={"md"}>
+              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button type="submit" variant={"solid"} size={"md"}>
                 {!isPending ? (
                   "Create"
                 ) : (

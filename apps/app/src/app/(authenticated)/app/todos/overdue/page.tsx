@@ -1,14 +1,14 @@
 import { getTenant } from "@/services/tenant";
-import { getTodos } from "@/services/todos";
+import { getTodosOverdue, getTodosUpcoming } from "@/services/todos";
 import { DashboardMain, Flex } from "@playbook/ui";
 import { notFound } from "next/navigation";
 import { NewTodoForm } from "../_components/NewTodoForm/NewTodoForm";
-import { TodoList, TodoListLoading } from "../_components/TodoList/TodoList";
+import { TodoList } from "../_components/TodoList/TodoList";
 
 export default async function Page() {
   const { workspace } = await getTenant();
 
-  const data = await getTodos({ workspaceUuid: workspace.uuid });
+  const data = await getTodosOverdue({ workspaceUuid: workspace.uuid });
 
   if (!data) notFound();
 
@@ -28,7 +28,7 @@ const PageHeader = () => (
     className="w-full bg-white z-10"
   >
     <Flex direction={"column"} gap={"xs"}>
-      <h1 className="text-xl font-semibold">Inbox</h1>
+      <h1 className="text-xl font-semibold">Overdue</h1>
     </Flex>
     <Flex>
       <NewTodoForm />

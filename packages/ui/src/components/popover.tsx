@@ -11,21 +11,10 @@ const PopoverTrigger = PopoverPrimitive.Trigger;
 
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> & {
-    inDialog?: boolean;
-  }
->(
-  (
-    { className, align = "center", inDialog, sideOffset = 4, ...props },
-    ref
-  ) => (
-    <PopoverPrimitive.Portal
-      container={
-        inDialog === true
-          ? (document.querySelector("[role=dialog]") as HTMLElement)
-          : undefined
-      }
-    >
+  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
+>(({ className, align = "center", sideOffset = 4, ...props }, ref) => {
+  return (
+    <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content
         ref={ref}
         align={align}
@@ -38,8 +27,8 @@ const PopoverContent = React.forwardRef<
         {...props}
       />
     </PopoverPrimitive.Portal>
-  )
-);
+  );
+});
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
 export { Popover, PopoverTrigger, PopoverContent };

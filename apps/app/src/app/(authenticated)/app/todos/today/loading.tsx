@@ -12,10 +12,7 @@ export default async function Loading() {
         className="w-full bg-white z-10"
       >
         <Flex direction={"column"} gap={"xs"}>
-          <h1 className="text-xl font-semibold">Todos</h1>
-          <p className="text-sm text-muted-foreground hidden md:block">
-            Keep track of your todos.
-          </p>
+          <h1 className="text-xl font-semibold">Today</h1>
         </Flex>
         <Flex>
           <NewTodoForm />

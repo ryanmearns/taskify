@@ -12,7 +12,7 @@ export default async function Loading() {
         className="w-full bg-white z-10"
       >
         <Flex direction={"column"} gap={"xs"}>
-          <h1 className="text-xl font-semibold">Inbox</h1>
+          <h1 className="text-xl font-semibold">Upcoming</h1>
         </Flex>
         <Flex>
           <NewTodoForm />

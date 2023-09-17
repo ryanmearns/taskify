@@ -10,6 +10,7 @@ import {
   timestamp,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
+import { todo } from "node:test";
 
 export const users = pgTable("user", {
   id: text("id").notNull().primaryKey(),
@@ -78,7 +79,7 @@ export const workspace = pgTable(
 );
 
 export const workspaceRelations = relations(workspace, ({ one, many }) => ({
-  workspace: one(users, {
+  users: one(users, {
     fields: [workspace.tenantId],
     references: [users.id],
   }),
@@ -94,14 +95,19 @@ export const todos = pgTable("todos", {
   workspaceUuid: text("workspaceUuid").notNull(),
   content: text("content"),
   description: text("description"),
-  status: statusEnum("status").default("todo"),
-  dueDate: timestamp("due_date"),
+  status: statusEnum("status").default("todo").notNull(),
+  dueDate: timestamp("due_date", { precision: 6, withTimezone: true }),
+  projectUuid: text("projectUuid"),
 });
 
 export const todoRelations = relations(todos, ({ one }) => ({
-  todo: one(workspace, {
+  workspace: one(workspace, {
     fields: [todos.workspaceUuid],
     references: [workspace.uuid],
+  }),
+  project: one(projects, {
+    fields: [todos.projectUuid],
+    references: [projects.uuid],
   }),
 }));
 
@@ -111,11 +117,15 @@ export const projects = pgTable("projects", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
   workspaceUuid: text("workspaceUuid").notNull(),
   name: text("name"),
+  description: text("description"),
+  status: statusEnum("status").default("todo").notNull(),
+  dueDate: timestamp("due_date", { precision: 6, withTimezone: true }),
 });
 
-export const projectRelations = relations(projects, ({ one }) => ({
-  project: one(workspace, {
+export const projectRelations = relations(projects, ({ one, many }) => ({
+  workspace: one(workspace, {
     fields: [projects.workspaceUuid],
     references: [workspace.uuid],
   }),
+  todos: many(todos),
 }));

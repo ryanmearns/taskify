@@ -75,7 +75,7 @@ const DashboardSidebar = (props: { children: React.ReactNode }) => {
     <Flex
       justify={"between"}
       direction={"column"}
-      className="w-64 hidden lg:flex border-r h-screen sticky top-0 bg-muted/20"
+      className="w-64 hidden flex-none lg:flex border-r h-screen sticky top-0 bg-muted/20"
     >
       <Flex direction={"column"} gap={"lg"}>
         {props.children}
