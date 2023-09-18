@@ -10,6 +10,9 @@ export const getProjects = async (
   return await db.query.projects.findMany({
     orderBy: (projects, { desc }) => [desc(projects.createdAt)],
     where: eq(projects.workspaceUuid, arg.workspaceUuid),
+    with: {
+      todos: true,
+    },
   });
 };
 

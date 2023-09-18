@@ -1,6 +1,6 @@
 import { DashboardMain, Flex } from "@playbook/ui";
 import { NewTodoForm } from "../_components/NewTodoForm/NewTodoForm";
-import { TodoListLoading } from "../_components/TodoList/TodoList";
+import { TodoListLoading } from "../_components/TodoList/TodoList.skeleton";
 
 export default async function Loading() {
   return (

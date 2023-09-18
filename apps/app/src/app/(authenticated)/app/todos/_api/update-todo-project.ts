@@ -5,20 +5,16 @@ import { updateTodo } from "@/services/todos";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-export const updateTodoAction = api.protectedAction(
-  z.object({
-    uuid: z.string(),
-    content: z.string().optional(),
-    description: z.string().optional(),
-    status: z.enum(["todo", "done"]).optional(),
-  }),
+export const updateTodoProject = api.protectedAction(
+  z.object({ uuid: z.string(), projectUuid: z.string() }),
   async (input, ctx) => {
     const data = await updateTodo({
-      ...input,
+      uuid: input.uuid,
       workspaceUuid: ctx.workspace.uuid,
+      projectUuid: input.projectUuid,
     });
 
-    revalidatePath("/app/todos");
+    revalidatePath("/app");
 
     return data;
   }

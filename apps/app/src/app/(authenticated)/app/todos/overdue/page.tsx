@@ -1,7 +1,7 @@
+import { getProjects } from "@/services/project";
 import { getTenant } from "@/services/tenant";
-import { getTodosOverdue, getTodosUpcoming } from "@/services/todos";
+import { getTodosOverdue } from "@/services/todos";
 import { DashboardMain, Flex } from "@playbook/ui";
-import { notFound } from "next/navigation";
 import { NewTodoForm } from "../_components/NewTodoForm/NewTodoForm";
 import { TodoList } from "../_components/TodoList/TodoList";
 
@@ -10,12 +10,12 @@ export default async function Page() {
 
   const data = await getTodosOverdue({ workspaceUuid: workspace.uuid });
 
-  if (!data) notFound();
+  const projects = await getProjects({ workspaceUuid: workspace.uuid });
 
   return (
     <DashboardMain className="container">
       <PageHeader />
-      <TodoList todos={data} />
+      <TodoList todos={data} projects={projects} />
     </DashboardMain>
   );
 }

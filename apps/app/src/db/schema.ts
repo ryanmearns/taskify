@@ -1,7 +1,6 @@
 import type { AdapterAccount } from "@auth/core/adapters";
 import { relations } from "drizzle-orm";
 import {
-  date,
   integer,
   pgEnum,
   pgTable,
@@ -10,7 +9,6 @@ import {
   timestamp,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
-import { todo } from "node:test";
 
 export const users = pgTable("user", {
   id: text("id").notNull().primaryKey(),
