@@ -1,14 +1,27 @@
-import HeroSection from "./_components/hero-section";
+import { Metadata } from "next";
+import { Banner } from "./_components/banner";
+import { Features } from "./_components/features";
+import { Footer } from "./_components/footer";
+import { Hero } from "./_components/hero";
+
+export const metadata: Metadata = {
+  title: "Taskify",
+  description: "Open source task management",
+  icons: ["/icon.png"],
+};
 
 export default function Page() {
   return (
     <div>
-      <HeroSection
+      <Banner />
+      <Hero
         title={"Track your todo list securely"}
         description={
-          "OpenDo is an open-source todo app that you can deploy easily with your own database so you data is secure and private."
+          "Taskify is an open-source todo app that you can deploy easily with your own database so you data is secure and private."
         }
       />
+      <Features />
+      <Footer />
     </div>
   );
 }

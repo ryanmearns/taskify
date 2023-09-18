@@ -14,7 +14,7 @@ import { MobileNavigation, SidebarNavigation } from "./navigation";
 const Logo = () => (
   <Flex gap={"xs"} align={"center"} justify={"center"}>
     <Shapes className="h-5 w-5" />
-    <span className="font-medium text-lg">OpenDo</span>
+    <span className="font-medium text-lg">Taskify</span>
   </Flex>
 );
 

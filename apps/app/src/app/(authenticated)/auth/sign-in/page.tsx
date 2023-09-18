@@ -19,7 +19,7 @@ export default async function Page() {
           <div className="absolute inset-0 bg-zinc-900" />
           <Flex gap={"xs"} align={"center"}>
             <Shapes className="h-6 w-6" />
-            <span className="font-semibold text-lg">OpenDo</span>
+            <span className="font-semibold text-lg">Taskify</span>
           </Flex>
         </div>
         <div className="p-8 h-full">

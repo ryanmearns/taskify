@@ -8,7 +8,7 @@ const ibm = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "OpenDo",
+  title: "Taskify",
   description: "An open-source todo app",
 };
 

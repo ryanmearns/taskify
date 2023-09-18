@@ -77,11 +77,11 @@ export const authConfig: NextAuthOptions = {
           await resend.sendEmail({
             to: email,
             from: "info@ryanmearns.com",
-            subject: `Sign in to OpenDo`,
+            subject: `Sign in to Taskify`,
             react: VerificationEmailTemplate({
               url: url,
               email: email,
-              brandName: "OpenDo",
+              brandName: "Taskify",
             }),
           });
         } catch (error) {
