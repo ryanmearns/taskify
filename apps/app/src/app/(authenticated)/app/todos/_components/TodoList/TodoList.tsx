@@ -50,14 +50,22 @@ const TodoList = (props: { todos: Todos; projects: Projects }) => {
       direction={"column"}
       className="border border-input rounded-md w-full divide-y"
     >
-      {optimisticTodos.map((todo) => (
-        <TodoItem
-          key={todo.uuid}
-          todo={todo}
-          updateOptimisticTodo={updateOptimisticTodo}
-          projects={props.projects}
-        />
-      ))}
+      {optimisticTodos
+        .sort((a, b) => {
+          if (a.status === "done") {
+            return 1;
+          }
+
+          return -1;
+        })
+        .map((todo) => (
+          <TodoItem
+            key={todo.uuid}
+            todo={todo}
+            updateOptimisticTodo={updateOptimisticTodo}
+            projects={props.projects}
+          />
+        ))}
     </Flex>
   );
 };

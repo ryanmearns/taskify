@@ -15,6 +15,8 @@ import {
   zodResolver,
 } from "@playbook/forms";
 import {
+  Avatar,
+  AvatarImage,
   Button,
   ButtonIcon,
   Calendar,
@@ -26,6 +28,11 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   Textarea,
 } from "@playbook/ui";
 import { format } from "date-fns";
@@ -34,6 +41,7 @@ import * as React from "react";
 import { toast } from "react-hot-toast";
 import z from "zod";
 import { addTodoAction } from "../../_api/add-todo";
+import { Projects } from "@/db/types";
 
 const formSchema = z.object({
   content: z.string().min(2, {
@@ -41,9 +49,10 @@ const formSchema = z.object({
   }),
   description: z.string().optional(),
   dueDate: z.date().optional(),
+  projectUuid: z.string().optional(),
 });
 
-export const NewTodoForm = () => {
+export const NewTodoForm = (props: { projects: Projects }) => {
   const [isPending, startTransition] = React.useTransition();
 
   const { open, setOpen } = useDialogTranisition({
@@ -150,6 +159,46 @@ export const NewTodoForm = () => {
                       />
                     </PopoverContent>
                   </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="projectUuid"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Project</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="No project selected" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {props.projects.map((project) => (
+                        <SelectItem key={project.uuid} value={project.uuid}>
+                          <span className="flex gap-2 items-center">
+                            <Avatar className="h-4 w-4">
+                              <AvatarImage
+                                src={`https://avatar.vercel.sh/${project.name}`}
+                              />
+                            </Avatar>
+                            {project.name}
+                          </span>
+                        </SelectItem>
+                      ))}
+                      <SelectItem value={"No project"}>
+                        <span className="flex gap-2 items-center">
+                          No project
+                        </span>
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+
                   <FormMessage />
                 </FormItem>
               )}

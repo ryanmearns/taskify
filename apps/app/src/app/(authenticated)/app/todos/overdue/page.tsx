@@ -14,27 +14,23 @@ export default async function Page() {
 
   return (
     <DashboardMain className="container">
-      <PageHeader />
+      <Flex
+        justify={"between"}
+        align={"center"}
+        position={"relative"}
+        className="w-full bg-white z-10"
+      >
+        <Flex direction={"column"} gap={"xs"}>
+          <h1 className="text-xl font-semibold">Overdue</h1>
+          <p className="text-sm font-normal text-foreground/50">
+            View overdue todos.
+          </p>
+        </Flex>
+        <Flex>
+          <NewTodoForm projects={projects} />
+        </Flex>
+      </Flex>
       <TodoList todos={data} projects={projects} />
     </DashboardMain>
   );
 }
-
-const PageHeader = () => (
-  <Flex
-    justify={"between"}
-    align={"center"}
-    position={"relative"}
-    className="w-full bg-white z-10"
-  >
-    <Flex direction={"column"} gap={"xs"}>
-      <h1 className="text-xl font-semibold">Overdue</h1>
-      <p className="text-sm font-normal text-foreground/50">
-        View overdue todos.
-      </p>
-    </Flex>
-    <Flex>
-      <NewTodoForm />
-    </Flex>
-  </Flex>
-);

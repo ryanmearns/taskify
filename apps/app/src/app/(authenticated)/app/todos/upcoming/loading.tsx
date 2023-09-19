@@ -1,5 +1,4 @@
 import { DashboardMain, Flex } from "@playbook/ui";
-import { NewTodoForm } from "../_components/NewTodoForm/NewTodoForm";
 import { TodoListLoading } from "../_components/TodoList/TodoList.skeleton";
 
 export default async function Loading() {
@@ -16,9 +15,6 @@ export default async function Loading() {
           <p className="text-sm font-normal text-foreground/50">
             View upcoming todos.
           </p>
-        </Flex>
-        <Flex>
-          <NewTodoForm />
         </Flex>
       </Flex>
       <TodoListLoading />

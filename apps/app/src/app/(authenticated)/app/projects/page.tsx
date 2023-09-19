@@ -12,9 +12,9 @@ import {
 import { format } from "date-fns";
 import { CalendarCheck, CheckCircle } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { NewProjectForm } from "./_components/NewProjectForm/NewProjectForm";
-import Link from "next/link";
 
 export default async function Page() {
   const { workspace } = await getTenant();
@@ -25,7 +25,22 @@ export default async function Page() {
 
   return (
     <DashboardMain className="container">
-      <PageHeader />
+      <Flex
+        justify={"between"}
+        align={"center"}
+        position={"relative"}
+        className="w-full bg-white z-10"
+      >
+        <Flex direction={"column"} gap={"xs"}>
+          <h1 className="text-xl font-semibold">Projects</h1>
+          <p className="text-sm font-normal text-foreground/50">
+            View all projects.
+          </p>
+        </Flex>
+        <Flex>
+          <NewProjectForm />
+        </Flex>
+      </Flex>
       <List projects={projects} />
     </DashboardMain>
   );
@@ -74,22 +89,3 @@ const ProjectCard = (props: {
     </Link>
   );
 };
-
-const PageHeader = () => (
-  <Flex
-    justify={"between"}
-    align={"center"}
-    position={"relative"}
-    className="w-full bg-white z-10"
-  >
-    <Flex direction={"column"} gap={"xs"}>
-      <h1 className="text-xl font-semibold">Projects</h1>
-      <p className="text-sm font-normal text-foreground/50">
-        View all projects.
-      </p>
-    </Flex>
-    <Flex>
-      <NewProjectForm />
-    </Flex>
-  </Flex>
-);

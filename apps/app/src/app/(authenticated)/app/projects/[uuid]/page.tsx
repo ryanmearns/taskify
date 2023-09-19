@@ -20,29 +20,23 @@ export default async function Page(props: { params: { uuid: string } }) {
 
   return (
     <DashboardMain className="container">
-      <PageHeader project={project} />
+      <Flex
+        justify={"between"}
+        align={"center"}
+        position={"relative"}
+        className="w-full bg-white z-10"
+      >
+        <Flex direction={"column"} gap={"xs"}>
+          <h1 className="text-xl font-semibold">{project.name}</h1>
+          <p className="text-sm font-normal text-foreground/50">
+            {project.description ? project.description : "No description"}
+          </p>
+        </Flex>
+        <Flex>
+          <NewTodoForm projects={projects} />
+        </Flex>
+      </Flex>{" "}
       <TodoList todos={project.todos} projects={projects} />
     </DashboardMain>
   );
 }
-
-const PageHeader = (props: { project: Project }) => (
-  <Flex
-    justify={"between"}
-    align={"center"}
-    position={"relative"}
-    className="w-full bg-white z-10"
-  >
-    <Flex direction={"column"} gap={"xs"}>
-      <h1 className="text-xl font-semibold">{props.project.name}</h1>
-      <p className="text-sm font-normal text-foreground/50">
-        {props.project.description
-          ? props.project.description
-          : "No description"}
-      </p>
-    </Flex>
-    <Flex>
-      <NewTodoForm />
-    </Flex>
-  </Flex>
-);

@@ -1,5 +1,4 @@
 import { DashboardMain, Flex, Skeleton } from "@playbook/ui";
-import { NewTodoForm } from "../../todos/_components/NewTodoForm/NewTodoForm";
 import { TodoListLoading } from "../../todos/_components/TodoList/TodoList.skeleton";
 
 export default async function Loading() {
@@ -16,9 +15,7 @@ export default async function Loading() {
             <Skeleton className="h-[28px] w-96" />
           </h1>
         </Flex>
-        <Flex>
-          <NewTodoForm />
-        </Flex>
+        <Flex></Flex>
       </Flex>
       <TodoListLoading />
     </DashboardMain>

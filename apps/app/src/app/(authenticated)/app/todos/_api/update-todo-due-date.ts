@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 export const updateTodoDueDateAction = api.protectedAction(
-  z.object({ uuid: z.string(), dueDate: z.date() }),
+  z.object({ uuid: z.string(), dueDate: z.date().nullable() }),
   async (input, ctx) => {
     const data = await updateTodo({
       uuid: input.uuid,

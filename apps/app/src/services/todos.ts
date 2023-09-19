@@ -12,8 +12,8 @@ export const getTodos = async (arg: Pick<TodoSchema, "workspaceUuid">) => {
     orderBy: (todos, { desc }) => [desc(todos.createdAt)],
     where: (todos, { eq, and, lte, gte }) =>
       and(
-        eq(todos.workspaceUuid, arg.workspaceUuid),
-        gte(todos.dueDate, lastWeek)
+        eq(todos.workspaceUuid, arg.workspaceUuid)
+        // gte(todos.dueDate, lastWeek)
       ),
   });
 };

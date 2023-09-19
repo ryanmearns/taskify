@@ -1,10 +1,9 @@
+import { getProjects } from "@/services/project";
 import { getTenant } from "@/services/tenant";
 import { getTodos } from "@/services/todos";
 import { DashboardMain, Flex } from "@playbook/ui";
-import { notFound } from "next/navigation";
 import { NewTodoForm } from "../_components/NewTodoForm/NewTodoForm";
 import { TodoList } from "../_components/TodoList/TodoList";
-import { getProjects } from "@/services/project";
 
 export default async function Page() {
   const { workspace } = await getTenant();
@@ -15,25 +14,23 @@ export default async function Page() {
 
   return (
     <DashboardMain className="container">
-      <PageHeader />
+      <Flex
+        justify={"between"}
+        align={"center"}
+        position={"relative"}
+        className="w-full bg-white z-10"
+      >
+        <Flex direction={"column"} gap={"xs"}>
+          <h1 className="text-xl font-semibold">Inbox</h1>
+          <p className="text-sm font-normal text-foreground/50">
+            View all todos.
+          </p>
+        </Flex>
+        <Flex>
+          <NewTodoForm projects={projects} />
+        </Flex>
+      </Flex>
       <TodoList todos={todos} projects={projects} />
     </DashboardMain>
   );
 }
-
-const PageHeader = () => (
-  <Flex
-    justify={"between"}
-    align={"center"}
-    position={"relative"}
-    className="w-full bg-white z-10"
-  >
-    <Flex direction={"column"} gap={"xs"}>
-      <h1 className="text-xl font-semibold">Inbox</h1>
-      <p className="text-sm font-normal text-foreground/50">View all todos.</p>
-    </Flex>
-    <Flex>
-      <NewTodoForm />
-    </Flex>
-  </Flex>
-);

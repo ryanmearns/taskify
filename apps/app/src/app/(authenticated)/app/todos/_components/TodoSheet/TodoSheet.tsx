@@ -29,7 +29,7 @@ import {
   cn,
 } from "@playbook/ui";
 import { format } from "date-fns";
-import { CalendarIcon, CheckCircle2, Pen } from "lucide-react";
+import { CalendarIcon, CheckCircle2, Pen, X } from "lucide-react";
 import * as React from "react";
 import { updateTodoDueDateAction } from "../../_api/update-todo-due-date";
 import toast from "react-hot-toast";
@@ -273,39 +273,41 @@ const UpdateTodoDueDate = (props: {
   return (
     <Flex direction={"column"} gap={"sm"}>
       <Label>Due date</Label>
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            variant={"outline"}
-            size={"lg"}
-            className={cn(
-              "justify-start px-3",
-              !props.todo.dueDate && "text-muted-foreground"
-            )}
-          >
-            <ButtonIcon Icon={<CalendarIcon />} orientation={"leading"} />
-            {props.todo.dueDate ? (
-              format(props.todo.dueDate, "PPP")
-            ) : (
-              <span>Pick a date</span>
-            )}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            mode="single"
-            selected={dueDate}
-            onSelect={(date) => {
-              if (date) {
-                action.execute({
-                  uuid: props.todo.uuid,
-                  dueDate: date,
-                });
-              }
-            }}
-          />
-        </PopoverContent>
-      </Popover>
+      <Flex align={"center"} gap={"md"}>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant={"outline"}
+              size={"lg"}
+              className={cn(
+                "justify-start px-3 w-full",
+                !props.todo.dueDate && "text-muted-foreground"
+              )}
+            >
+              <ButtonIcon Icon={<CalendarIcon />} orientation={"leading"} />
+              {props.todo.dueDate ? (
+                format(props.todo.dueDate, "PPP")
+              ) : (
+                <span>Pick a date</span>
+              )}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className=" p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={dueDate}
+              onSelect={(date) => {
+                if (date) {
+                  action.execute({
+                    uuid: props.todo.uuid,
+                    dueDate: date,
+                  });
+                }
+              }}
+            />
+          </PopoverContent>
+        </Popover>
+      </Flex>
     </Flex>
   );
 };
@@ -324,9 +326,12 @@ const UpdateTodoProject = (props: {
           return data;
         }
 
+        const projectVal =
+          input.projectUuid === "No project" ? null : input.projectUuid;
+
         const newTodo: Todo = {
           ...updateTodo,
-          projectUuid: input.projectUuid,
+          projectUuid: projectVal,
         };
 
         const newTodos = data.map((todo) => {
@@ -348,32 +353,35 @@ const UpdateTodoProject = (props: {
   return (
     <Flex direction={"column"} gap={"sm"}>
       <Label>Project</Label>
-      <Select
-        onValueChange={(val) => {
-          action.execute({ uuid: props.todo.uuid, projectUuid: val });
-        }}
-        defaultValue={
-          props.todo.projectUuid ? props.todo.projectUuid : undefined
-        }
-      >
-        <SelectTrigger>
-          <SelectValue placeholder="No project selected" />
-        </SelectTrigger>
-        <SelectContent>
-          {props.projects.map((project) => (
-            <SelectItem key={project.uuid} value={project.uuid}>
-              <span className="flex gap-2 items-center">
-                <Avatar className="h-4 w-4">
-                  <AvatarImage
-                    src={`https://avatar.vercel.sh/${project.name}`}
-                  />
-                </Avatar>
-                {project.name}
-              </span>
+      <Flex gap={"sm"} align={"center"}>
+        <Select
+          onValueChange={(val) => {
+            action.execute({ uuid: props.todo.uuid, projectUuid: val });
+          }}
+          value={props.todo.projectUuid ? props.todo.projectUuid : "No project"}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="No project selected" />
+          </SelectTrigger>
+          <SelectContent>
+            {props.projects.map((project) => (
+              <SelectItem key={project.uuid} value={project.uuid}>
+                <span className="flex gap-2 items-center">
+                  <Avatar className="h-4 w-4">
+                    <AvatarImage
+                      src={`https://avatar.vercel.sh/${project.name}`}
+                    />
+                  </Avatar>
+                  {project.name}
+                </span>
+              </SelectItem>
+            ))}
+            <SelectItem value={"No project"}>
+              <span className="flex gap-2 items-center">No project</span>
             </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+          </SelectContent>
+        </Select>
+      </Flex>
     </Flex>
   );
 };

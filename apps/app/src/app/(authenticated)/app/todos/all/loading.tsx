@@ -17,9 +17,7 @@ export default async function Loading() {
             View all todos.
           </p>
         </Flex>
-        <Flex>
-          <NewTodoForm />
-        </Flex>
+        <Flex></Flex>
       </Flex>
       <TodoListLoading />
     </DashboardMain>
