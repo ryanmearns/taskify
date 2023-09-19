@@ -11,9 +11,9 @@ export default async function Loading() {
         className="w-full bg-white z-10"
       >
         <Flex direction={"column"} gap={"xs"}>
-          <h1 className="text-xl font-semibold">Inbox</h1>
+          <h1 className="text-xl font-semibold">Completed</h1>
           <p className="text-sm font-normal text-foreground/50">
-            View all todos.
+            View completed todos.
           </p>
         </Flex>
         <Flex></Flex>

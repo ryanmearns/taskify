@@ -7,6 +7,7 @@ import {
 } from "@playbook/ui";
 import {
   Calendar,
+  CalendarCheck,
   CalendarDays,
   CalendarMinus,
   Cog,
@@ -29,6 +30,7 @@ const navigation: NavigationItems = [
   { label: "Today", icon: <Calendar />, href: "/app/todos/today" },
   { label: "Upcoming", icon: <CalendarDays />, href: "/app/todos/upcoming" },
   { label: "Overdue", icon: <CalendarMinus />, href: "/app/todos/overdue" },
+  { label: "Completed", icon: <CalendarCheck />, href: "/app/todos/completed" },
   { label: "Projects", icon: <Folder />, href: "/app/projects" },
   {
     label: "Archived",

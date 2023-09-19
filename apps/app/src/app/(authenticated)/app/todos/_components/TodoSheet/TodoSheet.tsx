@@ -38,14 +38,15 @@ import { updateTodoProject } from "../../_api/update-todo-project";
 import { updateTodoAction } from "../../_api/update-todo";
 
 export const TodoSheet = (props: {
+  children: React.ReactNode;
   todo: Todo;
   projects: Projects;
   optimisticUpdate: OptimisticUpdate<Todos>;
 }) => {
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <IconButton icon={<Pen />} className="invisible group-hover:visible" />
+      <SheetTrigger className="grow" asChild>
+        {props.children}
       </SheetTrigger>
       <SheetContent size={"xl"} className="overflow-scroll">
         <div className="space-y-4 flex flex-col h-full">
@@ -296,6 +297,11 @@ const UpdateTodoDueDate = (props: {
             <Calendar
               mode="single"
               selected={dueDate}
+              disabled={(date) => {
+                let d = new Date();
+                d.setDate(d.getDate() - 1);
+                return date < d;
+              }}
               onSelect={(date) => {
                 if (date) {
                   action.execute({
@@ -364,6 +370,9 @@ const UpdateTodoProject = (props: {
             <SelectValue placeholder="No project selected" />
           </SelectTrigger>
           <SelectContent>
+            <SelectItem value={"No project"}>
+              <span className="flex gap-2 items-center">No project</span>
+            </SelectItem>
             {props.projects.map((project) => (
               <SelectItem key={project.uuid} value={project.uuid}>
                 <span className="flex gap-2 items-center">
@@ -376,9 +385,6 @@ const UpdateTodoProject = (props: {
                 </span>
               </SelectItem>
             ))}
-            <SelectItem value={"No project"}>
-              <span className="flex gap-2 items-center">No project</span>
-            </SelectItem>
           </SelectContent>
         </Select>
       </Flex>

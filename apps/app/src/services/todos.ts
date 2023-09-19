@@ -6,15 +6,10 @@ import { and, eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 
 export const getTodos = async (arg: Pick<TodoSchema, "workspaceUuid">) => {
-  const lastWeek = addWeeks(new Date(), -1);
-
   return await db.query.todos.findMany({
     orderBy: (todos, { desc }) => [desc(todos.createdAt)],
     where: (todos, { eq, and, lte, gte }) =>
-      and(
-        eq(todos.workspaceUuid, arg.workspaceUuid)
-        // gte(todos.dueDate, lastWeek)
-      ),
+      and(eq(todos.workspaceUuid, arg.workspaceUuid), eq(todos.status, "todo")),
   });
 };
 
@@ -29,7 +24,8 @@ export const getTodosDueToday = async (
       and(
         eq(todos.workspaceUuid, arg.workspaceUuid),
         lte(todos.dueDate, new Date()),
-        gte(todos.dueDate, yesterday)
+        gte(todos.dueDate, yesterday),
+        eq(todos.status, "todo")
       ),
   });
 };
@@ -65,6 +61,16 @@ export const getTodosOverdue = async (
         lte(todos.dueDate, yesterday),
         eq(todos.status, "todo")
       ),
+  });
+};
+
+export const getCompletedTodos = async (
+  arg: Pick<TodoSchema, "workspaceUuid">
+) => {
+  return await db.query.todos.findMany({
+    orderBy: (todos, { desc }) => [desc(todos.createdAt)],
+    where: (todos, { eq, and, lte, gte }) =>
+      and(eq(todos.workspaceUuid, arg.workspaceUuid), eq(todos.status, "done")),
   });
 };
 

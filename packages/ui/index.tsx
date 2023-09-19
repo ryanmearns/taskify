@@ -25,6 +25,7 @@ export * from "./src/components/context-menu";
 export * from "./src/components/dialog";
 export * from "./src/components/dropdown-menu";
 export * from "./src/components/empty-state";
+export * from "./src/components/fade-in";
 export * from "./src/components/hover-card";
 export * from "./src/components/icon-button";
 export * from "./src/components/icon";

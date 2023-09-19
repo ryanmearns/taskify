@@ -1,4 +1,4 @@
-import { Button, ButtonIcon, Flex } from "@playbook/ui";
+import { Button, ButtonIcon, FadeIn, FadeInStagger, Flex } from "@playbook/ui";
 import { ListChecks, Shapes, Triangle } from "lucide-react";
 import Link from "next/link";
 
@@ -49,33 +49,43 @@ export const Hero = (props: HeroSectionProps) => {
             }}
           />
         </div>
-        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div className="flex justify-center pb-6">
-            <ListChecks className="h-14 w-14 stroke-1 bg-accent/10 p-3 mb-4 rounded border shadow-inner" />
-          </div>
-          <div className="text-center">
-            <h1 className="text-5xl font-bold pb-2 bg-clip-text text-transparent bg-gradient-to-l from-slate-600 to-slate-900 sm:text-6xl">
-              {props.title}
-            </h1>
-            <p className="mt-6 text-xl leading-8 text-gray-600">
-              {props.description}
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Link href={"/app/todos"}>
-                <Button variant={"solid"} size={"xl"}>
-                  <ButtonIcon Icon={<Triangle />} orientation={"leading"} />
-                  Deploy to Vercel
-                </Button>
-              </Link>
-              <Link
-                href="/auth/sign-in"
-                className="text-sm font-semibold leading-6 text-gray-900"
-              >
-                Sign up to demo <span aria-hidden="true">→</span>
-              </Link>
+        <FadeInStagger>
+          <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+            <div className="flex justify-center pb-6">
+              <FadeIn>
+                <ListChecks className="h-14 w-14 stroke-1 bg-accent/10 p-3 mb-4 rounded border shadow-inner" />
+              </FadeIn>
+            </div>
+            <div className="text-center">
+              <FadeIn>
+                <h1 className="text-5xl font-bold pb-2 bg-clip-text text-transparent bg-gradient-to-l from-slate-600 to-slate-900 sm:text-6xl">
+                  {props.title}
+                </h1>
+              </FadeIn>
+              <FadeIn>
+                <p className="mt-6 text-xl leading-8 text-gray-600">
+                  {props.description}
+                </p>
+              </FadeIn>
+              <FadeIn>
+                <div className="mt-10 flex items-center justify-center gap-x-6">
+                  <Link href={"/app/todos"}>
+                    <Button variant={"solid"} size={"xl"}>
+                      <ButtonIcon Icon={<Triangle />} orientation={"leading"} />
+                      Deploy to Vercel
+                    </Button>
+                  </Link>
+                  <Link
+                    href="/auth/sign-in"
+                    className="text-sm font-semibold leading-6 text-gray-900"
+                  >
+                    Sign up to demo <span aria-hidden="true">→</span>
+                  </Link>
+                </div>
+              </FadeIn>
             </div>
           </div>
-        </div>
+        </FadeInStagger>
         <div
           className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
           aria-hidden="true"

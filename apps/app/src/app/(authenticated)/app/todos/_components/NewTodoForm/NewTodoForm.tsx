@@ -156,6 +156,11 @@ export const NewTodoForm = (props: { projects: Projects }) => {
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
+                        disabled={(date) => {
+                          let d = new Date();
+                          d.setDate(d.getDate() - 1);
+                          return date < d;
+                        }}
                       />
                     </PopoverContent>
                   </Popover>
@@ -179,6 +184,11 @@ export const NewTodoForm = (props: { projects: Projects }) => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
+                      <SelectItem value={"No project"}>
+                        <span className="flex gap-2 items-center">
+                          No project
+                        </span>
+                      </SelectItem>
                       {props.projects.map((project) => (
                         <SelectItem key={project.uuid} value={project.uuid}>
                           <span className="flex gap-2 items-center">
@@ -191,11 +201,6 @@ export const NewTodoForm = (props: { projects: Projects }) => {
                           </span>
                         </SelectItem>
                       ))}
-                      <SelectItem value={"No project"}>
-                        <span className="flex gap-2 items-center">
-                          No project
-                        </span>
-                      </SelectItem>
                     </SelectContent>
                   </Select>
 
