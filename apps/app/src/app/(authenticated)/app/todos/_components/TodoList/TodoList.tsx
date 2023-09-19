@@ -33,7 +33,15 @@ import {
   cn,
 } from "@playbook/ui";
 import { format, isPast, isToday, isTomorrow } from "date-fns";
-import { ArrowUpDown, CalendarIcon, Info, ListPlus, Trash } from "lucide-react";
+import {
+  ArrowUpDown,
+  CalendarIcon,
+  Info,
+  ListChecks,
+  ListPlus,
+  Trash,
+} from "lucide-react";
+import { matchSorter } from "match-sorter";
 import * as React from "react";
 import toast from "react-hot-toast";
 import { deleteTodoAction } from "../../_api/delete-todo";
@@ -43,6 +51,8 @@ import { TodoSheet } from "../TodoSheet/TodoSheet";
 
 const TodoList = (props: { todos: Todos; projects: Projects }) => {
   const [optimisticTodos, updateOptimisticTodo] = useOptimistic(props.todos);
+  const [filter, setFilter] = React.useState("");
+  const [order, setOrder] = React.useState<"status" | "due-date">("status");
 
   if (optimisticTodos.length === 0) {
     return (
@@ -54,40 +64,68 @@ const TodoList = (props: { todos: Todos; projects: Projects }) => {
     );
   }
 
-  return (
-    <Flex className="w-full" direction={"column"} gap={"lg"}>
-      <Flex justify={"between"} gap={"md"}>
-        <Input className="h-8" placeholder="Filter todos" />
-        <TodoListOrderDropdown />
-      </Flex>
-      <Flex
-        direction={"column"}
-        className="border border-input rounded-md w-full divide-y"
-      >
-        {optimisticTodos
-          .sort((a, b) => {
-            if (a.status === "done") {
-              return 1;
-            }
+  const list = matchSorter(optimisticTodos, filter, {
+    keys: [(item) => item.content!],
+  });
 
-            return -1;
-          })
-          .map((todo) => (
-            <TodoItem
-              key={todo.uuid}
-              todo={todo}
-              updateOptimisticTodo={updateOptimisticTodo}
-              projects={props.projects}
-            />
-          ))}
+  const sortFunc = (a: Todo, b: Todo, order: "status" | "due-date") => {
+    if (order === "status") {
+      if (a.status === "done") {
+        return 1;
+      }
+
+      return -1;
+    } else {
+      if (a.dueDate! > b.dueDate!) {
+        return 1;
+      }
+
+      return -1;
+    }
+  };
+
+  return (
+    <Flex className="w-full grow" direction={"column"} gap={"lg"}>
+      <Flex justify={"between"} gap={"md"}>
+        <Input
+          className="h-8"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          placeholder="Filter todos"
+        />
+        <TodoListOrderDropdown order={order} setOrder={setOrder} />
       </Flex>
+      {list.length === 0 ? (
+        <EmptyState
+          title={"No todos"}
+          description={"Expand your search"}
+          Icon={<ListChecks />}
+        />
+      ) : (
+        <Flex
+          direction={"column"}
+          className="border border-input rounded-md w-full divide-y"
+        >
+          {list
+            .sort((a, b) => sortFunc(a, b, order))
+            .map((todo) => (
+              <TodoItem
+                key={todo.uuid}
+                todo={todo}
+                updateOptimisticTodo={updateOptimisticTodo}
+                projects={props.projects}
+              />
+            ))}
+        </Flex>
+      )}
     </Flex>
   );
 };
 
-const TodoListOrderDropdown = () => {
-  const [order, setOrder] = React.useState("status");
-
+const TodoListOrderDropdown = (props: {
+  order: string;
+  setOrder: (arg: "status" | "due-date") => void;
+}) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -99,12 +137,14 @@ const TodoListOrderDropdown = () => {
       <DropdownMenuContent className="w-40">
         <DropdownMenuLabel>Sort by</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup value={order} onValueChange={setOrder}>
+        <DropdownMenuRadioGroup
+          value={props.order}
+          onValueChange={props.setOrder}
+        >
           <DropdownMenuRadioItem value="status">Status</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="due-date">
             Due date
           </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="name">Name</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>

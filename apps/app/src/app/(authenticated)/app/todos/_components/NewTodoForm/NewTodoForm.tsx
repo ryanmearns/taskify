@@ -1,5 +1,6 @@
 "use client";
 
+import { Projects } from "@/db/types";
 import { useDialogTranisition } from "@/utils/hooks/use-dialog-transition";
 import {
   f,
@@ -41,7 +42,6 @@ import * as React from "react";
 import { toast } from "react-hot-toast";
 import z from "zod";
 import { addTodoAction } from "../../_api/add-todo";
-import { Projects } from "@/db/types";
 
 const formSchema = z.object({
   content: z.string().min(2, {
@@ -105,7 +105,7 @@ export const NewTodoForm = (props: { projects: Projects }) => {
                 <FormItem>
                   <FormLabel>Task</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input disabled={isPending} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -118,7 +118,7 @@ export const NewTodoForm = (props: { projects: Projects }) => {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea {...field} />
+                    <Textarea disabled={isPending} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,6 +133,7 @@ export const NewTodoForm = (props: { projects: Projects }) => {
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
+                        disabled={isPending}
                         variant={"outline"}
                         size={"lg"}
                         className={cn(
@@ -179,7 +180,7 @@ export const NewTodoForm = (props: { projects: Projects }) => {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger disabled={isPending}>
                         <SelectValue placeholder="No project selected" />
                       </SelectTrigger>
                     </FormControl>
@@ -209,7 +210,9 @@ export const NewTodoForm = (props: { projects: Projects }) => {
               )}
             />
             <FormFooter>
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button type="button" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
               <Button type="submit" variant={"solid"} size={"md"}>
                 {!isPending ? (
                   "Create"

@@ -3,7 +3,6 @@
 import { Projects, Todo, Todos } from "@/db/types";
 import { OptimisticUpdate } from "@/types/helpers";
 import { useAction } from "@/utils/actions/hook";
-import { FormControl, FormItem, FormLabel, FormMessage } from "@playbook/forms";
 import {
   Avatar,
   AvatarImage,
@@ -11,7 +10,6 @@ import {
   ButtonIcon,
   Calendar,
   Flex,
-  IconButton,
   Input,
   Label,
   Popover,
@@ -29,13 +27,13 @@ import {
   cn,
 } from "@playbook/ui";
 import { format } from "date-fns";
-import { CalendarIcon, CheckCircle2, Pen, X } from "lucide-react";
+import { CalendarIcon, CheckCircle2 } from "lucide-react";
 import * as React from "react";
-import { updateTodoDueDateAction } from "../../_api/update-todo-due-date";
 import toast from "react-hot-toast";
-import { updateTodoStatusAction } from "../../_api/update-todo-status-form";
-import { updateTodoProject } from "../../_api/update-todo-project";
 import { updateTodoAction } from "../../_api/update-todo";
+import { updateTodoDueDateAction } from "../../_api/update-todo-due-date";
+import { updateTodoProject } from "../../_api/update-todo-project";
+import { updateTodoStatusAction } from "../../_api/update-todo-status-form";
 
 export const TodoSheet = (props: {
   children: React.ReactNode;
