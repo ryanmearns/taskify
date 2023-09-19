@@ -31,7 +31,7 @@ const navigation: NavigationItems = [
   { label: "Overdue", icon: <CalendarMinus />, href: "/app/todos/overdue" },
   { label: "Projects", icon: <Folder />, href: "/app/projects" },
   {
-    label: "Archived projects",
+    label: "Archived",
     icon: <FolderArchive />,
     href: "/app/projects/archived",
   },

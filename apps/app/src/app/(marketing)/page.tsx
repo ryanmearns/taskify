@@ -17,7 +17,7 @@ export default function Page() {
       <Hero
         title={"Track your todo list securely"}
         description={
-          "Taskify is an open-source todo app that you can deploy easily with your own database so you data is secure and private."
+          "Taskify is an open-source todo app that you can deploy easily with your own database so you data is private and secure."
         }
       />
       <Features />

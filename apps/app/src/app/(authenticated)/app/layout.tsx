@@ -10,12 +10,15 @@ import {
 import { Shapes } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 import { MobileNavigation, SidebarNavigation } from "./navigation";
+import Link from "next/link";
 
 const Logo = () => (
-  <Flex gap={"xs"} align={"center"} justify={"center"}>
-    <Shapes className="h-5 w-5" />
-    <span className="font-medium text-lg">Taskify</span>
-  </Flex>
+  <Link href={"/"}>
+    <Flex gap={"xs"} align={"center"} justify={"center"}>
+      <Shapes className="h-5 w-5" />
+      <span className="font-medium text-lg">Taskify</span>
+    </Flex>
+  </Link>
 );
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
@@ -37,9 +40,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <Logo />
             <UserDropdown />
           </DashboardSidebarHeader>
-          <Flex align={"center"} justify={"between"} className="px-4">
-            <form />
-          </Flex>
+          <Flex align={"center"} justify={"between"} className="px-4"></Flex>
           <SidebarNavigation />
         </DashboardSidebar>
         {/* //Main */}

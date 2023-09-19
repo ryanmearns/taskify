@@ -13,6 +13,9 @@ export default async function Loading() {
       >
         <Flex direction={"column"} gap={"xs"}>
           <h1 className="text-xl font-semibold">Overdue</h1>
+          <p className="text-sm font-normal text-foreground/50">
+            View overdue todos.
+          </p>
         </Flex>
         <Flex>
           <NewTodoForm />

@@ -1,5 +1,5 @@
-import { Button, Flex } from "@playbook/ui";
-import { Shapes } from "lucide-react";
+import { Button, ButtonIcon, Flex } from "@playbook/ui";
+import { ListChecks, Shapes, Triangle } from "lucide-react";
 import Link from "next/link";
 
 const Logo = () => (
@@ -32,7 +32,7 @@ export const Hero = (props: HeroSectionProps) => {
                 href="/auth/sign-in"
                 className="text-sm font-semibold cursor-pointer leading-6 text-gray-900"
               >
-                Log in <span aria-hidden="true">&rarr;</span>
+                Log in to demo <span aria-hidden="true">&rarr;</span>
               </Link>
             </div>
           </nav>
@@ -50,8 +50,11 @@ export const Hero = (props: HeroSectionProps) => {
           />
         </div>
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+          <div className="flex justify-center pb-6">
+            <ListChecks className="h-14 w-14 stroke-1 bg-accent/10 p-3 mb-4 rounded border shadow-inner" />
+          </div>
           <div className="text-center">
-            <h1 className="text-5xl font-bold pb-2 bg-clip-text text-transparent bg-gradient-to-t from-slate-600 to-slate-900 sm:text-6xl">
+            <h1 className="text-5xl font-bold pb-2 bg-clip-text text-transparent bg-gradient-to-l from-slate-600 to-slate-900 sm:text-6xl">
               {props.title}
             </h1>
             <p className="mt-6 text-xl leading-8 text-gray-600">
@@ -60,14 +63,15 @@ export const Hero = (props: HeroSectionProps) => {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link href={"/app/todos"}>
                 <Button variant={"solid"} size={"xl"}>
-                  Get started
+                  <ButtonIcon Icon={<Triangle />} orientation={"leading"} />
+                  Deploy to Vercel
                 </Button>
               </Link>
               <Link
                 href="/auth/sign-in"
                 className="text-sm font-semibold leading-6 text-gray-900"
               >
-                Sign up <span aria-hidden="true">→</span>
+                Sign up to demo <span aria-hidden="true">→</span>
               </Link>
             </div>
           </div>

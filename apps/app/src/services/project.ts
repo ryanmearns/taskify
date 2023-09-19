@@ -24,6 +24,9 @@ export const getProject = async (
       eq(projects.uuid, arg.uuid),
       eq(projects.workspaceUuid, arg.workspaceUuid)
     ),
+    with: {
+      todos: true,
+    },
   });
 };
 

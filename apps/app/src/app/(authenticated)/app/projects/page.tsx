@@ -14,6 +14,7 @@ import { CalendarCheck, CheckCircle } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { NewProjectForm } from "./_components/NewProjectForm/NewProjectForm";
+import Link from "next/link";
 
 export default async function Page() {
   const { workspace } = await getTenant();
@@ -32,7 +33,7 @@ export default async function Page() {
 
 const List = (props: { projects: Awaited<ReturnType<typeof getProjects>> }) => {
   return (
-    <div className="grid grid-cols-3 gap-4 w-full">
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
       {props.projects.map((project) => (
         <ProjectCard key={project.uuid} project={project} />
       ))}
@@ -44,31 +45,33 @@ const ProjectCard = (props: {
   project: Awaited<ReturnType<typeof getProjects>>[0];
 }) => {
   return (
-    <Card className="w-full overflow-hidden hover:bg-slate-50 cursor-pointer">
-      <Image
-        src={`https://avatar.vercel.sh/${props.project.name}?size=10`}
-        className="w-full h-28"
-        alt="Gradient"
-        width={250}
-        height={150}
-      />
-      <CardHeader>
-        <CardTitle>{props.project.name}</CardTitle>
-        <CardDescription>{props.project.description}</CardDescription>
-      </CardHeader>
-      <CardContent className="flex gap-4">
-        <div className="flex gap-2 items-center text-sm">
-          <CheckCircle className="h-4 w-4" />
-          {props.project.todos.length} tasks
-        </div>
-        <div className="flex gap-2 items-center text-sm">
-          <CalendarCheck className="h-4 w-4" />
-          {props.project.dueDate
-            ? format(new Date(props.project.dueDate), "PP")
-            : "No due date"}
-        </div>
-      </CardContent>
-    </Card>
+    <Link href={`/app/projects/${props.project.uuid}`}>
+      <Card className="w-full overflow-hidden hover:bg-slate-50 cursor-pointer">
+        <Image
+          src={`https://avatar.vercel.sh/${props.project.name}?size=10`}
+          className="w-full h-28"
+          alt="Gradient"
+          width={250}
+          height={150}
+        />
+        <CardHeader>
+          <CardTitle>{props.project.name}</CardTitle>
+          <CardDescription>{props.project.description}</CardDescription>
+        </CardHeader>
+        <CardContent className="flex gap-4">
+          <div className="flex gap-2 items-center text-sm">
+            <CheckCircle className="h-4 w-4" />
+            {props.project.todos.length} tasks
+          </div>
+          <div className="flex gap-2 items-center text-sm">
+            <CalendarCheck className="h-4 w-4" />
+            {props.project.dueDate
+              ? format(new Date(props.project.dueDate), "PP")
+              : "No due date"}
+          </div>
+        </CardContent>
+      </Card>
+    </Link>
   );
 };
 
@@ -81,6 +84,9 @@ const PageHeader = () => (
   >
     <Flex direction={"column"} gap={"xs"}>
       <h1 className="text-xl font-semibold">Projects</h1>
+      <p className="text-sm font-normal text-foreground/50">
+        View all projects.
+      </p>
     </Flex>
     <Flex>
       <NewProjectForm />

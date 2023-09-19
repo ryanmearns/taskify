@@ -1,6 +1,6 @@
-import { DashboardMain, Flex } from "@playbook/ui";
-import { NewTodoForm } from "../_components/NewTodoForm/NewTodoForm";
-import { TodoListLoading } from "../_components/TodoList/TodoList.skeleton";
+import { DashboardMain, Flex, Skeleton } from "@playbook/ui";
+import { NewTodoForm } from "../../todos/_components/NewTodoForm/NewTodoForm";
+import { TodoListLoading } from "../../todos/_components/TodoList/TodoList.skeleton";
 
 export default async function Loading() {
   return (
@@ -12,10 +12,9 @@ export default async function Loading() {
         className="w-full bg-white z-10"
       >
         <Flex direction={"column"} gap={"xs"}>
-          <h1 className="text-xl font-semibold">Upcoming</h1>
-          <p className="text-sm font-normal text-foreground/50">
-            View upcoming todos.
-          </p>
+          <h1 className="text-xl font-semibold">
+            <Skeleton className="h-[28px] w-96" />
+          </h1>
         </Flex>
         <Flex>
           <NewTodoForm />
