@@ -376,7 +376,7 @@ const UpdateTodoProject = (props: {
                 <span className="flex gap-2 items-center">
                   <Avatar className="h-4 w-4">
                     <AvatarImage
-                      src={`https://avatar.vercel.sh/${project.name}`}
+                      src={`https://avatar.vercel.sh/${project.uuid}`}
                     />
                   </Avatar>
                   {project.name}

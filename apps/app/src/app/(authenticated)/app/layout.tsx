@@ -11,6 +11,8 @@ import { Shapes } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 import { MobileNavigation, SidebarNavigation } from "./navigation";
 import Link from "next/link";
+import { getTenant } from "@/services/tenant";
+import { getProjects } from "@/services/project";
 
 const Logo = () => (
   <Link href={"/"}>
@@ -22,6 +24,10 @@ const Logo = () => (
 );
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
+  const { workspace } = await getTenant();
+
+  const projects = await getProjects({ workspaceUuid: workspace.uuid });
+
   return (
     <>
       <Toaster />
@@ -41,7 +47,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <UserDropdown />
           </DashboardSidebarHeader>
           <Flex align={"center"} justify={"between"} className="px-4"></Flex>
-          <SidebarNavigation />
+          <SidebarNavigation projects={projects} />
         </DashboardSidebar>
         {/* //Main */}
         {props.children}

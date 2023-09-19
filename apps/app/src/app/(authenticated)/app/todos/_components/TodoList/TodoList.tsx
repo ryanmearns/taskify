@@ -5,6 +5,7 @@ import { OptimisticUpdate } from "@/types/helpers";
 import { useAction } from "@/utils/actions/hook";
 import { useOptimistic } from "@/utils/hooks/use-optimistic";
 import {
+  Badge,
   Button,
   ButtonIcon,
   Calendar,
@@ -167,7 +168,7 @@ const TodoItem = (props: {
             optimisticUpdate={props.updateOptimisticTodo}
           />
         </div>
-        <Flex grow>
+        <Flex grow align={"center"}>
           <TodoSheet
             todo={props.todo}
             optimisticUpdate={props.updateOptimisticTodo}
@@ -176,7 +177,7 @@ const TodoItem = (props: {
             <Flex direction={"column"} className="pr-1 ml-1 grow py-4">
               <div
                 className={cn(
-                  "text-sm font-medium text-left",
+                  "text-sm font-medium text-left line-clamp-1",
                   props.todo.status === "done" && "line-through decoration-2"
                 )}
               >
@@ -198,6 +199,19 @@ const TodoItem = (props: {
               )}
             </Flex>
           </TodoSheet>
+          {props.projects.find(
+            (project) => project.uuid === props.todo.projectUuid
+          ) && (
+            <div className="flex-none">
+              <Badge variant={"yellow"}>
+                {
+                  props.projects.find(
+                    (project) => project.uuid === props.todo.projectUuid
+                  )?.name
+                }
+              </Badge>
+            </div>
+          )}
         </Flex>
         <DeleteTodoForm
           todo={props.todo}
@@ -341,7 +355,7 @@ const UpdateTodoDueDateForm = (props: {
           {dueDate ? (
             <>
               <ButtonIcon orientation="leading" Icon={<CalendarIcon />} />
-              {props.todo.status === "done" && "Completed"}
+              {props.todo.status === "done" && "Done"}
               {isToday(dueDate) && props.todo.status === "todo" && (
                 <span>Today</span>
               )}

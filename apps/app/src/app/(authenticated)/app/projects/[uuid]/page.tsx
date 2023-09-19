@@ -1,10 +1,10 @@
 import { getProject, getProjects } from "@/services/project";
 import { getTenant } from "@/services/tenant";
 import { DashboardMain, Flex } from "@playbook/ui";
+import { notFound } from "next/navigation";
 import { NewTodoForm } from "../../todos/_components/NewTodoForm/NewTodoForm";
 import { TodoList } from "../../todos/_components/TodoList/TodoList";
-import { notFound } from "next/navigation";
-import { Project } from "@/db/types";
+import { UpdateProjectForm } from "../_components/UpdateProjectForm/UpdateProjectForm";
 
 export default async function Page(props: { params: { uuid: string } }) {
   const { workspace } = await getTenant();
@@ -32,10 +32,11 @@ export default async function Page(props: { params: { uuid: string } }) {
             {project.description ? project.description : "No description"}
           </p>
         </Flex>
-        <Flex>
+        <Flex gap={"sm"}>
+          <UpdateProjectForm project={project} />
           <NewTodoForm projects={projects} />
         </Flex>
-      </Flex>{" "}
+      </Flex>
       <TodoList todos={project.todos} projects={projects} />
     </DashboardMain>
   );

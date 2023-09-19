@@ -1,5 +1,6 @@
 "use client";
 
+import { Project } from "@/db/types";
 import { useDialogTranisition } from "@/utils/hooks/use-dialog-transition";
 import {
   f,
@@ -30,11 +31,11 @@ import {
   Textarea,
 } from "@playbook/ui";
 import { format } from "date-fns";
-import { CalendarIcon, FolderPlus, Loader2, Plus } from "lucide-react";
+import { CalendarIcon, FolderPlus, Loader2, Pen } from "lucide-react";
 import * as React from "react";
 import { toast } from "react-hot-toast";
 import z from "zod";
-import { addProjectAction } from "../../_api/add-project";
+import { updateProjectAction } from "../../_api/update-project";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -44,7 +45,7 @@ const formSchema = z.object({
   dueDate: z.date().optional(),
 });
 
-export const NewProjectForm = () => {
+export const UpdateProjectForm = (props: { project: Project }) => {
   const [isPending, startTransition] = React.useTransition();
 
   const { open, setOpen } = useDialogTranisition({
@@ -57,16 +58,17 @@ export const NewProjectForm = () => {
   const form = f.useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      dueDate: new Date(),
+      name: props.project.name ? props.project.name : "",
+      description: props.project.description ? props.project.description : "",
+      dueDate: props.project.dueDate ? props.project.dueDate : new Date(),
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
       try {
-        await addProjectAction({
+        await updateProjectAction({
+          uuid: props.project.uuid,
           ...values,
         });
         setOpen(false);
@@ -79,7 +81,10 @@ export const NewProjectForm = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <IconButton variant={"ghost"} icon={<FolderPlus />} size={"xs"} />
+        <Button>
+          <ButtonIcon Icon={<Pen />} orientation={"leading"} />
+          Edit
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <Form {...form}>
@@ -158,11 +163,11 @@ export const NewProjectForm = () => {
               </Button>
               <Button type="submit" variant={"solid"} size={"md"}>
                 {!isPending ? (
-                  "Create"
+                  "Save"
                 ) : (
                   <>
                     <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    Creating
+                    Saving
                   </>
                 )}
               </Button>
