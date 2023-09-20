@@ -10,12 +10,14 @@ export const addTodoAction = api.protectedAction(
     content: z.string(),
     dueDate: z.date().optional(),
     description: z.string().optional(),
+    projectUuid: z.string().optional(),
   }),
   async (input, ctx) => {
     const data = await createTodo({
       content: input.content,
       workspaceUuid: ctx.workspace.uuid,
       dueDate: input.dueDate,
+      projectUuid: input.projectUuid,
     });
 
     revalidatePath("/app");

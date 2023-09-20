@@ -27,10 +27,6 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
   cn,
 } from "@playbook/ui";
 import { format, isPast, isToday, isTomorrow } from "date-fns";
@@ -40,12 +36,10 @@ import {
   Info,
   ListChecks,
   ListPlus,
-  Trash,
 } from "lucide-react";
 import { matchSorter } from "match-sorter";
 import * as React from "react";
 import toast from "react-hot-toast";
-import { deleteTodoAction } from "../../_api/delete-todo";
 import { updateTodoDueDateAction } from "../../_api/update-todo-due-date";
 import { updateTodoStatusAction } from "../../_api/update-todo-status-form";
 import { TodoSheet } from "../TodoSheet/TodoSheet";
@@ -213,10 +207,6 @@ const TodoItem = (props: {
             </div>
           )}
         </Flex>
-        <DeleteTodoForm
-          todo={props.todo}
-          optimisticUpdate={props.updateOptimisticTodo}
-        />
         <UpdateTodoDueDateForm
           todo={props.todo}
           optimisticUpdate={props.updateOptimisticTodo}
@@ -268,36 +258,6 @@ const UpdateTodoStatusForm = (props: {
       }
       checked={props.todo.status === "done" ? true : false}
     />
-  );
-};
-
-const DeleteTodoForm = (props: {
-  todo: Todo;
-  optimisticUpdate: OptimisticUpdate<Todos>;
-}) => {
-  const action = useAction(deleteTodoAction, {
-    onMutate: (input) => {
-      props.optimisticUpdate((data) => {
-        return data.filter((todo) => input.uuid !== todo.uuid);
-      });
-    },
-  });
-
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <IconButton
-            icon={<Trash />}
-            onClick={() => action.execute({ uuid: props.todo.uuid })}
-            className="invisible group-hover:visible"
-          />
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Delete todo</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
   );
 };
 

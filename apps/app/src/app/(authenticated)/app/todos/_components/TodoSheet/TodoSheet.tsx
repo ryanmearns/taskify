@@ -10,6 +10,7 @@ import {
   ButtonIcon,
   Calendar,
   Flex,
+  IconButton,
   Input,
   Label,
   Popover,
@@ -20,6 +21,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Separator,
   Sheet,
   SheetContent,
   SheetTrigger,
@@ -27,13 +29,14 @@ import {
   cn,
 } from "@playbook/ui";
 import { format } from "date-fns";
-import { CalendarIcon, CheckCircle2 } from "lucide-react";
+import { CalendarIcon, CheckCircle2, Trash } from "lucide-react";
 import * as React from "react";
 import toast from "react-hot-toast";
 import { updateTodoAction } from "../../_api/update-todo";
 import { updateTodoDueDateAction } from "../../_api/update-todo-due-date";
 import { updateTodoProject } from "../../_api/update-todo-project";
 import { updateTodoStatusAction } from "../../_api/update-todo-status-form";
+import { deleteTodoAction } from "../../_api/delete-todo";
 
 export const TodoSheet = (props: {
   children: React.ReactNode;
@@ -49,10 +52,17 @@ export const TodoSheet = (props: {
       <SheetContent size={"xl"} className="overflow-scroll">
         <div className="space-y-4 flex flex-col h-full">
           <Flex direction={"column"} gap={"lg"} grow>
-            <UpdateTodoStatus
-              todo={props.todo}
-              optimisticUpdate={props.optimisticUpdate}
-            />
+            <Flex gap={"md"}>
+              <UpdateTodoStatus
+                todo={props.todo}
+                optimisticUpdate={props.optimisticUpdate}
+              />
+              <DeleteTodo
+                todo={props.todo}
+                optimisticUpdate={props.optimisticUpdate}
+              />
+            </Flex>
+            <Separator />
             <UpdateTodoContent
               todo={props.todo}
               optimisticUpdate={props.optimisticUpdate}
@@ -387,5 +397,26 @@ const UpdateTodoProject = (props: {
         </Select>
       </Flex>
     </Flex>
+  );
+};
+
+const DeleteTodo = (props: {
+  todo: Todo;
+  optimisticUpdate: OptimisticUpdate<Todos>;
+}) => {
+  const action = useAction(deleteTodoAction, {
+    onMutate: (input) => {
+      props.optimisticUpdate((data) => {
+        return data.filter((todo) => input.uuid !== todo.uuid);
+      });
+    },
+  });
+
+  return (
+    <IconButton
+      size={"md"}
+      icon={<Trash />}
+      onClick={() => action.execute({ uuid: props.todo.uuid })}
+    />
   );
 };

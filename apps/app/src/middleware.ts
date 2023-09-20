@@ -14,5 +14,5 @@ export default withAuth({
  * Next auth middleware page matcher for all pages in app page directory
  */
 export const config = {
-  matcher: ["/app/:path"],
+  matcher: ["/app/:path*"],
 };

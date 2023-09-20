@@ -67,6 +67,7 @@ export const NewTodoForm = (props: { projects: Projects }) => {
     defaultValues: {
       content: "",
       description: "",
+      projectUuid: "",
       dueDate: new Date(),
     },
   });
@@ -74,6 +75,7 @@ export const NewTodoForm = (props: { projects: Projects }) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
       try {
+        console.log(values);
         await addTodoAction({
           ...values,
         });
@@ -213,7 +215,12 @@ export const NewTodoForm = (props: { projects: Projects }) => {
               <Button type="button" onClick={() => setOpen(false)}>
                 Cancel
               </Button>
-              <Button type="submit" variant={"solid"} size={"md"}>
+              <Button
+                type="submit"
+                disabled={isPending}
+                variant={"solid"}
+                size={"md"}
+              >
                 {!isPending ? (
                   "Create"
                 ) : (

@@ -74,7 +74,7 @@ const ProjectsCollapsable = (props: { projects: Projects }) => {
               <Avatar className="cursor-pointer h-4 w-4 mr-2">
                 <AvatarImage src={`https://avatar.vercel.sh/${project.uuid}`} />
               </Avatar>
-              {project.name}
+              <span className="truncate">{project.name}</span>
             </Button>
           </Link>
         ))}
