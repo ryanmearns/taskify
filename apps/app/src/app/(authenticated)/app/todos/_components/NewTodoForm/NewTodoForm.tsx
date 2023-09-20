@@ -1,6 +1,6 @@
 "use client";
 
-import { Projects } from "@/db/types";
+import { Project, Projects } from "@/db/types";
 import { useDialogTranisition } from "@/utils/hooks/use-dialog-transition";
 import {
   f,
@@ -52,7 +52,10 @@ const formSchema = z.object({
   projectUuid: z.string().optional(),
 });
 
-export const NewTodoForm = (props: { projects: Projects }) => {
+export const NewTodoForm = (props: {
+  projects: Projects;
+  defaultProject?: Project;
+}) => {
   const [isPending, startTransition] = React.useTransition();
 
   const { open, setOpen } = useDialogTranisition({
@@ -67,7 +70,9 @@ export const NewTodoForm = (props: { projects: Projects }) => {
     defaultValues: {
       content: "",
       description: "",
-      projectUuid: "",
+      projectUuid: props.defaultProject?.uuid
+        ? props.defaultProject?.uuid
+        : undefined,
       dueDate: new Date(),
     },
   });
@@ -75,7 +80,6 @@ export const NewTodoForm = (props: { projects: Projects }) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
       try {
-        console.log(values);
         await addTodoAction({
           ...values,
         });
@@ -89,7 +93,7 @@ export const NewTodoForm = (props: { projects: Projects }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" block>
+        <Button variant="solid" block>
           Create todo
           <ButtonIcon Icon={<Plus />} orientation={"trailing"} />
         </Button>
@@ -197,7 +201,7 @@ export const NewTodoForm = (props: { projects: Projects }) => {
                           <span className="flex gap-2 items-center">
                             <Avatar className="h-4 w-4">
                               <AvatarImage
-                                src={`https://avatar.vercel.sh/${project.name}`}
+                                src={`https://avatar.vercel.sh/${project.uuid}`}
                               />
                             </Avatar>
                             {project.name}

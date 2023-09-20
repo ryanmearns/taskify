@@ -24,7 +24,7 @@ export default async function Page() {
   if (!projects) notFound();
 
   return (
-    <DashboardMain className="container">
+    <DashboardMain>
       <Flex
         justify={"between"}
         align={"center"}

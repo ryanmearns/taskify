@@ -1,6 +1,6 @@
 import { getProjects } from "@/services/project";
 import { getTenant } from "@/services/tenant";
-import { getTodosOverdue } from "@/services/todos";
+import { getCompletedTodos, getTodosOverdue } from "@/services/todos";
 import { DashboardMain, Flex } from "@playbook/ui";
 import { NewTodoForm } from "../_components/NewTodoForm/NewTodoForm";
 import { TodoList } from "../_components/TodoList/TodoList";
@@ -8,7 +8,7 @@ import { TodoList } from "../_components/TodoList/TodoList";
 export default async function Page() {
   const { workspace } = await getTenant();
 
-  const data = await getTodosOverdue({ workspaceUuid: workspace.uuid });
+  const data = await getCompletedTodos({ workspaceUuid: workspace.uuid });
 
   const projects = await getProjects({ workspaceUuid: workspace.uuid });
 
@@ -21,9 +21,9 @@ export default async function Page() {
         className="w-full bg-white z-10"
       >
         <Flex direction={"column"} gap={"xs"}>
-          <h1 className="text-xl font-semibold">Overdue</h1>
+          <h1 className="text-xl font-semibold">Completed</h1>
           <p className="text-sm font-normal text-foreground/50">
-            View overdue todos.
+            View completed todos.
           </p>
         </Flex>
         <Flex>

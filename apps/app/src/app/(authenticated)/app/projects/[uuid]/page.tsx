@@ -19,7 +19,7 @@ export default async function Page(props: { params: { uuid: string } }) {
   if (!project) notFound();
 
   return (
-    <DashboardMain className="container">
+    <DashboardMain>
       <Flex
         justify={"between"}
         align={"center"}
@@ -34,7 +34,7 @@ export default async function Page(props: { params: { uuid: string } }) {
         </Flex>
         <Flex gap={"sm"}>
           <UpdateProjectForm project={project} />
-          <NewTodoForm projects={projects} />
+          <NewTodoForm projects={projects} defaultProject={project} />
         </Flex>
       </Flex>
       <TodoList todos={project.todos} projects={projects} />

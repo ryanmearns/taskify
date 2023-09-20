@@ -48,7 +48,7 @@ const ProjectsCollapsable = (props: { projects: Projects }) => {
       onOpenChange={setIsOpen}
       className="w-full space-y-1"
     >
-      <div className="flex items-center px-3 justify-between">
+      <div className="flex items-center pl-3 pr-4 justify-between">
         <div className="flex items-center">
           <CollapsibleTrigger asChild>
             <IconButton

@@ -13,7 +13,7 @@ export default async function Page() {
   const projects = await getProjects({ workspaceUuid: workspace.uuid });
 
   return (
-    <DashboardMain className="container">
+    <DashboardMain>
       <Flex
         justify={"between"}
         align={"center"}

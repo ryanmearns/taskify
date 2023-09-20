@@ -3,7 +3,7 @@ import { NewProjectForm } from "./_components/NewProjectForm/NewProjectForm";
 
 export default async function Loading() {
   return (
-    <DashboardMain className="container">
+    <DashboardMain>
       <Flex
         justify={"between"}
         align={"center"}

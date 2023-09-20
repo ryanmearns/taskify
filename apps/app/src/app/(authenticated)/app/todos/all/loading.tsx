@@ -3,7 +3,7 @@ import { TodoListLoading } from "../_components/TodoList/TodoList.skeleton";
 
 export default async function Loading() {
   return (
-    <DashboardMain className="container">
+    <DashboardMain>
       <Flex
         justify={"between"}
         align={"center"}

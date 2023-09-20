@@ -83,7 +83,7 @@ const TodoList = (props: { todos: Todos; projects: Projects }) => {
     <Flex className="w-full grow" direction={"column"} gap={"lg"}>
       <Flex justify={"between"} gap={"md"}>
         <Input
-          className="h-8"
+          className="h-8 max-w-2xl"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           placeholder="Filter todos"

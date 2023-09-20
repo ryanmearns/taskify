@@ -24,7 +24,7 @@ export default async function Page() {
   }
 
   return (
-    <DashboardMain className="container">
+    <DashboardMain>
       <DashboardMainHeader>
         <Flex direction={"column"} gap={"xs"}>
           <h1 className="text-xl font-semibold">Settings</h1>
