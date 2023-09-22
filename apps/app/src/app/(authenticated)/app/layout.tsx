@@ -13,6 +13,7 @@ import { MobileNavigation, SidebarNavigation } from "./navigation";
 import Link from "next/link";
 import { getTenant } from "@/services/tenant";
 import { getProjects } from "@/services/project";
+import { NewTodoForm } from "./todos/_components/NewTodoForm/NewTodoForm";
 
 const Logo = () => (
   <Link href={"/"}>
@@ -46,7 +47,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <Logo />
             <UserDropdown />
           </DashboardSidebarHeader>
-          <Flex align={"center"} justify={"between"} className="px-4"></Flex>
+          <Flex align={"center"} justify={"between"} className="px-4">
+            <NewTodoForm projects={projects} />
+          </Flex>
           <SidebarNavigation projects={projects} />
         </DashboardSidebar>
         {/* //Main */}

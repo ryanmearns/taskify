@@ -168,7 +168,20 @@ const TodoItem = (props: {
             optimisticUpdate={props.updateOptimisticTodo}
             projects={props.projects}
           >
-            <Flex direction={"column"} className="pr-1 ml-1 grow py-4">
+            <Flex direction={"row"} className="pr-1 ml-1 grow py-4">
+              {props.projects.find(
+                (project) => project.uuid === props.todo.projectUuid
+              ) && (
+                <div className="flex-none mr-2">
+                  <Badge variant={"none"} className="rounded-full">
+                    {
+                      props.projects.find(
+                        (project) => project.uuid === props.todo.projectUuid
+                      )?.name
+                    }
+                  </Badge>
+                </div>
+              )}
               <div
                 className={cn(
                   "text-sm font-medium text-left line-clamp-1",
@@ -193,19 +206,6 @@ const TodoItem = (props: {
               )}
             </Flex>
           </TodoSheet>
-          {props.projects.find(
-            (project) => project.uuid === props.todo.projectUuid
-          ) && (
-            <div className="flex-none">
-              <Badge variant={"yellow"}>
-                {
-                  props.projects.find(
-                    (project) => project.uuid === props.todo.projectUuid
-                  )?.name
-                }
-              </Badge>
-            </div>
-          )}
         </Flex>
         <UpdateTodoDueDateForm
           todo={props.todo}
@@ -309,7 +309,8 @@ const UpdateTodoDueDateForm = (props: {
               (dueDate &&
                 isPast(dueDate) &&
                 props.todo.status === "todo" &&
-                "text-red-600")
+                "text-red-600",
+              "flex-none")
           )}
         >
           {dueDate ? (
