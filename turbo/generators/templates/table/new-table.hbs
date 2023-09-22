@@ -1,4 +1,4 @@
-export const {{table}} = pgTable("{{table}}", {
+export const {{table}}s = pgTable("{{table}}", {
   uuid: text("uuid").notNull().primaryKey(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),

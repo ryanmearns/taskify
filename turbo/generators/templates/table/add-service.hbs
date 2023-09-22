@@ -2,12 +2,33 @@ import { eq } from "drizzle-orm";
 import { db } from "@/server/db";
 import * as schema from "@/db/schema";
 
-export const {{ table }}s = async () => {
+export const get{{titleCase table }}s = async () => {
   return await db.query.{{ table }}.findMany({
     orderBy: ({{ table }}, { desc }) => [desc({{ table }}.createdAt)],
   });
 };
 
-export const {{ table }} = async ({ uuid }: { uuid: string }) => {
+export const get{{titleCase table }} = async ({ uuid }: { uuid: string }) => {
   return await db.query.{{ table }}.findFirst({ where: eq(schema.{{ table }}.uuid, uuid) });
+};
+
+export const create{{titleCase table }} = async (arg: Omit<{{ table }}Schema, "uuid">) => {
+  return await db.insert({{ table }}).values({ uuid: nanoid(8), ...arg });
+};
+
+export const update{{titleCase table }} = async (arg: {{titleCase table }}Schema) => {
+  return await db
+    .update({{titleCase table }})
+    .set(arg)
+    .where(
+      and(eq({{ table }}.uuid, arg.uuid), eq({{ table }}.workspaceUuid, arg.workspaceUuid))
+    );
+};
+
+export const delete{{titleCase table }} = async (arg: {{titleCase table }}Schema) => {
+  return await db
+    .delete({{ table }})
+    .where(
+      and(eq({{ table }}.uuid, arg.uuid), eq({{ table }}.workspaceUuid, arg.workspaceUuid))
+    );
 };

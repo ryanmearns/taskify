@@ -23,7 +23,7 @@ const Dashboard = (props: { children: React.ReactNode }) => (
 const DashboardMobile = (props: { children: React.ReactNode }) => {
   return (
     <Flex
-      className="lg:hidden border-b bg-white border-secondary top-0 z-50"
+      className="lg:hidden border-b border-secondary top-0 z-50"
       position={"sticky"}
       direction={"column"}
     >
@@ -77,7 +77,7 @@ const DashboardSidebar = (props: { children: React.ReactNode }) => {
       direction={"column"}
       className="w-64 hidden flex-none lg:flex border-r h-screen sticky top-0 bg-muted/20"
     >
-      <Flex direction={"column"} gap={"lg"}>
+      <Flex grow direction={"column"} gap={"lg"} className="pb-2">
         {props.children}
       </Flex>
     </Flex>
@@ -165,10 +165,7 @@ const DashboardMainHeader = (props: {
     justify={"between"}
     align={"center"}
     position={props.inset ? "sticky" : "relative"}
-    className={cn(
-      props.inset && "border-b border-input top-0",
-      "w-full bg-white z-10"
-    )}
+    className={cn(props.inset && "border-b border-input top-0", "w-full z-10")}
     padding={props.inset ? "lg" : "none"}
   >
     {props.children}
