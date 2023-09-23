@@ -13,9 +13,7 @@ pnpm i
 pnpm create-secret
 ```
 
-Add the secret to `.env` and create an API key for [Resend](https://resend.com/) to add to `.env`
-
-or, deploy by clicking [here](https://vercel.com/new/clone?repository-url=https://github.com/ryanmearns/taskify&name=taskify&stores=%5B%7B%22type%22%3A%22postgres%22%7D%5D&repository-name=taskify&env=NEXTAUTH_SECRET,RESEND_API_KEY&root-directory=apps%2Fapp).
+Add the secret to `.env`, create an API key for [Resend](https://resend.com/) to add to `.env` and add a Postgres DATABASE_URL using [Neon](https://neon.tech/) `postgres://[...]:[...]@[...]aws.neon.tech/neondb?sslmode=require`
 
 ## What's inside?
 
