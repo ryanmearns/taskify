@@ -6,7 +6,8 @@
     "storybook": "turbo run storybook",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "g": "turbo gen"
+    "g": "turbo gen",
+    "create-secret": "openssl rand -base64 32"
   },
   "devDependencies": {
     "@turbo/gen": "^1.10.13",

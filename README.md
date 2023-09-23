@@ -1,14 +1,19 @@
-# Turborepo starter
+# Taskify
 
-This is an official starter Turborepo.
+This is a demo using [Next.js](https://nextjs.org/), [Drizzle ORM](https://orm.drizzle.team), [Resend](https://resend.com/) and [Next Auth](https://next-auth.js.org) of an open-source todo app configured for a Postgres database.
 
-## Using this example
+## Get started
 
 Run the following command:
 
 ```sh
-npx create-turbo@latest
+git clone https://github.com/ryanmearns/taskify.git
+cd taskify
+pnpm i
+pnpm create-secret
 ```
+
+Add the secret to `.env` and create an API key for [Resend](https://resend.com/) to add to `.env`
 
 ## What's inside?
 
@@ -16,28 +21,23 @@ This Turborepo includes the following packages/apps:
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
+- `app`: a [Next.js](https://nextjs.org/) app
+- `ui`: a React component library using Radix and Shadcn/UI
+- `workshop`: `storybook` workshop in a [Next.js](https://nextjs.org/) app configured for quick design exploration
+- `forms`: a form library with form components, `react-hook-form` and `@hookform/resolvers/zod`
+- `emails`: a `react-email` with emails.
+- `tailwind-config`: configuration for tailwindcss
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
 
 ### Build
 
 To build all apps and packages, run the following command:
 
 ```
-cd my-turborepo
+cd taskify
 pnpm build
 ```
 
@@ -46,7 +46,7 @@ pnpm build
 To develop all apps and packages, run the following command:
 
 ```
-cd my-turborepo
+cd taskify
 pnpm dev
 ```
 
@@ -57,7 +57,7 @@ Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo
 By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
 
 ```
-cd my-turborepo
+cd taskify
 npx turbo login
 ```
 

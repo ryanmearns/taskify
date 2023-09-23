@@ -48,10 +48,12 @@ export const UserDropdown = () => {
           </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Github className="mr-2 h-4 w-4" />
-          <span>GitHub</span>
-        </DropdownMenuItem>
+        <Link href={"https://github.com/ryanmearns/taskify"}>
+          <DropdownMenuItem>
+            <Github className="mr-2 h-4 w-4" />
+            <span>GitHub</span>
+          </DropdownMenuItem>
+        </Link>
         <DropdownMenuSeparator />
         <div className="p-2 flex gap-4 justify-between items-center">
           <p className="text-xs">Theme</p>
