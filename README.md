@@ -17,14 +17,6 @@ Add the secret to `.env` and create an API key for [Resend](https://resend.com/)
 
 or, deploy by clicking [here](https://vercel.com/new/clone?repository-url=https://github.com/ryanmearns/taskify&name=taskify&stores=%5B%7B%22type%22%3A%22postgres%22%7D%5D&repository-name=taskify&env=NEXTAUTH_SECRET,RESEND_API_KEY&root-directory=apps%2Fapp).
 
-https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fstorage%2Fpostgres-drizzle&project-name=postgres-drizzle
-&repository-name=postgres-drizzle
-&demo-title=Vercel%20Postgres%20%2B%20Drizzle%20Next.js%20Starter
-&demo-description=Simple%20Next.js%20template%20that%20uses%20Vercel%20Postgres%20as%20the%20database%20and%20Drizzle%20as%20the%20ORM.
-&demo-url=https%3A%2F%2Fpostgres-drizzle.vercel.app%2F
-&demo-image=https%3A%2F%2Fpostgres-drizzle.vercel.app%2Fopengraph-image.png
-&stores=%5B%7B%22type%22%3A%22postgres%22%7D%5D&
-
 ## What's inside?
 
 This Turborepo includes the following packages/apps:
