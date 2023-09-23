@@ -1,20 +1,8 @@
 import { getServerAuthSession } from "@/auth/utils";
-import {
-  Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-  DashboardMain,
-  DashboardMainHeader,
-  Flex,
-  Input,
-} from "@playbook/ui";
+import { DashboardMain, DashboardMainHeader, Flex } from "@playbook/ui";
 import { redirect } from "next/navigation";
-import { UpdateNameForm } from "./_components/UpdateUserNameForm/UpdateUserNameForm";
 import { UpdateEmailForm } from "./_components/UpdateUserEmailForm/UpdateUserEmailForm";
+import { UpdateNameForm } from "./_components/UpdateUserNameForm/UpdateUserNameForm";
 
 export default async function Page() {
   const session = await getServerAuthSession();
@@ -35,32 +23,6 @@ export default async function Page() {
       </DashboardMainHeader>
       <UpdateNameForm session={session} />
       <UpdateEmailForm session={session} />
-      <DeleteAccountForm />
     </DashboardMain>
   );
 }
-
-const DeleteAccountForm = () => {
-  return (
-    <Card className="w-full border-red-600 border-2">
-      <CardHeader>
-        <CardTitle>Delete my account</CardTitle>
-        <CardDescription>
-          Permanently remove your Personal Account and all of its contents. This
-          action is not reversible, so please continue with caution. Type{" "}
-          <strong>Delete my account</strong> into the input field.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form className=" max-w-xl">
-          <Input />
-        </form>
-      </CardContent>
-      <CardFooter className="flex gap-2 justify-end">
-        <Button size={"md"} variant={"destructive"}>
-          Delete account
-        </Button>
-      </CardFooter>
-    </Card>
-  );
-};
